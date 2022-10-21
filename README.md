@@ -1,5 +1,21 @@
 # Qwik App ⚡️
 
+## TODO
+
+- [x] - project setup (lint/prettier/tailwindCSS)
+- [ ] - connect to DB
+- [ ] - home page sidebar
+- [ ] - hero main movie
+- [ ] - carousel in home page
+- [ ] - footer with contact
+- [ ] - tv and movie sections
+- [ ] - movie page
+- [ ] - more like this
+- [ ] - actor page
+- [ ] - genre infinite loop
+
+## Links
+
 - [Qwik Docs](https://qwik.builder.io/)
 - [Discord](https://qwik.builder.io/chat)
 - [Qwik GitHub](https://github.com/BuilderIO/qwik)
