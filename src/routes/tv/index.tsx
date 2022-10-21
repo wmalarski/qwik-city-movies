@@ -4,7 +4,7 @@ import type { inferPromise } from "~/services/types";
 
 export const onGet = async () => {
   const { getTrending } = await import("~/services/tmdb");
-  return getTrending({ mediaType: "all" });
+  return getTrending({ mediaType: "tv" });
 };
 
 export default component$(() => {
@@ -27,5 +27,5 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: "Qwik City Movies",
+  title: "TV",
 };
