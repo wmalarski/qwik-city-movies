@@ -18,7 +18,7 @@
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
     "fmt.tsc": "tsc --noEmit",
-    "lint": "eslint \"src/**/*.ts*\"",
+    "lint": "eslint \"src/**/*.ts*\" --fix",
     "-------PREVIEW-------": "",
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",

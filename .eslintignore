@@ -32,5 +32,5 @@ vite.config.ts
 .eslintrc.cjs
 tailwind.config.js
 prettier.config.cjs
-postcss.config.cjs
+postcss.config.js
 src/global.css
