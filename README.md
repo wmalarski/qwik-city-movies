@@ -3,7 +3,7 @@
 ## TODO
 
 - [x] - project setup (lint/prettier/tailwindCSS)
-- [ ] - connect to DB
+- [x] - connect to DB
 - [ ] - home page sidebar
 - [ ] - hero main movie
 - [ ] - carousel in home page

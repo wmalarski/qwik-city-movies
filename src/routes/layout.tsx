@@ -10,7 +10,9 @@ export default component$(() => {
       </main>
       <footer>
         <a href="https://www.builder.io/" target="_blank">
-          Made with ♡ by Builder.io
+          This product uses the
+          <a href="https://www.themoviedb.org/documentation/api">TMDB API</a>
+          but is not endorsed or certified by TMDB.
         </a>
       </footer>
     </>
