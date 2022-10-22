@@ -1,6 +1,12 @@
 import fetch from "node-fetch";
 import { serverEnv } from "~/env/server";
-import type { Collection, Media, MediaTypeArg, MovieMedia } from "./types";
+import type {
+  Collection,
+  Media,
+  MediaTypeArg,
+  MovieMedia,
+  TvMedia,
+} from "./types";
 
 const baseURL = "https://api.themoviedb.org/3";
 
@@ -55,4 +61,13 @@ export const getMovies = ({ query, page }: GetMovies) => {
   return fetchTMDB<Collection<MovieMedia>>(`movie/${query}`, {
     page: String(page),
   });
+};
+
+type GetTvShows = {
+  query: string;
+  page: number;
+};
+
+export const getTvShows = ({ query, page }: GetTvShows) => {
+  return fetchTMDB<Collection<TvMedia>>(`tv/${query}`, { page: String(page) });
 };

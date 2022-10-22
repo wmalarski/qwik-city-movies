@@ -19,13 +19,11 @@ export default component$(() => {
         onPending={() => <div>Loading...</div>}
         onRejected={() => <div>Rejected</div>}
         onResolved={(data) => (
-          <section>
-            <Carousel
-              media={data.results || []}
-              title="Popular Movies"
-              viewAllHref={paths.movieCategory("popular")}
-            />
-          </section>
+          <Carousel
+            media={data.results || []}
+            title="Popular Movies"
+            viewAllHref={paths.movieCategory("popular")}
+          />
         )}
       />
     </div>

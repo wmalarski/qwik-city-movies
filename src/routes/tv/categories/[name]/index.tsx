@@ -14,14 +14,14 @@ export const onGet = async (event: RequestEvent) => {
     throw event.response.redirect(paths.notFound);
   }
 
-  const { getMovies, getTrending } = await import("~/services/tmdb");
+  const { getTvShows, getTrending } = await import("~/services/tmdb");
   const name = parseResult.data.name;
 
   try {
     const movies =
       name === "trending"
-        ? await getTrending({ mediaType: "movie", page: 1 })
-        : await getMovies({ page: 1, query: name });
+        ? await getTrending({ mediaType: "tv", page: 1 })
+        : await getTvShows({ page: 1, query: name });
     return movies;
   } catch {
     throw event.response.redirect(paths.notFound);
@@ -34,12 +34,12 @@ export default component$(() => {
   const resource = useEndpoint<inferPromise<typeof onGet>>();
 
   return (
-    <main class="main">
-      <div class="listing">
-        <div class="listing__head">
-          <h2 class="listing__title">{location.params.name}</h2>
+    <main>
+      <div>
+        <div>
+          <h2>{location.params.name}</h2>
         </div>
-        <div class="listing__items">
+        <div>
           <Resource
             value={resource}
             onPending={() => <div>Loading...</div>}
@@ -48,7 +48,7 @@ export default component$(() => {
               <Carousel
                 media={data.results || []}
                 title={location.params.name}
-                viewAllHref={paths.movieCategory(location.params.name)}
+                viewAllHref={paths.tvCategory(location.params.name)}
               />
             )}
           />
