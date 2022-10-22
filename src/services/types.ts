@@ -8,7 +8,7 @@ export type TvMedia = {
   first_air_date?: string[];
   genre_ids?: number[];
   id: number;
-  media_type: "tv";
+  media_type?: "tv";
   name?: string;
   origin_country?: string[];
   original_language?: string;
@@ -25,7 +25,7 @@ export type MovieMedia = {
   backdrop_path?: string | null;
   genre_ids?: number[];
   id: number;
-  media_type: "movie";
+  media_type?: "movie";
   original_language?: string;
   original_title?: string;
   overview?: string;
@@ -45,7 +45,7 @@ export type PersonMedia = {
   known_for?: (TvMedia | MovieMedia)[];
   name?: string;
   popularity?: number;
-  media_type: "person";
+  media_type?: "person";
 };
 
 export type Media = MovieMedia | TvMedia | PersonMedia;

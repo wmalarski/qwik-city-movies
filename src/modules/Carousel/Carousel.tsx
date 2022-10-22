@@ -1,10 +1,11 @@
 import { component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
-import type { Media } from "~/services/types";
+import type { Media, MediaType } from "~/services/types";
 import { MediaCard } from "../MediaCard/MediaCard";
 
 type Props = {
   collection: Media[];
+  mediaType: MediaType;
   title: string;
   viewAllHref: string;
 };
@@ -19,9 +20,12 @@ export const Carousel = component$((props: Props) => {
         </Link>
       </div>
       <ul class="flex flex-row gap-2 p-2">
-        {props.collection.map((movie) => (
-          <li key={movie.id}>
-            <MediaCard media={movie} />
+        {props.collection.map((media) => (
+          <li key={media.id}>
+            <MediaCard
+              mediaType={props.mediaType || media.media_type}
+              media={media}
+            />
           </li>
         ))}
         <li>

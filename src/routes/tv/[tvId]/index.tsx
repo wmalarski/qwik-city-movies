@@ -1,8 +1,8 @@
 import { component$, Resource } from "@builder.io/qwik";
 import { RequestEvent, useEndpoint } from "@builder.io/qwik-city";
 import { z } from "zod";
-import Hero from "~/modules/Hero/Hero";
-import { inferPromise } from "~/services/types";
+import { TvHero } from "~/modules/TvHero/TvHero";
+import type { inferPromise } from "~/services/types";
 import { paths } from "~/utils/paths";
 
 export const onGet = async (event: RequestEvent) => {
@@ -32,7 +32,7 @@ export default component$(() => {
       value={resource}
       onPending={() => <div>Loading...</div>}
       onRejected={() => <div>Rejected</div>}
-      onResolved={(data) => <Hero media={data} />}
+      onResolved={(data) => <TvHero media={data} />}
     />
   );
 });

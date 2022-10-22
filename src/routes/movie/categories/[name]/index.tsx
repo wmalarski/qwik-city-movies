@@ -2,7 +2,8 @@ import { component$, Resource } from "@builder.io/qwik";
 import { RequestEvent, useEndpoint, useLocation } from "@builder.io/qwik-city";
 import { z } from "zod";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
-import { inferPromise } from "~/services/types";
+import type { inferPromise } from "~/services/types";
+import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
 export const onGet = async (event: RequestEvent) => {
@@ -34,17 +35,19 @@ export default component$(() => {
   const resource = useEndpoint<inferPromise<typeof onGet>>();
 
   return (
-    <main class="main">
-      <div class="listing">
-        <div class="listing__head">
-          <h2 class="listing__title">{location.params.name}</h2>
+    <main>
+      <div>
+        <div>
+          <h2>{getListItem({ query: location.params.name, type: "movie" })}</h2>
         </div>
-        <div class="listing__items">
+        <div>
           <Resource
             value={resource}
             onPending={() => <div>Loading...</div>}
             onRejected={() => <div>Rejected</div>}
-            onResolved={(data) => <MediaGrid collection={data.results || []} />}
+            onResolved={(data) => (
+              <MediaGrid mediaType="movie" collection={data.results || []} />
+            )}
           />
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { component$, Resource } from "@builder.io/qwik";
 import { RequestEvent, useEndpoint } from "@builder.io/qwik-city";
 import { z } from "zod";
-import { inferPromise } from "~/services/types";
+import type { inferPromise } from "~/services/types";
 import { paths } from "~/utils/paths";
 
 export const onGet = async (event: RequestEvent) => {

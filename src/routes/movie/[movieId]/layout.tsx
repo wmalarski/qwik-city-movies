@@ -6,8 +6,8 @@ import {
   useLocation,
 } from "@builder.io/qwik-city";
 import { z } from "zod";
-import Hero from "~/modules/Hero/Hero";
-import { inferPromise } from "~/services/types";
+import { MovieHero } from "~/modules/MovieHero/MovieHero";
+import type { inferPromise } from "~/services/types";
 import { paths } from "~/utils/paths";
 
 export const onGet = async (event: RequestEvent) => {
@@ -40,7 +40,7 @@ export default component$(() => {
         value={resource}
         onPending={() => <div>Loading...</div>}
         onRejected={() => <div>Rejected</div>}
-        onResolved={(data) => <Hero media={data} />}
+        onResolved={(data) => <MovieHero media={data} />}
       />
       <div class="flex flex-row">
         <Link

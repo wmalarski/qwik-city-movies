@@ -23,7 +23,7 @@ type GetListItem = {
   query: string;
 };
 
-export const getListItem = ({ type, query }: GetListItem) => {
+export const getListItem = ({ type = "movie", query }: GetListItem) => {
   return lists[type].find((list) => list.query === query)?.title || query;
 };
 
@@ -35,6 +35,8 @@ export const getHeading = (media: Media): string | undefined => {
       return media.name || media.original_name;
     case "person":
       return media.name;
+    default:
+      return "";
   }
 };
 
