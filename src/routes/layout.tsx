@@ -7,9 +7,7 @@ export default component$(() => {
       <Navbar />
       <div class="overflow-scroll">
         <main>
-          <section>
-            <Slot />
-          </section>
+          <Slot />
         </main>
         <footer>
           This product uses the

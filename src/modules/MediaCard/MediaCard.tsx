@@ -1,32 +1,11 @@
 import { component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import type { Media } from "~/services/types";
+import { getHeading, getImgSrc } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
 type Props = {
   media: Media;
-};
-
-export const getHeading = (media: Media): string | undefined => {
-  switch (media.media_type) {
-    case "movie":
-      return media.title || media.original_title;
-    case "tv":
-      return media.name || media.original_name;
-    case "person":
-      return media.name;
-  }
-};
-
-export const getImgSrc = (media: Media): string | null | undefined => {
-  switch (media.media_type) {
-    case "movie":
-      return media.poster_path;
-    case "tv":
-      return media.poster_path;
-    case "person":
-      return media.profile_path;
-  }
 };
 
 export const MediaCard = component$((props: Props) => {
