@@ -1,9 +1,9 @@
 import { component$ } from "@builder.io/qwik";
 
-export default component$(() => {
+export const MovieDetails = component$(() => {
   return (
     <section>
-      <h2>VIDEOS</h2>
+      <h2>PHOTOS</h2>
     </section>
   );
 });

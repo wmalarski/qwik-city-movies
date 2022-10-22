@@ -29,8 +29,6 @@ export const onGet = async (event: RequestEvent) => {
 
   const { getMovie } = await import("~/services/tmdb");
 
-  console.log({ parseResult });
-
   try {
     const movie = await getMovie({ id: parseResult.data.movieId });
     return movie;
