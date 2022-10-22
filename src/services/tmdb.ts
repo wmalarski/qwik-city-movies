@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import { serverEnv } from "~/env/server";
-import { Collection, Media, MediaTypeArg } from "./types";
+import type { Collection, Media, MediaTypeArg, MovieMedia } from "./types";
 
 const baseURL = "https://api.themoviedb.org/3";
 
@@ -31,6 +31,28 @@ type GetTrending = {
 
 export const getTrending = ({ mediaType, page }: GetTrending) => {
   return fetchTMDB<Collection<Media>>(`trending/${mediaType}/week`, {
+    page: String(page),
+  });
+};
+
+type GetMovie = {
+  id: number;
+};
+
+export const getMovie = ({ id }: GetMovie) => {
+  return fetchTMDB<MovieMedia>(`movie/${id}`, {
+    append_to_response: "videos,credits,images,external_ids,release_dates",
+    include_image_language: "en",
+  });
+};
+
+type GetMovies = {
+  query: string;
+  page: number;
+};
+
+export const getMovies = ({ query, page }: GetMovies) => {
+  return fetchTMDB<Collection<MovieMedia>>(`movie/${query}`, {
     page: String(page),
   });
 };

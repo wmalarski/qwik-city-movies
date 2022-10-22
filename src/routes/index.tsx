@@ -12,7 +12,7 @@ export default component$(() => {
   const resource = useEndpoint<inferPromise<typeof onGet>>();
 
   return (
-    <div class="bg-qwik-dark-blue">
+    <div>
       <Resource
         value={resource}
         onPending={() => <div>Loading...</div>}
