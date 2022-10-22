@@ -4,7 +4,7 @@ import type { Media } from "~/services/types";
 import { MediaCard } from "../MediaCard/MediaCard";
 
 type Props = {
-  media: Media[];
+  collection: Media[];
   title: string;
   viewAllHref: string;
 };
@@ -19,7 +19,7 @@ export const Carousel = component$((props: Props) => {
         </Link>
       </div>
       <ul class="flex flex-row gap-2 p-2">
-        {props.media.map((movie) => (
+        {props.collection.map((movie) => (
           <li key={movie.id}>
             <MediaCard media={movie} />
           </li>

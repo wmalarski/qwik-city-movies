@@ -1,7 +1,7 @@
 import { component$, Resource } from "@builder.io/qwik";
 import { RequestEvent, useEndpoint, useLocation } from "@builder.io/qwik-city";
 import { z } from "zod";
-import { Carousel } from "~/modules/Carousel/Carousel";
+import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { inferPromise } from "~/services/types";
 import { paths } from "~/utils/paths";
 
@@ -44,13 +44,7 @@ export default component$(() => {
             value={resource}
             onPending={() => <div>Loading...</div>}
             onRejected={() => <div>Rejected</div>}
-            onResolved={(data) => (
-              <Carousel
-                media={data.results || []}
-                title={location.params.name}
-                viewAllHref={paths.tvCategory(location.params.name)}
-              />
-            )}
+            onResolved={(data) => <MediaGrid collection={data.results || []} />}
           />
         </div>
       </div>

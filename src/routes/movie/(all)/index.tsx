@@ -34,17 +34,17 @@ export default component$(() => {
         <div class="flex flex-col gap-4 p-4">
           <Hero media={data.featured} />
           <Carousel
-            media={data.popular.results || []}
+            collection={data.popular.results || []}
             title={getListItem({ query: "popular", type: "movie" })}
             viewAllHref={paths.movieCategory("popular")}
           />
           <Carousel
-            media={data.topRated.results || []}
+            collection={data.topRated.results || []}
             title={getListItem({ query: "top_rated", type: "movie" })}
             viewAllHref={paths.movieCategory("top_rated")}
           />
           <Carousel
-            media={data.nowPlaying.results || []}
+            collection={data.nowPlaying.results || []}
             title={getListItem({ query: "now_playing", type: "movie" })}
             viewAllHref={paths.movieCategory("now_playing")}
           />

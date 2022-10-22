@@ -33,12 +33,12 @@ export default component$(() => {
         <div class="flex flex-col gap-4 p-4">
           <Hero media={data.featured} />
           <Carousel
-            media={data.movies.results || []}
+            collection={data.movies.results || []}
             title={getListItem({ query: "trending", type: "movie" })}
             viewAllHref={paths.movieCategory("trending")}
           />
           <Carousel
-            media={data.tv.results || []}
+            collection={data.tv.results || []}
             title={getListItem({ query: "trending", type: "tv" })}
             viewAllHref={paths.movieCategory("trending")}
           />

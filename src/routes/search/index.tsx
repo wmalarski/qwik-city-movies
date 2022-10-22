@@ -1,8 +1,7 @@
 import { component$, Resource } from "@builder.io/qwik";
 import { useEndpoint, type DocumentHead } from "@builder.io/qwik-city";
-import { Carousel } from "~/modules/Carousel/Carousel";
+import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import type { inferPromise } from "~/services/types";
-import { paths } from "~/utils/paths";
 
 export const onGet = async () => {
   const { search } = await import("~/services/tmdb");
@@ -18,13 +17,7 @@ export default component$(() => {
         value={resource}
         onPending={() => <div>Loading...</div>}
         onRejected={() => <div>Rejected</div>}
-        onResolved={(data) => (
-          <Carousel
-            media={data.results || []}
-            title="Popular Movies"
-            viewAllHref={paths.movieCategory("popular")}
-          />
-        )}
+        onResolved={(data) => <MediaGrid collection={data.results || []} />}
       />
     </div>
   );

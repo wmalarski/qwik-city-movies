@@ -35,22 +35,22 @@ export default component$(() => {
         <div class="flex flex-col gap-4 p-4">
           <Hero media={data.featured} />
           <Carousel
-            media={data.popular.results || []}
+            collection={data.popular.results || []}
             title={getListItem({ query: "popular", type: "tv" })}
             viewAllHref={paths.tvCategory("popular")}
           />
           <Carousel
-            media={data.topRated.results || []}
+            collection={data.topRated.results || []}
             title={getListItem({ query: "top_rated", type: "tv" })}
             viewAllHref={paths.tvCategory("top_rated")}
           />
           <Carousel
-            media={data.onTheAir.results || []}
+            collection={data.onTheAir.results || []}
             title={getListItem({ query: "on_the_air", type: "tv" })}
             viewAllHref={paths.tvCategory("on_the_air")}
           />
           <Carousel
-            media={data.airingToday.results || []}
+            collection={data.airingToday.results || []}
             title={getListItem({ query: "airing_today", type: "tv" })}
             viewAllHref={paths.tvCategory("airing_today")}
           />
