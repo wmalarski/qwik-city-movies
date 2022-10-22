@@ -7,7 +7,7 @@ import { paths } from "~/utils/paths";
 export const onGet = async (event: RequestEvent) => {
   const parseResult = z
     .object({ personId: z.number().min(0).step(1) })
-    .safeParse(event.params);
+    .safeParse({ personId: +event.params.personId });
 
   if (!parseResult.success) {
     throw event.response.redirect(paths.notFound);

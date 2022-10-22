@@ -8,7 +8,7 @@ import { paths } from "~/utils/paths";
 export const onGet = async (event: RequestEvent) => {
   const parseResult = z
     .object({ tvId: z.number().min(0).step(1) })
-    .safeParse(event.params);
+    .safeParse({ tvId: +event.params.tvId });
 
   if (!parseResult.success) {
     throw event.response.redirect(paths.notFound);

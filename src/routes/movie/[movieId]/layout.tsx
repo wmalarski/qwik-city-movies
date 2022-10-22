@@ -1,4 +1,11 @@
-import { component$, Resource, Slot } from "@builder.io/qwik";
+import {
+  component$,
+  Resource,
+  Slot,
+  useContextProvider,
+  useStore,
+  useWatch$,
+} from "@builder.io/qwik";
 import {
   Link,
   RequestEvent,
@@ -7,19 +14,22 @@ import {
 } from "@builder.io/qwik-city";
 import { z } from "zod";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
-import type { inferPromise } from "~/services/types";
+import type { inferPromise, MovieMedia } from "~/services/types";
 import { paths } from "~/utils/paths";
+import { MovieContext, MovieContextState } from "./movieContext";
 
 export const onGet = async (event: RequestEvent) => {
   const parseResult = z
     .object({ movieId: z.number().min(0).step(1) })
-    .safeParse(event.params);
+    .safeParse({ movieId: +event.params.movieId });
 
   if (!parseResult.success) {
     throw event.response.redirect(paths.notFound);
   }
 
   const { getMovie } = await import("~/services/tmdb");
+
+  console.log({ parseResult });
 
   try {
     const movie = await getMovie({ id: parseResult.data.movieId });
@@ -29,10 +39,22 @@ export const onGet = async (event: RequestEvent) => {
   }
 };
 
+export const Provider = component$((props: { media: MovieMedia }) => {
+  useContextProvider(MovieContext, { media: props.media });
+  return <Slot />;
+});
+
 export default component$(() => {
   const location = useLocation();
 
   const resource = useEndpoint<inferPromise<typeof onGet>>();
+
+  const store = useStore<MovieContextState>({});
+  useWatch$(({ track }) => {
+    track(resource);
+    store.media = resource.resolved;
+  });
+  useContextProvider(MovieContext, store);
 
   return (
     <div class="flex flex-col gap-4 p-4">
