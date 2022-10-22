@@ -4,7 +4,7 @@
 
 - [x] - project setup (lint/prettier/tailwindCSS)
 - [x] - connect to DB
-- [ ] - home page sidebar
+- [x] - home page sidebar
 - [ ] - hero main movie
 - [ ] - carousel in home page
 - [ ] - footer with contact

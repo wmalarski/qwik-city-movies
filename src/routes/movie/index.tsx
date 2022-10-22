@@ -4,7 +4,7 @@ import type { inferPromise } from "~/services/types";
 
 export const onGet = async () => {
   const { getTrending } = await import("~/services/tmdb");
-  return getTrending({ mediaType: "movie" });
+  return getTrending({ mediaType: "movie", page: 1 });
 };
 
 export default component$(() => {

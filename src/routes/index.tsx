@@ -1,10 +1,11 @@
 import { component$, Resource } from "@builder.io/qwik";
 import { useEndpoint, type DocumentHead } from "@builder.io/qwik-city";
+import { Carousel } from "~/modules/Carousel/Carousel";
 import type { inferPromise } from "~/services/types";
 
 export const onGet = async () => {
   const { getTrending } = await import("~/services/tmdb");
-  return getTrending({ mediaType: "all" });
+  return getTrending({ mediaType: "all", page: 1 });
 };
 
 export default component$(() => {
@@ -18,7 +19,7 @@ export default component$(() => {
         onRejected={() => <div>Rejected</div>}
         onResolved={(data) => (
           <section>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
+            <Carousel media={data.results || []} />
           </section>
         )}
       />
