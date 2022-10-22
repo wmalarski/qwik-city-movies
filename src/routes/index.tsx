@@ -7,20 +7,16 @@ import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
 export const onGet = async () => {
-  const { getTrending, getMovie, getTvShow } = await import("~/services/tmdb");
+  const { getTrending, getRandomMedia } = await import("~/services/tmdb");
 
   const [movies, tv] = await Promise.all([
     getTrending({ mediaType: "movie", page: 1 }),
     getTrending({ mediaType: "tv", page: 1 }),
   ]);
 
-  const items = [...(movies.results || []), ...(tv.results || [])];
-  const randomItem = items[Math.floor(Math.random() * items.length)];
-
-  const featured =
-    randomItem.media_type === "movie"
-      ? await getMovie({ id: randomItem.id })
-      : await getTvShow({ id: randomItem.id });
+  const featured = await getRandomMedia({
+    collections: [movies, tv],
+  });
 
   return { featured, movies, tv };
 };

@@ -6,6 +6,7 @@ import {
   useLocation,
 } from "@builder.io/qwik-city";
 import { z } from "zod";
+import Hero from "~/modules/Hero/Hero";
 import { inferPromise } from "~/services/types";
 import { paths } from "~/utils/paths";
 
@@ -34,16 +35,12 @@ export default component$(() => {
   const resource = useEndpoint<inferPromise<typeof onGet>>();
 
   return (
-    <main>
+    <div class="flex flex-col gap-4 p-4">
       <Resource
         value={resource}
         onPending={() => <div>Loading...</div>}
         onRejected={() => <div>Rejected</div>}
-        onResolved={(data) => (
-          <section>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
-          </section>
-        )}
+        onResolved={(data) => <Hero media={data} />}
       />
       <div class="flex flex-row">
         <Link
@@ -70,6 +67,6 @@ export default component$(() => {
         </Link>
       </div>
       <Slot />
-    </main>
+    </div>
   );
 });

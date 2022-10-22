@@ -10,8 +10,8 @@ type Props = {
 
 export const Hero = component$((props: Props) => {
   return (
-    <Link href={paths.media(props.media.media_type, props.media.id)}>
-      <div>
+    <section>
+      <Link href={paths.media(props.media.media_type, props.media.id)}>
         <div>
           <div>
             <img
@@ -58,8 +58,8 @@ export const Hero = component$((props: Props) => {
             </div>
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </section>
   );
 });
 

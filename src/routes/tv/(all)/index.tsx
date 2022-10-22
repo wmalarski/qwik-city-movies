@@ -1,32 +1,62 @@
 import { component$, Resource } from "@builder.io/qwik";
 import { useEndpoint, type DocumentHead } from "@builder.io/qwik-city";
 import { Carousel } from "~/modules/Carousel/Carousel";
+import Hero from "~/modules/Hero/Hero";
 import type { inferPromise } from "~/services/types";
+import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
 export const onGet = async () => {
-  const { getTvShows } = await import("~/services/tmdb");
-  return getTvShows({ page: 1, query: "popular" });
+  const { getTvShows, getRandomMedia } = await import("~/services/tmdb");
+
+  const [popular, topRated, onTheAir, airingToday] = await Promise.all([
+    getTvShows({ page: 1, query: "popular" }),
+    getTvShows({ page: 1, query: "top_rated" }),
+    getTvShows({ page: 1, query: "on_the_air" }),
+    getTvShows({ page: 1, query: "airing_today" }),
+  ]);
+
+  const featured = await getRandomMedia({
+    collections: [popular, topRated, onTheAir, airingToday],
+  });
+
+  return { airingToday, featured, onTheAir, popular, topRated };
 };
 
 export default component$(() => {
   const resource = useEndpoint<inferPromise<typeof onGet>>();
 
   return (
-    <div>
-      <Resource
-        value={resource}
-        onPending={() => <div>Loading...</div>}
-        onRejected={() => <div>Rejected</div>}
-        onResolved={(data) => (
+    <Resource
+      value={resource}
+      onPending={() => <div>Loading...</div>}
+      onRejected={() => <div>Rejected</div>}
+      onResolved={(data) => (
+        <div class="flex flex-col gap-4 p-4">
+          <Hero media={data.featured} />
           <Carousel
-            media={data.results || []}
-            title="popular"
+            media={data.popular.results || []}
+            title={getListItem({ query: "popular", type: "tv" })}
             viewAllHref={paths.tvCategory("popular")}
           />
-        )}
-      />
-    </div>
+          <Carousel
+            media={data.topRated.results || []}
+            title={getListItem({ query: "top_rated", type: "tv" })}
+            viewAllHref={paths.tvCategory("top_rated")}
+          />
+          <Carousel
+            media={data.onTheAir.results || []}
+            title={getListItem({ query: "on_the_air", type: "tv" })}
+            viewAllHref={paths.tvCategory("on_the_air")}
+          />
+          <Carousel
+            media={data.airingToday.results || []}
+            title={getListItem({ query: "airing_today", type: "tv" })}
+            viewAllHref={paths.tvCategory("airing_today")}
+          />
+        </div>
+      )}
+    />
   );
 });
 

@@ -106,3 +106,21 @@ export const search = ({ query, page }: Search) => {
     query,
   });
 };
+
+type GetRandomMedia = {
+  collections: Collection<Media>[];
+};
+
+export const getRandomMedia = ({ collections }: GetRandomMedia) => {
+  const items = collections.flatMap((collection) => collection.results || []);
+  const randomItem = items[Math.floor(Math.random() * items.length)];
+
+  switch (randomItem.media_type) {
+    case "movie":
+      return getMovie({ id: randomItem.id });
+    case "person":
+      return getPerson({ id: randomItem.id });
+    case "tv":
+      return getTvShow({ id: randomItem.id });
+  }
+};
