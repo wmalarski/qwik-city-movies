@@ -13,7 +13,7 @@ export const getHeading = (media: Media): string | undefined => {
       return media.title || media.original_title;
     case "tv":
       return media.name || media.original_name;
-    case "people":
+    case "person":
       return media.name;
   }
 };
@@ -24,7 +24,7 @@ export const getImgSrc = (media: Media): string | null | undefined => {
       return media.poster_path;
     case "tv":
       return media.poster_path;
-    case "people":
+    case "person":
       return media.profile_path;
   }
 };

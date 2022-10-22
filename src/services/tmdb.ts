@@ -5,6 +5,7 @@ import type {
   Media,
   MediaTypeArg,
   MovieMedia,
+  PersonMedia,
   TvMedia,
 } from "./types";
 
@@ -63,6 +64,17 @@ export const getMovies = ({ query, page }: GetMovies) => {
   });
 };
 
+type GetTvShow = {
+  id: number;
+};
+
+export const getTvShow = ({ id }: GetTvShow) => {
+  return fetchTMDB<TvMedia>(`tv/${id}`, {
+    append_to_response: "videos,credits,images,external_ids,content_ratings",
+    include_image_language: "en",
+  });
+};
+
 type GetTvShows = {
   query: string;
   page: number;
@@ -70,4 +82,27 @@ type GetTvShows = {
 
 export const getTvShows = ({ query, page }: GetTvShows) => {
   return fetchTMDB<Collection<TvMedia>>(`tv/${query}`, { page: String(page) });
+};
+
+type GetPerson = {
+  id: number;
+};
+
+export const getPerson = ({ id }: GetPerson) => {
+  return fetchTMDB<PersonMedia>(`person/${id}`, {
+    append_to_response: "images,combined_credits,external_ids",
+    include_image_language: "en",
+  });
+};
+
+type Search = {
+  query: string;
+  page: number;
+};
+
+export const search = ({ query, page }: Search) => {
+  return fetchTMDB<Collection<Media>>("search/multi", {
+    page: String(page),
+    query,
+  });
 };

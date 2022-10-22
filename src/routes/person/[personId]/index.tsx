@@ -6,17 +6,17 @@ import { paths } from "~/utils/paths";
 
 export const onGet = async (event: RequestEvent) => {
   const parseResult = z
-    .object({ tvId: z.number().min(0).step(1) })
+    .object({ personId: z.number().min(0).step(1) })
     .safeParse(event.params);
 
   if (!parseResult.success) {
     throw event.response.redirect(paths.notFound);
   }
 
-  const { getTvShow } = await import("~/services/tmdb");
+  const { getPerson } = await import("~/services/tmdb");
 
   try {
-    const movie = await getTvShow({ id: parseResult.data.tvId });
+    const movie = await getPerson({ id: parseResult.data.personId });
     return movie;
   } catch {
     throw event.response.redirect(paths.notFound);

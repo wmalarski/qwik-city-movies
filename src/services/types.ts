@@ -38,17 +38,17 @@ export type MovieMedia = {
   vote_count?: number;
 };
 
-export type PeopleMedia = {
+export type PersonMedia = {
   profile_path?: string;
   adult?: boolean;
   id: number;
   known_for?: (TvMedia | MovieMedia)[];
   name?: string;
   popularity?: number;
-  media_type: "people";
+  media_type: "person";
 };
 
-export type Media = MovieMedia | TvMedia | PeopleMedia;
+export type Media = MovieMedia | TvMedia | PersonMedia;
 
 export type MediaType = Media["media_type"];
 
