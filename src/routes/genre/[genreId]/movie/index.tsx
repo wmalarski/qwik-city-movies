@@ -39,7 +39,7 @@ export default component$(() => {
       onPending={() => <div>Loading...</div>}
       onRejected={() => <div>Rejected</div>}
       onResolved={(data) => (
-        <div style="flex flex-col gap-4">
+        <div class="flex flex-col">
           <h1 class="px-8 pt-4 text-4xl">{`Movie Genre: ${data.genre?.name}`}</h1>
           <MediaGrid collection={data.movies?.results} />
         </div>

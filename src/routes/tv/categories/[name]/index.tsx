@@ -35,20 +35,18 @@ export default component$(() => {
   const resource = useEndpoint<inferPromise<typeof onGet>>();
 
   return (
-    <main>
+    <div class="flex flex-col">
+      <h1 class="px-8 pt-4 text-4xl">
+        {getListItem({ query: location.params.name, type: "tv" })}
+      </h1>
       <div>
-        <div>
-          <h2>{getListItem({ query: location.params.name, type: "tv" })}</h2>
-        </div>
-        <div>
-          <Resource
-            value={resource}
-            onPending={() => <div>Loading...</div>}
-            onRejected={() => <div>Rejected</div>}
-            onResolved={(data) => <MediaGrid collection={data.results || []} />}
-          />
-        </div>
+        <Resource
+          value={resource}
+          onPending={() => <div>Loading...</div>}
+          onRejected={() => <div>Rejected</div>}
+          onResolved={(data) => <MediaGrid collection={data.results || []} />}
+        />
       </div>
-    </main>
+    </div>
   );
 });

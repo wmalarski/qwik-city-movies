@@ -7,7 +7,7 @@
 # Development
 node_modules
 .env
-.env.ssr
+.env.*
 
 # Cache
 .cache

@@ -1,29 +1,30 @@
 # Qwik City Movies ⚡️
 
-* Design by [Nuxt Movies](https://movies.nuxt.space/)
-* This product uses the [TMDB API](https://www.themoviedb.org/documentation/api) but is not endorsed or certified by TMDB.
+- Design by [Nuxt Movies](https://movies.nuxt.space/)
+- This product uses the [TMDB API](https://www.themoviedb.org/documentation/api) but is not endorsed or certified by TMDB.
 
 ## TODO List
 
-* [ ] - search/genres/categories infinite loop
-* [ ] - person sub-pages
-* [ ] - tv show sub-pages
-* [ ] - movie images page
-* [ ] - check design and responsiveness
-* [ ] - check accessibility
-* [ ] - genre infinite loop
-* [ ] - deploy damn thing
+- [ ] - search/genres/categories infinite loop
+- [ ] - buttons in carousel
+- [ ] - person sub-pages
+- [ ] - tv show sub-pages
+- [ ] - movie images page
+- [ ] - check design and responsiveness
+- [ ] - check accessibility
+- [ ] - genre infinite loop
+- [ ] - deploy damn thing
 
 ## Links
 
-* [Qwik Docs](https://qwik.builder.io/)
-* [Discord](https://qwik.builder.io/chat)
-* [Qwik GitHub](https://github.com/BuilderIO/qwik)
-* [@QwikDev](https://twitter.com/QwikDev)
-* [Vite](https://vitejs.dev/)
-* [Partytown](https://partytown.builder.io/)
-* [Mitosis](https://github.com/BuilderIO/mitosis)
-* [Builder.io](https://www.builder.io/)
+- [Qwik Docs](https://qwik.builder.io/)
+- [Discord](https://qwik.builder.io/chat)
+- [Qwik GitHub](https://github.com/BuilderIO/qwik)
+- [@QwikDev](https://twitter.com/QwikDev)
+- [Vite](https://vitejs.dev/)
+- [Partytown](https://partytown.builder.io/)
+- [Mitosis](https://github.com/BuilderIO/mitosis)
+- [Builder.io](https://www.builder.io/)
 
 ---
 
@@ -41,11 +42,11 @@ Inside your project, you'll see the following directory structure:
         └── ...
 ```
 
-* `src/routes`: Provides the directory based routing, which can include a hierarchy of `layout.tsx` layout files, and an `index.tsx` file as the page. Additionally, `index.ts` files are endpoints. Please see the [routing docs](https://qwik.builder.io/qwikcity/routing/overview/) for more info.
+- `src/routes`: Provides the directory based routing, which can include a hierarchy of `layout.tsx` layout files, and an `index.tsx` file as the page. Additionally, `index.ts` files are endpoints. Please see the [routing docs](https://qwik.builder.io/qwikcity/routing/overview/) for more info.
 
-* `src/components`: Recommended directory for components.
+- `src/components`: Recommended directory for components.
 
-* `public`: Any static assets, like images, can be placed in the public directory. Please see the [Vite public directory](https://vitejs.dev/guide/assets.html#the-public-directory) for more info.
+- `public`: Any static assets, like images, can be placed in the public directory. Please see the [Vite public directory](https://vitejs.dev/guide/assets.html#the-public-directory) for more info.
 
 ## Add Integrations
 
