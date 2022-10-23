@@ -1,4 +1,3 @@
-import fetch from "node-fetch";
 import { serverEnv } from "~/env/server";
 import type {
   Collection,
