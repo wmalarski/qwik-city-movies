@@ -1,4 +1,5 @@
 import { component$, Slot } from "@builder.io/qwik";
+import { Footer } from "~/modules/Footer/Footer";
 import { Navbar } from "~/modules/Navbar/Navbar";
 
 export default component$(() => {
@@ -9,11 +10,7 @@ export default component$(() => {
         <main>
           <Slot />
         </main>
-        <footer>
-          This product uses the
-          <a href="https://www.themoviedb.org/documentation/api">TMDB API</a>
-          but is not endorsed or certified by TMDB.
-        </footer>
+        <Footer />
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ export const Carousel = component$((props: Props) => {
   return (
     <section>
       <div class="flex flex-row py-2 px-12">
-        <h2 class="text-2xl">{props.title}</h2>
+        <h2 class="text-2xl text-white">{props.title}</h2>
         <div class="flex-auto" />
         {props.viewAllHref ? (
           <Link class="opacity-50 hover:opacity-100" href={props.viewAllHref}>

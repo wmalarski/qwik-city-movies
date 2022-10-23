@@ -19,7 +19,7 @@ export const TvHero = component$((props: Props) => {
           />
         </div>
         <div class="absolute bottom-0 left-0 flex flex-col gap-2 bg-gradient-to-t from-black via-black to-transparent p-9 lg:w-2/3 lg:bg-gradient-to-r lg:px-24">
-          <h1 class="mt-2 text-4xl lg:text-5xl">
+          <h1 class="mt-2 text-4xl text-white lg:text-5xl">
             {props.media.name || props.media.original_name}
           </h1>
           <div>
