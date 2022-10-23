@@ -11,5 +11,17 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  daisyui: {
+    themes: [
+      {
+        black: {
+          ...require("daisyui/src/colors/themes")["[data-theme=black]"],
+          primary: "#006ce9",
+          secondary: "#713fc2",
+          accent: "#18b6f6",
+        },
+      },
+    ],
+  },
+  plugins: [require("daisyui")],
 };
