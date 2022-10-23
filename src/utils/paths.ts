@@ -8,6 +8,7 @@ export const paths = {
   movieVideo: (id: number) => `/movie/${id}/videos`,
   movies: "/movie",
   notFound: "/404",
+  person: (id: number) => `/person/${id}`,
   tv: "/tv",
   tvCategory: (category: string) => `/tv/categories/${category}`,
 };

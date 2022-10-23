@@ -3,6 +3,7 @@ import { serverEnv } from "~/env/server";
 import type {
   Collection,
   Media,
+  MediaDetails,
   MediaTypeArg,
   MovieMedia,
   PersonMedia,
@@ -47,7 +48,7 @@ type GetMovie = {
 };
 
 export const getMovie = ({ id }: GetMovie) => {
-  return fetchTMDB<MovieMedia>(`movie/${id}`, {
+  return fetchTMDB<MediaDetails>(`movie/${id}`, {
     append_to_response: "videos,credits,images,external_ids,release_dates",
     include_image_language: "en",
   });
@@ -69,7 +70,7 @@ type GetTvShow = {
 };
 
 export const getTvShow = ({ id }: GetTvShow) => {
-  return fetchTMDB<TvMedia>(`tv/${id}`, {
+  return fetchTMDB<MediaDetails>(`tv/${id}`, {
     append_to_response: "videos,credits,images,external_ids,content_ratings",
     include_image_language: "en",
   });

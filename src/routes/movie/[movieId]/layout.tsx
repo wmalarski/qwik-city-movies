@@ -14,7 +14,7 @@ import {
 } from "@builder.io/qwik-city";
 import { z } from "zod";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
-import type { inferPromise, MovieMedia } from "~/services/types";
+import type { inferPromise } from "~/services/types";
 import { paths } from "~/utils/paths";
 import { MovieContext, MovieContextState } from "./movieContext";
 
@@ -37,11 +37,6 @@ export const onGet = async (event: RequestEvent) => {
   }
 };
 
-export const Provider = component$((props: { media: MovieMedia }) => {
-  useContextProvider(MovieContext, { media: props.media });
-  return <Slot />;
-});
-
 export default component$(() => {
   const location = useLocation();
 
@@ -51,6 +46,7 @@ export default component$(() => {
   useWatch$(({ track }) => {
     track(resource);
     store.media = resource.resolved;
+    console.log(resource.state, resource.resolved);
   });
   useContextProvider(MovieContext, store);
 

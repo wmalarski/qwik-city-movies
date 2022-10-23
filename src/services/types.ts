@@ -46,7 +46,36 @@ export type PersonMedia = {
   name?: string;
   popularity?: number;
   media_type?: "person";
+  job?: string;
 };
+
+export type Genre = {
+  id: number;
+  name: string;
+};
+
+export type Production = {
+  name?: string;
+  id: number;
+  logo_path?: string | null;
+  origin_country?: string;
+};
+
+export type MediaDetails = TvMedia &
+  MovieMedia & {
+    external_ids?: Record<string, string>;
+    homepage?: string;
+    status?: string;
+    runtime?: number;
+    genres?: Genre[];
+    budget?: number;
+    revenue?: number;
+    production_companies?: Production[];
+    credits?: {
+      cast?: PersonMedia[];
+      crew?: PersonMedia[];
+    };
+  };
 
 export type Media = MovieMedia | TvMedia | PersonMedia;
 

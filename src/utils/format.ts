@@ -1,22 +1,6 @@
 import type { Media, MediaType } from "~/services/types";
-
-const lists = {
-  movie: [
-    { query: "trending", title: "Trending Movies" },
-    { query: "popular", title: "Popular Movies" },
-    { query: "top_rated", title: "Top Rated Movies" },
-    { query: "upcoming", title: "Upcoming Movies" },
-    { query: "now_playing", title: "Now Playing Movies" },
-  ],
-  person: [],
-  tv: [
-    { query: "trending", title: "Trending TV Shows" },
-    { query: "popular", title: "Popular TV Shows" },
-    { query: "top_rated", title: "Top Rated TV Shows" },
-    { query: "on_the_air", title: "Currently Airing TV Shows" },
-    { query: "airing_today", title: "TV Shows Airing Today" },
-  ],
-};
+import { categories } from "./constants/categories";
+import { languages } from "./constants/languages";
 
 type GetListItem = {
   type: MediaType;
@@ -24,7 +8,7 @@ type GetListItem = {
 };
 
 export const getListItem = ({ type = "movie", query }: GetListItem) => {
-  return lists[type].find((list) => list.query === query)?.title || query;
+  return categories[type].find((list) => list.query === query)?.title || query;
 };
 
 export const getHeading = (media: Media): string | undefined => {
@@ -59,3 +43,46 @@ export const getBackdropSrc = (media: Media): string | null | undefined => {
       return media.profile_path;
   }
 };
+
+export function formatDate(date: string) {
+  return new Date(date).toLocaleDateString("en-us", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+export function formatCurrency(amount?: number) {
+  const formatter = new Intl.NumberFormat("en-US", {
+    currency: "USD",
+    maximumFractionDigits: 0,
+    style: "currency",
+  });
+
+  return formatter.format(amount || 0);
+}
+
+export function formatRuntime(minutes: number) {
+  const seconds = minutes * 60;
+  let secondsLeft = seconds;
+
+  // hours
+  const hours = Math.floor(secondsLeft / 3600);
+  secondsLeft = secondsLeft % 3600;
+
+  // mins
+  const mins = Math.floor(secondsLeft / 60);
+  secondsLeft = secondsLeft % 60;
+
+  return `${hours ? hours + "h" : ""} ${mins}min`;
+}
+
+export function formatLanguage(iso?: string) {
+  const fullLang = languages.find((lang) => lang.iso_639_1 === iso);
+
+  if (fullLang) {
+    return fullLang.english_name;
+  }
+
+  return iso;
+}

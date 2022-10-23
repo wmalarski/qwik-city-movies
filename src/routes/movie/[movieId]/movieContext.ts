@@ -1,8 +1,8 @@
 import { createContext } from "@builder.io/qwik";
-import { MovieMedia } from "~/services/types";
+import { MediaDetails } from "~/services/types";
 
 export type MovieContextState = {
-  media?: MovieMedia;
+  media?: MediaDetails;
 };
 
 export const MovieContext = createContext<MovieContextState>("movie-context");
