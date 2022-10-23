@@ -49,6 +49,20 @@ export type PersonMedia = {
   job?: string;
 };
 
+export type PersonMediaDetails = PersonMedia & {
+  external_ids?: Record<string, string>;
+  homepage?: string;
+  biography?: string;
+  known_for_department?: string;
+  birthday?: string;
+  deathday?: string;
+  place_of_birth?: string;
+  combined_credits?: {
+    cast: (TvMedia | MovieMedia)[];
+    crew: (TvMedia | MovieMedia)[];
+  };
+};
+
 export type Genre = {
   id: number;
   name: string;

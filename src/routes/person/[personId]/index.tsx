@@ -1,6 +1,8 @@
 import { component$, Resource } from "@builder.io/qwik";
 import { RequestEvent, useEndpoint } from "@builder.io/qwik-city";
 import { z } from "zod";
+import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
+import { PersonHero } from "~/modules/PersonHero/PersonHero";
 import type { inferPromise } from "~/services/types";
 import { paths } from "~/utils/paths";
 
@@ -27,17 +29,21 @@ export default component$(() => {
   const resource = useEndpoint<inferPromise<typeof onGet>>();
 
   return (
-    <main>
-      <Resource
-        value={resource}
-        onPending={() => <div>Loading...</div>}
-        onRejected={() => <div>Rejected</div>}
-        onResolved={(data) => (
-          <section>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
-          </section>
-        )}
-      />
-    </main>
+    <Resource
+      value={resource}
+      onPending={() => <div>Loading...</div>}
+      onRejected={() => <div>Rejected</div>}
+      onResolved={(data) => (
+        <div style="flex flex-col">
+          <PersonHero person={data} />
+          <MediaGrid
+            collection={[
+              ...(data.combined_credits?.cast || []),
+              ...(data.combined_credits?.crew || []),
+            ]}
+          />
+        </div>
+      )}
+    />
   );
 });

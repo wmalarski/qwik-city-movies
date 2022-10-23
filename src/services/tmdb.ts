@@ -6,7 +6,7 @@ import type {
   MediaDetails,
   MediaTypeArg,
   MovieMedia,
-  PersonMedia,
+  PersonMediaDetails,
   TvMedia,
 } from "./types";
 
@@ -90,7 +90,7 @@ type GetPerson = {
 };
 
 export const getPerson = ({ id }: GetPerson) => {
-  return fetchTMDB<PersonMedia>(`person/${id}`, {
+  return fetchTMDB<PersonMediaDetails>(`person/${id}`, {
     append_to_response: "images,combined_credits,external_ids",
     include_image_language: "en",
   });
