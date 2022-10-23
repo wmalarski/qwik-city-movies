@@ -16,7 +16,7 @@ export const MediaCard = component$((props: Props) => {
 
   return (
     <Link href={paths.media(mediaType, props.media.id)}>
-      <div class="scale-95 border-4 border-base-300 transition duration-300 ease-in-out hover:scale-100">
+      <div class="transition-scale scale-95 border-4 border-base-300 duration-300 ease-in-out hover:scale-100">
         <img
           // src={"https://image.tmdb.org/t/p/" + props.item.poster_path}
           // TODO: check for null or undefined
@@ -27,7 +27,6 @@ export const MediaCard = component$((props: Props) => {
         />
       </div>
       <h2>{heading}</h2>
-      {/* TODO: Add rating stars */}
       {props.media.media_type === "movie" || props.media.media_type === "tv" ? (
         <Stars rating={props.media.vote_average} />
       ) : null}

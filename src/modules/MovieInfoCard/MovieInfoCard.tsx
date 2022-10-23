@@ -63,7 +63,9 @@ export const MovieInfoCard = component$((props: Props) => {
                 <div>
                   {directors.map((person, i) => (
                     <>
-                      <Link href={paths.person(person.id)}>{person.name}</Link>
+                      <Link class="link" href={paths.person(person.id)}>
+                        {person.name}
+                      </Link>
                       {i < directors.length - 1 ? ", " : ""}
                     </>
                   ))}
@@ -89,6 +91,7 @@ export const MovieInfoCard = component$((props: Props) => {
                   {props.media.genres.map((genre, i, arr) => (
                     <>
                       <Link
+                        class="link"
                         href={paths.genre(props.media.media_type, genre.id)}
                       >
                         {genre.name}

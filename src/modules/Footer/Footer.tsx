@@ -16,6 +16,12 @@ export const Footer = component$(() => {
           />
         </a>
       </div>
+      <div class="flex flex-row items-center gap-2">
+        <span class="text-sm opacity-60">Design by</span>
+        <a href="https://movies.nuxt.space/" class="link">
+          Nuxt Movies
+        </a>
+      </div>
       <div class="text-sm opacity-60">
         This product uses the{" "}
         <a class="link" href="https://www.themoviedb.org/documentation/api">
