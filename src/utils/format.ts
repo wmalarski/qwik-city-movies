@@ -26,35 +26,20 @@ export const getMediaType = (media: Media): MediaType => {
 };
 
 export const getHeading = (media: Media): string | undefined => {
-  switch (media.media_type) {
-    case "movie":
-      return media.title || media.original_title;
-    case "tv":
-      return media.name || media.original_name;
-    case "person":
-      return media.name;
-    default:
-      return "";
+  if ("title" in media) {
+    return media.title;
+  }
+  if ("name" in media) {
+    return media.name;
   }
 };
 
 export const getImgSrc = (media: Media): string | null | undefined => {
-  switch (media.media_type) {
-    case "movie":
-    case "tv":
-      return media.poster_path;
-    case "person":
-      return media.profile_path;
+  if ("poster_path" in media) {
+    return media.poster_path;
   }
-};
-
-export const getBackdropSrc = (media: Media): string | null | undefined => {
-  switch (media.media_type) {
-    case "movie":
-    case "tv":
-      return media.backdrop_path;
-    case "person":
-      return media.profile_path;
+  if ("profile_path" in media) {
+    return media.profile_path;
   }
 };
 

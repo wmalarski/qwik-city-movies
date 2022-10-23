@@ -1,7 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import type { TvMedia } from "~/services/types";
-import { getBackdropSrc, getHeading } from "~/utils/format";
+import { getHeading } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
 type Props = {
@@ -16,9 +16,7 @@ export const TvHero = component$((props: Props) => {
           <div>
             <img
               // src={"https://image.tmdb.org/t/p/original" + props.item.backdrop_path}
-              src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${getBackdropSrc(
-                props.media
-              )}`}
+              src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${props.media.backdrop_path}`}
               alt={getHeading(props.media)}
               style={{ height: "100%" }}
             />
