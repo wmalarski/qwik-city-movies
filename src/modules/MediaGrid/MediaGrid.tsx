@@ -9,13 +9,11 @@ type Props = {
 export const MediaGrid = component$((props: Props) => {
   return (
     <section>
-      <ul class="flex flex-row flex-wrap gap-2 p-2">
+      <div class="grid grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-4 p-8">
         {props.collection.map((media) => (
-          <li key={media.id}>
-            <MediaCard media={media} />
-          </li>
+          <MediaCard media={media} />
         ))}
-      </ul>
+      </div>
     </section>
   );
 });

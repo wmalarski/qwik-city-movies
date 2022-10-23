@@ -14,7 +14,7 @@ export const MediaCard = component$((props: Props) => {
   const imgSrc = getImgSrc(props.media);
 
   return (
-    <Link class="w-60" href={paths.media(mediaType, props.media.id)}>
+    <Link href={paths.media(mediaType, props.media.id)}>
       {/* TODO: Add hover effect */}
       <div>
         <img

@@ -146,13 +146,17 @@ export const getMediaByGenre = async ({
   genre,
   page,
 }: GetMediaByGenre) => {
-  const result = await fetchTMDB<Collection<Media>>(`discover/${media}`, {
-    page: String(page),
-    with_genres: String(genre),
-  });
+  const result = await fetchTMDB<Collection<TvMedia | MovieMedia>>(
+    `discover/${media}`,
+    {
+      append_to_response: "genre",
+      page: String(page),
+      with_genres: String(genre),
+    }
+  );
   const results = result.results?.map((item) => ({
     ...item,
     media_type: media,
-  })) as Media[];
+  })) as (TvMedia | MovieMedia)[];
   return { ...result, results };
 };

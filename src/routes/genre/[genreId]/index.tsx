@@ -29,6 +29,12 @@ export const onGet = async (event: RequestEvent) => {
     }),
   ]);
 
+  const all = [...(movies?.results || []), ...(tvShows?.results || [])].map(
+    (item) => item
+  );
+
+  console.log(all);
+
   return { movies, tvShows };
 };
 

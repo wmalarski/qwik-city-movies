@@ -25,7 +25,9 @@ export const Carousel = component$((props: Props) => {
         <div class="overflow-y-auto py-4 px-8">
           <div class="flex w-max flex-row gap-2">
             {props.collection.map((media) => (
-              <MediaCard key={media.id} media={media} />
+              <div class="w-60" key={media.id}>
+                <MediaCard media={media} />
+              </div>
             ))}
             {props.viewAllHref ? (
               <Link href={props.viewAllHref}>

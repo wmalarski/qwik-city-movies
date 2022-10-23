@@ -21,58 +21,45 @@ export const PersonHero = component$((props: Props) => {
   };
 
   return (
-    <section>
-      <div>
-        <div>
+    <section class="flex justify-center p-6">
+      <div class="flex max-w-5xl  flex-row items-center gap-8">
+        <div class="hidden flex-grow md:flex">
           {props.person.profile_path ? (
-            <img
-              src={
-                "https://image.tmdb.org/t/p/w370_and_h556_bestv2" +
-                props.person.profile_path
-              }
-              alt={props.person.name}
-            />
+            <div class="min-w-max">
+              <img
+                src={
+                  "https://image.tmdb.org/t/p/w370_and_h556_bestv2" +
+                  props.person.profile_path
+                }
+                alt={props.person.name}
+                class="w-80"
+              />
+            </div>
           ) : null}
         </div>
-      </div>
-
-      <div>
-        <div>
-          <h2>{props.person.name}</h2>
-
-          {props.person.biography ? (
-            <>
-              {props.person.profile_path ? (
-                <img
-                  src={
-                    "https://image.tmdb.org/t/p/w370_and_h556_bestv2" +
-                    props.person.profile_path
-                  }
-                  alt={props.person.name}
-                />
-              ) : null}
-              <div>
+        <div class="flex flex-col gap-6">
+          <div>
+            <h2 class="mb-4 text-3xl">{props.person.name}</h2>
+            {props.person.biography ? (
+              <div class="opacity-80">
                 {props.person.biography
                   .split("\n")
                   .filter((section) => section !== "")
                   .map((section) => (
-                    <p>${section}</p>
+                    <p class="mt-4">{section}</p>
                   ))}
               </div>
-            </>
-          ) : null}
-        </div>
-
-        <div>
-          <ul>
+            ) : null}
+          </div>
+          <div class="grid grid-cols-[max-content_1fr] items-center gap-3 text-sm opacity-80 lg:grid-cols-[max-content_1fr_max-content_1fr]">
             {props.person.known_for_department ? (
-              <li>
+              <>
                 <div>Known For</div>
                 <div>{props.person.known_for_department}</div>
-              </li>
+              </>
             ) : null}
             {props.person.birthday ? (
-              <li>
+              <>
                 <div>Born</div>
                 <div>
                   {formatDate(props.person.birthday)}{" "}
@@ -80,18 +67,18 @@ export const PersonHero = component$((props: Props) => {
                     <span>(age {calculateAge(props.person.birthday)})</span>
                   ) : null}
                 </div>
-              </li>
+              </>
             ) : null}
 
             {props.person.place_of_birth ? (
-              <li>
+              <>
                 <div>Place of Birth</div>
                 <div>{props.person.place_of_birth}</div>
-              </li>
+              </>
             ) : null}
 
             {props.person.deathday ? (
-              <li>
+              <>
                 <div>Died</div>
                 <div>
                   {formatDate(props.person.deathday)}{" "}
@@ -105,13 +92,13 @@ export const PersonHero = component$((props: Props) => {
                     </span>
                   ) : null}
                 </div>
-              </li>
+              </>
             ) : null}
-          </ul>
-        </div>
+          </div>
 
-        <div>
-          <ExternalLinks media="person" links={links} />
+          <div>
+            <ExternalLinks media="person" links={links} />
+          </div>
         </div>
       </div>
     </section>
