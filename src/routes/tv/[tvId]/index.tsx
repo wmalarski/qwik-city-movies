@@ -1,6 +1,8 @@
 import { component$, Resource } from "@builder.io/qwik";
 import { RequestEvent, useEndpoint } from "@builder.io/qwik-city";
 import { z } from "zod";
+import { Carousel } from "~/modules/Carousel/Carousel";
+import { MovieInfoCard } from "~/modules/MovieDetails/MovieInfoCard/MovieInfoCard";
 import { TvHero } from "~/modules/TvHero/TvHero";
 import type { inferPromise } from "~/services/types";
 import { paths } from "~/utils/paths";
@@ -32,7 +34,17 @@ export default component$(() => {
       value={resource}
       onPending={() => <div>Loading...</div>}
       onRejected={() => <div>Rejected</div>}
-      onResolved={(data) => <TvHero media={data} />}
+      onResolved={(data) => (
+        <flex class="flex flex-col">
+          <TvHero media={data} />
+          <MovieInfoCard media={data} />
+          <Carousel
+            collection={data.credits?.cast || []}
+            mediaType="person"
+            title="Cast"
+          />
+        </flex>
+      )}
     />
   );
 });
