@@ -8,7 +8,7 @@ type Props = {
 
 export const ExternalLinks = component$((props: Props) => {
   return (
-    <ul>
+    <ul class="flex flex-row gap-4">
       {props.links.twitter_id ? (
         <li>
           <a
@@ -17,6 +17,7 @@ export const ExternalLinks = component$((props: Props) => {
             aria-label="Twitter account"
             rel="noopener"
           >
+            {/* TODO: Icons */}
             {/* <TwitterIcon width={24} height={24} /> */}
             Twitter
           </a>
@@ -72,7 +73,7 @@ export const ExternalLinks = component$((props: Props) => {
             rel="noopener"
           >
             {/* <LinkIcon width={24} height={24} /> */}
-            Link
+            Homepage
           </a>
         </li>
       ) : null}

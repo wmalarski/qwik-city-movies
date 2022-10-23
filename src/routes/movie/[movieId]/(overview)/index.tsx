@@ -1,6 +1,6 @@
 import { component$, Resource, useContext } from "@builder.io/qwik";
 import { Carousel } from "~/modules/Carousel/Carousel";
-import { MovieInfoCard } from "~/modules/MovieDetails/MovieInfoCard/MovieInfoCard";
+import { MovieInfoCard } from "~/modules/MovieInfoCard/MovieInfoCard";
 import { MovieResourceContext } from "../context";
 
 export default component$(() => {

@@ -15,6 +15,7 @@ export const MediaCard = component$((props: Props) => {
 
   return (
     <Link class="w-60" href={paths.media(mediaType, props.media.id)}>
+      {/* TODO: Add hover effect */}
       <div>
         <img
           // src={"https://image.tmdb.org/t/p/" + props.item.poster_path}
@@ -26,6 +27,7 @@ export const MediaCard = component$((props: Props) => {
         />
       </div>
       <h2>{heading}</h2>
+      {/* TODO: Add rating stars */}
     </Link>
   );
 });

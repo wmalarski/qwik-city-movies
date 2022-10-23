@@ -37,7 +37,7 @@ export default component$(() => {
       onRejected={() => <div>Rejected</div>}
       onResolved={(data) => (
         <div class="flex flex-col gap-4">
-          <Link href={paths.media("tv", data.featured.id)}>
+          <Link href={paths.media("tv", data.featured?.id)}>
             <TvHero media={data.featured} />
           </Link>
           <Carousel

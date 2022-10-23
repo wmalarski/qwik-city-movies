@@ -25,69 +25,65 @@ export const MovieInfoCard = component$((props: Props) => {
   };
 
   return (
-    <section>
-      <div>
-        <div>
-          <img
-            width={370}
-            height={556}
-            alt="name"
-            src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${props.media.poster_path}`}
-          />
-        </div>
-      </div>
-
-      <div>
-        {props.media.overview ? (
-          <div>
-            <h2>Storyline</h2>
-
-            <div>{props.media.overview}</div>
+    <section class="flex justify-center p-6">
+      <div class="flex max-w-5xl flex-row gap-8">
+        <div class="hidden flex-grow md:flex">
+          <div class="min-w-max">
+            <img
+              class="w-80"
+              alt="name"
+              src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${props.media.poster_path}`}
+            />
           </div>
-        ) : null}
-        <div>
-          <ul class="nolist">
-            {props.media.media_type === "movie" && props.media.release_date ? (
-              <li>
-                <div>Released</div>
+        </div>
 
+        <div class="flex flex-col gap-6">
+          {props.media.overview ? (
+            <div>
+              <h2 class="mb-4 text-3xl">Storyline</h2>
+              <div class="opacity-80">{props.media.overview}</div>
+            </div>
+          ) : null}
+          <div class="grid grid-cols-[max-content_1fr] items-center gap-3 text-sm opacity-80 lg:grid-cols-[max-content_1fr_max-content_1fr]">
+            {props.media.media_type === "movie" && props.media.release_date ? (
+              <>
+                <div>Released</div>
                 <div>{formatDate(props.media.release_date)}</div>
-              </li>
+              </>
             ) : null}
             {props.media.runtime ? (
-              <li>
+              <>
                 <div>Runtime</div>
-
                 <div>{formatRuntime(props.media.runtime)}</div>
-              </li>
+              </>
             ) : null}
-            {directors ? (
-              <li>
+            {directors && directors.length > 0 ? (
+              <>
                 <div>Director</div>
                 <div>
                   {directors.map((person, i) => (
                     <>
-                      <Link href={paths.person(person.id)}>{person.name}</Link>
+                      <nk href={paths.person(person.id)}>{person.name}</nk>
                       {i < directors.length - 1 ? ", " : ""}
                     </>
                   ))}
                 </div>
-              </li>
+              </>
             ) : null}
             {props.media.budget ? (
-              <li>
+              <>
                 <div>Budget</div>
                 <div>{formatCurrency(props.media.budget)}</div>
-              </li>
+              </>
             ) : null}
             {props.media.revenue ? (
-              <li>
+              <>
                 <div>Revenue</div>
                 <div>{formatCurrency(props.media.revenue)}</div>
-              </li>
+              </>
             ) : null}
             {props.media.genres ? (
-              <li>
+              <>
                 <div>Genre</div>
                 <div>
                   {props.media.genres.map((genre, i, arr) => (
@@ -97,36 +93,34 @@ export const MovieInfoCard = component$((props: Props) => {
                     </>
                   ))}
                 </div>
-              </li>
+              </>
             ) : null}
             {props.media.status ? (
-              <li>
+              <>
                 <div>Status</div>
-
                 <div>{props.media.status}</div>
-              </li>
+              </>
             ) : null}
             {props.media.original_language ? (
-              <li>
+              <>
                 <div>Language</div>
-
                 <div>{formatLanguage(props.media.original_language)}</div>
-              </li>
+              </>
             ) : null}
             {props.media.production_companies ? (
-              <li>
+              <>
                 <div>Production</div>
                 <div>
                   {props.media.production_companies
                     .map((c) => c.name)
                     .join(", ")}
                 </div>
-              </li>
+              </>
             ) : null}
-          </ul>
-        </div>
-        <div>
-          {<ExternalLinks links={links} media={props.media.media_type} />}
+          </div>
+          <div>
+            {<ExternalLinks links={links} media={props.media.media_type} />}
+          </div>
         </div>
       </div>
     </section>

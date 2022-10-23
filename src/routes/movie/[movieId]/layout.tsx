@@ -10,6 +10,7 @@ import {
   useEndpoint,
   useLocation,
 } from "@builder.io/qwik-city";
+import clsx from "clsx";
 import { z } from "zod";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
 import type { inferPromise } from "~/services/types";
@@ -41,6 +42,10 @@ export default component$(() => {
   const resource = useEndpoint<inferPromise<typeof onGet>>();
   useContextProvider(MovieResourceContext, resource);
 
+  const overviewHref = paths.media("movie", +location.params.movieId);
+  const videoHref = paths.movieVideo(+location.params.movieId);
+  const photosHref = paths.moviePhotos(+location.params.movieId);
+
   return (
     <div class="flex flex-col gap-4">
       <Resource
@@ -49,26 +54,31 @@ export default component$(() => {
         onRejected={() => <div>Rejected</div>}
         onResolved={(data) => <MovieHero media={data} />}
       />
-      <div class="flex flex-row">
+      <div class="flex flex-row items-center justify-center gap-4">
         <Link
-          href={paths.media("movie", +location.params.movieId)}
-          // TODO: add active class
-          // activeClass={styles.buttonActive}
-          // class={styles.button}
+          href={overviewHref}
+          class={clsx("p-2 text-xl uppercase opacity-50", {
+            "border-b-2 border-b-white opacity-100":
+              overviewHref === location.pathname,
+          })}
         >
           Overview
         </Link>
         <Link
-          href={paths.movieVideo(+location.params.movieId)}
-          // activeClass={styles.buttonActive}
-          // class={styles.button}
+          href={videoHref}
+          class={clsx("p-2 text-xl uppercase opacity-50", {
+            "border-b-2 border-b-white opacity-100":
+              videoHref === location.pathname,
+          })}
         >
           Videos
         </Link>
         <Link
-          href={paths.moviePhotos(+location.params.movieId)}
-          // activeClass={styles.buttonActive}
-          // class={styles.button}
+          href={photosHref}
+          class={clsx("p-2 text-xl uppercase opacity-50", {
+            "border-b-2 border-b-white opacity-100":
+              photosHref === location.pathname,
+          })}
         >
           Photos
         </Link>

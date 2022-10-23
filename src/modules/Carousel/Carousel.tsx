@@ -34,6 +34,7 @@ export const Carousel = component$((props: Props) => {
             ) : null}
           </div>
         </div>
+        {/* TODO: Add buttons */}
       </div>
     </section>
   );
