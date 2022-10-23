@@ -43,13 +43,13 @@ export default component$(() => {
           {data.featuredTv ? <TvHero media={data.featuredTv} /> : null}
           {data.featuredMovie ? <MovieHero media={data.featuredMovie} /> : null}
           <Carousel
-            collection={data.movies.results || []}
+            collection={data.movies?.results || []}
             title={getListItem({ query: "trending", type: "movie" })}
             viewAllHref={paths.movieCategory("trending")}
             mediaType="movie"
           />
           <Carousel
-            collection={data.tv.results || []}
+            collection={data.tv?.results || []}
             title={getListItem({ query: "trending", type: "tv" })}
             viewAllHref={paths.movieCategory("trending")}
             mediaType="tv"

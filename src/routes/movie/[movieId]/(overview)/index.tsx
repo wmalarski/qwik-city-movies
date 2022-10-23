@@ -1,4 +1,5 @@
 import { component$, Resource, useContext } from "@builder.io/qwik";
+import { MovieDetails } from "~/modules/MovieDetails/MovieDetails";
 import { MovieResourceContext } from "../context";
 
 export default component$(() => {
@@ -9,12 +10,7 @@ export default component$(() => {
       value={resource}
       onPending={() => <div>Loading...</div>}
       onRejected={() => <div>Rejected</div>}
-      onResolved={(data) => (
-        <section>
-          <h2>PHOTOS</h2>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-        </section>
-      )}
+      onResolved={(data) => <MovieDetails media={data} />}
     />
   );
 });

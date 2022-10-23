@@ -3,8 +3,6 @@ import {
   Resource,
   Slot,
   useContextProvider,
-  useStore,
-  useWatch$,
 } from "@builder.io/qwik";
 import {
   Link,
@@ -16,7 +14,7 @@ import { z } from "zod";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
 import type { inferPromise } from "~/services/types";
 import { paths } from "~/utils/paths";
-import { MovieContext, MovieContextState } from "./movieContext";
+import { MovieResourceContext } from "./context";
 
 export const onGet = async (event: RequestEvent) => {
   const parseResult = z
@@ -41,14 +39,7 @@ export default component$(() => {
   const location = useLocation();
 
   const resource = useEndpoint<inferPromise<typeof onGet>>();
-
-  const store = useStore<MovieContextState>({});
-  useWatch$(({ track }) => {
-    track(resource);
-    store.media = resource.resolved;
-    console.log(resource.state, resource.resolved);
-  });
-  useContextProvider(MovieContext, store);
+  useContextProvider(MovieResourceContext, resource);
 
   return (
     <div class="flex flex-col gap-4 p-4">
