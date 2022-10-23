@@ -31,7 +31,7 @@ export default component$(() => {
   return (
     <Resource
       value={resource}
-      onPending={() => <div>Loading...</div>}
+      onPending={() => <div class="h-screen" />}
       onRejected={() => <div>Rejected</div>}
       onResolved={(data) => (
         <div style="flex flex-col">

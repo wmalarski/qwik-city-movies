@@ -5,13 +5,11 @@ import { MovieResourceContext } from "../context";
 export default component$(() => {
   const resource = useContext(MovieResourceContext);
 
-  // TODO: Implement list
-
   return (
     <section>
       <Resource
         value={resource}
-        onPending={() => <div>Loading...</div>}
+        onPending={() => <div class="h-screen" />}
         onRejected={() => <div>Rejected</div>}
         onResolved={(data) => (
           <div class="grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-6 px-16 py-4">

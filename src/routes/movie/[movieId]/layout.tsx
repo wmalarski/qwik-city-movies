@@ -50,7 +50,7 @@ export default component$(() => {
     <div class="flex flex-col gap-4">
       <Resource
         value={resource}
-        onPending={() => <div>Loading...</div>}
+        onPending={() => <div class="h-80" />}
         onRejected={() => <div>Rejected</div>}
         onResolved={(data) => <MovieHero media={data} />}
       />

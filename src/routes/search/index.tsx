@@ -49,7 +49,7 @@ export default component$(() => {
       </form>
       <Resource
         value={resource}
-        onPending={() => <div>Loading...</div>}
+        onPending={() => <div class="h-screen" />}
         onRejected={() => <div>Rejected</div>}
         onResolved={(data) =>
           data ? (
