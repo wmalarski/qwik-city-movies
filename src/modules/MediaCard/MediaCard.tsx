@@ -1,5 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
+import { Stars } from "~/components/Stars/Stars";
 import type { Media } from "~/services/types";
 import { getHeading, getImgSrc, getMediaType } from "~/utils/format";
 import { paths } from "~/utils/paths";
@@ -15,8 +16,7 @@ export const MediaCard = component$((props: Props) => {
 
   return (
     <Link href={paths.media(mediaType, props.media.id)}>
-      {/* TODO: Add hover effect */}
-      <div>
+      <div class="scale-95 border-4 border-base-300 transition duration-300 ease-in-out hover:scale-100">
         <img
           // src={"https://image.tmdb.org/t/p/" + props.item.poster_path}
           // TODO: check for null or undefined
@@ -28,6 +28,9 @@ export const MediaCard = component$((props: Props) => {
       </div>
       <h2>{heading}</h2>
       {/* TODO: Add rating stars */}
+      {props.media.media_type === "movie" || props.media.media_type === "tv" ? (
+        <Stars rating={props.media.vote_average} />
+      ) : null}
     </Link>
   );
 });

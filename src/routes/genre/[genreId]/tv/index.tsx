@@ -40,7 +40,7 @@ export default component$(() => {
       onRejected={() => <div>Rejected</div>}
       onResolved={(data) => (
         <div style="flex flex-col gap-4">
-          <h1 class="text-4xl">{`Genre: ${data.genre?.name}`}</h1>
+          <h1 class="text-4xl">{`Tv Show Genre: ${data.genre?.name}`}</h1>
           <MediaGrid collection={data.tvShows?.results} />
         </div>
       )}

@@ -1,4 +1,5 @@
 import { component$ } from "@builder.io/qwik";
+import { Stars } from "~/components/Stars/Stars";
 import type { MovieMedia } from "~/services/types";
 
 type Props = {
@@ -23,17 +24,9 @@ export const MovieHero = component$((props: Props) => {
             {props.media.title || props.media.original_title}
           </h1>
           <div>
-            <div class="flex flex-row gap-4 opacity-50">
-              <div>
-                <div
-                  style={{
-                    width: `${(props.media.vote_average || 0) * 100}%`,
-                  }}
-                >
-                  {props.media.vote_average}
-                </div>
-              </div>
-              <div>{`${props.media.vote_count} Reviews`}</div>
+            <div class="flex flex-row gap-4">
+              <Stars rating={props.media.vote_average} />
+              <div class="text-sm opacity-50">{`${props.media.vote_count} Reviews`}</div>
             </div>
           </div>
           <div>{props.media.overview}</div>
