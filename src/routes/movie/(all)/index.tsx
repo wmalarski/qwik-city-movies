@@ -41,19 +41,16 @@ export default component$(() => {
             collection={data.popular.results || []}
             title={getListItem({ query: "popular", type: "movie" })}
             viewAllHref={paths.movieCategory("popular")}
-            mediaType="movie"
           />
           <Carousel
             collection={data.topRated.results || []}
             title={getListItem({ query: "top_rated", type: "movie" })}
             viewAllHref={paths.movieCategory("top_rated")}
-            mediaType="movie"
           />
           <Carousel
             collection={data.nowPlaying.results || []}
             title={getListItem({ query: "now_playing", type: "movie" })}
             viewAllHref={paths.movieCategory("now_playing")}
-            mediaType="movie"
           />
         </div>
       )}

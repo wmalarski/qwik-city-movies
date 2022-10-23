@@ -1,5 +1,6 @@
 import { component$, Resource, useContext } from "@builder.io/qwik";
-import { MovieDetails } from "~/modules/MovieDetails/MovieDetails";
+import { Carousel } from "~/modules/Carousel/Carousel";
+import { MovieInfoCard } from "~/modules/MovieDetails/MovieInfoCard/MovieInfoCard";
 import { MovieResourceContext } from "../context";
 
 export default component$(() => {
@@ -10,7 +11,12 @@ export default component$(() => {
       value={resource}
       onPending={() => <div>Loading...</div>}
       onRejected={() => <div>Rejected</div>}
-      onResolved={(data) => <MovieDetails media={data} />}
+      onResolved={(data) => (
+        <flex class="flex flex-col">
+          <MovieInfoCard media={data} />
+          <Carousel collection={data.credits?.cast || []} title="Cast" />
+        </flex>
+      )}
     />
   );
 });

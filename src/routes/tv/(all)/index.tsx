@@ -42,25 +42,21 @@ export default component$(() => {
             collection={data.popular.results || []}
             title={getListItem({ query: "popular", type: "tv" })}
             viewAllHref={paths.tvCategory("popular")}
-            mediaType="tv"
           />
           <Carousel
             collection={data.topRated.results || []}
             title={getListItem({ query: "top_rated", type: "tv" })}
             viewAllHref={paths.tvCategory("top_rated")}
-            mediaType="tv"
           />
           <Carousel
             collection={data.onTheAir.results || []}
             title={getListItem({ query: "on_the_air", type: "tv" })}
             viewAllHref={paths.tvCategory("on_the_air")}
-            mediaType="tv"
           />
           <Carousel
             collection={data.airingToday.results || []}
             title={getListItem({ query: "airing_today", type: "tv" })}
             viewAllHref={paths.tvCategory("airing_today")}
-            mediaType="tv"
           />
         </div>
       )}

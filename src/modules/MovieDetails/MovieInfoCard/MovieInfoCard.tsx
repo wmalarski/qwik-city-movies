@@ -1,7 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import { ExternalLinks } from "~/modules/ExternalLinks/ExternalLinks";
-import type { MediaDetails } from "~/services/types";
+import type { MovieMediaDetails, TvMediaDetails } from "~/services/types";
 import {
   formatCurrency,
   formatDate,
@@ -11,7 +11,7 @@ import {
 import { paths } from "~/utils/paths";
 
 type Props = {
-  media: MediaDetails;
+  media: MovieMediaDetails | TvMediaDetails;
 };
 
 export const MovieInfoCard = component$((props: Props) => {
@@ -47,7 +47,7 @@ export const MovieInfoCard = component$((props: Props) => {
         ) : null}
         <div>
           <ul class="nolist">
-            {props.media.release_date ? (
+            {props.media.media_type === "movie" && props.media.release_date ? (
               <li>
                 <div>Released</div>
 

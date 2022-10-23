@@ -45,9 +45,7 @@ export default component$(() => {
             value={resource}
             onPending={() => <div>Loading...</div>}
             onRejected={() => <div>Rejected</div>}
-            onResolved={(data) => (
-              <MediaGrid mediaType="movie" collection={data.results || []} />
-            )}
+            onResolved={(data) => <MediaGrid collection={data.results || []} />}
           />
         </div>
       </div>

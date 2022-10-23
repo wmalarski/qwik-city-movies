@@ -98,29 +98,32 @@ export type Image = {
   width?: number;
 };
 
-export type MediaDetails = TvMedia &
-  MovieMedia & {
-    external_ids?: Record<string, string>;
-    homepage?: string;
-    status?: string;
-    runtime?: number;
-    genres?: Genre[];
-    budget?: number;
-    revenue?: number;
-    production_companies?: Production[];
-    credits?: {
-      cast?: PersonMedia[];
-      crew?: PersonMedia[];
-    };
-    images?: {
-      backdrops?: Image[];
-      logos?: Image[];
-      posters?: [];
-    };
-    videos?: {
-      results?: Video[];
-    };
+export type MediaDetails = {
+  external_ids?: Record<string, string>;
+  homepage?: string;
+  status?: string;
+  runtime?: number;
+  genres?: Genre[];
+  budget?: number;
+  revenue?: number;
+  production_companies?: Production[];
+  credits?: {
+    cast?: PersonMedia[];
+    crew?: PersonMedia[];
   };
+  images?: {
+    backdrops?: Image[];
+    logos?: Image[];
+    posters?: [];
+  };
+  videos?: {
+    results?: Video[];
+  };
+};
+
+export type TvMediaDetails = TvMedia & MediaDetails;
+
+export type MovieMediaDetails = MovieMedia & MediaDetails;
 
 export type Media = MovieMedia | TvMedia | PersonMedia;
 

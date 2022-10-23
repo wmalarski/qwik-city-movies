@@ -46,13 +46,11 @@ export default component$(() => {
             collection={data.movies?.results || []}
             title={getListItem({ query: "trending", type: "movie" })}
             viewAllHref={paths.movieCategory("trending")}
-            mediaType="movie"
           />
           <Carousel
             collection={data.tv?.results || []}
             title={getListItem({ query: "trending", type: "tv" })}
             viewAllHref={paths.movieCategory("trending")}
-            mediaType="tv"
           />
         </div>
       )}

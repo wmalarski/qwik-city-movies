@@ -38,11 +38,7 @@ export default component$(() => {
         <flex class="flex flex-col">
           <TvHero media={data} />
           <MovieInfoCard media={data} />
-          <Carousel
-            collection={data.credits?.cast || []}
-            mediaType="person"
-            title="Cast"
-          />
+          <Carousel collection={data.credits?.cast || []} title="Cast" />
         </flex>
       )}
     />

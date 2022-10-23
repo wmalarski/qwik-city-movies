@@ -11,6 +11,20 @@ export const getListItem = ({ type = "movie", query }: GetListItem) => {
   return categories[type].find((list) => list.query === query)?.title || query;
 };
 
+export const getMediaType = (media: Media): MediaType => {
+  if (media.media_type) {
+    return media.media_type;
+  }
+
+  if ("title" in media) {
+    return "movie";
+  }
+  if ("profile_path" in media) {
+    return "person";
+  }
+  return "tv";
+};
+
 export const getHeading = (media: Media): string | undefined => {
   switch (media.media_type) {
     case "movie":

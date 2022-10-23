@@ -3,11 +3,13 @@ import { serverEnv } from "~/env/server";
 import type {
   Collection,
   Media,
-  MediaDetails,
+  MediaType,
   MediaTypeArg,
   MovieMedia,
+  MovieMediaDetails,
   PersonMediaDetails,
   TvMedia,
+  TvMediaDetails,
 } from "./types";
 
 const baseURL = "https://api.themoviedb.org/3";
@@ -47,11 +49,12 @@ type GetMovie = {
   id: number;
 };
 
-export const getMovie = ({ id }: GetMovie) => {
-  return fetchTMDB<MediaDetails>(`movie/${id}`, {
+export const getMovie = async ({ id }: GetMovie) => {
+  const result = await fetchTMDB<MovieMediaDetails>(`movie/${id}`, {
     append_to_response: "videos,credits,images,external_ids,release_dates",
     include_image_language: "en",
   });
+  return { ...result, media_type: "movie" as const };
 };
 
 type GetMovies = {
@@ -59,21 +62,27 @@ type GetMovies = {
   page: number;
 };
 
-export const getMovies = ({ query, page }: GetMovies) => {
-  return fetchTMDB<Collection<MovieMedia>>(`movie/${query}`, {
+export const getMovies = async ({ query, page }: GetMovies) => {
+  const result = await fetchTMDB<Collection<MovieMedia>>(`movie/${query}`, {
     page: String(page),
   });
+  const results = result.results?.map((item) => ({
+    ...item,
+    media_type: "movie" as const,
+  }));
+  return { ...result, results };
 };
 
 type GetTvShow = {
   id: number;
 };
 
-export const getTvShow = ({ id }: GetTvShow) => {
-  return fetchTMDB<MediaDetails>(`tv/${id}`, {
+export const getTvShow = async ({ id }: GetTvShow) => {
+  const result = await fetchTMDB<TvMediaDetails>(`tv/${id}`, {
     append_to_response: "videos,credits,images,external_ids,content_ratings",
     include_image_language: "en",
   });
+  return { ...result, media_type: "tv" as const };
 };
 
 type GetTvShows = {
@@ -81,19 +90,27 @@ type GetTvShows = {
   page: number;
 };
 
-export const getTvShows = ({ query, page }: GetTvShows) => {
-  return fetchTMDB<Collection<TvMedia>>(`tv/${query}`, { page: String(page) });
+export const getTvShows = async ({ query, page }: GetTvShows) => {
+  const result = await fetchTMDB<Collection<TvMedia>>(`tv/${query}`, {
+    page: String(page),
+  });
+  const results = result.results?.map((item) => ({
+    ...item,
+    media_type: "tv" as const,
+  }));
+  return { ...result, results };
 };
 
 type GetPerson = {
   id: number;
 };
 
-export const getPerson = ({ id }: GetPerson) => {
-  return fetchTMDB<PersonMediaDetails>(`person/${id}`, {
+export const getPerson = async ({ id }: GetPerson) => {
+  const result = await fetchTMDB<PersonMediaDetails>(`person/${id}`, {
     append_to_response: "images,combined_credits,external_ids",
     include_image_language: "en",
   });
+  return { ...result, media_type: "person" as const };
 };
 
 type Search = {
@@ -116,4 +133,26 @@ export const getRandomMedia = <T>({ collections }: GetRandomMedia<T>) => {
   const items = collections.flatMap((collection) => collection.results || []);
   const randomItem = items[Math.floor(Math.random() * items.length)];
   return randomItem;
+};
+
+type GetMediaByGenre = {
+  media: MediaType;
+  genre: number;
+  page: number;
+};
+
+export const getMediaByGenre = async ({
+  media,
+  genre,
+  page,
+}: GetMediaByGenre) => {
+  const result = await fetchTMDB<Collection<Media>>(`discover/${media}`, {
+    page: String(page),
+    with_genres: String(genre),
+  });
+  const results = result.results?.map((item) => ({
+    ...item,
+    media_type: media,
+  })) as Media[];
+  return { ...result, results };
 };
