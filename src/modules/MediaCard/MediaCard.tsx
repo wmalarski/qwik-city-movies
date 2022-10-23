@@ -14,20 +14,18 @@ export const MediaCard = component$((props: Props) => {
   const imgSrc = getImgSrc(props.media);
 
   return (
-    <div>
-      <Link href={paths.media(mediaType, props.media.id)}>
-        <div>
-          <img
-            // src={"https://image.tmdb.org/t/p/" + props.item.poster_path}
-            // TODO: check for null or undefined
-            src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${imgSrc}`}
-            width={370}
-            height={556}
-            alt={heading}
-          />
-        </div>
-        <h2>{heading}</h2>
-      </Link>
-    </div>
+    <Link class="w-60" href={paths.media(mediaType, props.media.id)}>
+      <div>
+        <img
+          // src={"https://image.tmdb.org/t/p/" + props.item.poster_path}
+          // TODO: check for null or undefined
+          src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${imgSrc}`}
+          width={370}
+          height={556}
+          alt={heading}
+        />
+      </div>
+      <h2>{heading}</h2>
+    </Link>
   );
 });

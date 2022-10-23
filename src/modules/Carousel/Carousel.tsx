@@ -12,28 +12,29 @@ type Props = {
 export const Carousel = component$((props: Props) => {
   return (
     <section>
-      <div>
-        <h2>{props.title}</h2>
+      <div class="flex flex-row py-2 px-12">
+        <h2 class="text-2xl">{props.title}</h2>
+        <div class="flex-auto" />
         {props.viewAllHref ? (
-          <Link href={props.viewAllHref}>
+          <Link class="opacity-50 hover:opacity-100" href={props.viewAllHref}>
             <span>Explore All</span>
           </Link>
         ) : null}
       </div>
-      <ul class="flex flex-row gap-2 p-2">
-        {props.collection.map((media) => (
-          <li key={media.id}>
-            <MediaCard media={media} />
-          </li>
-        ))}
-        {props.viewAllHref ? (
-          <li>
-            <Link href={props.viewAllHref}>
-              <span>Explore All</span>
-            </Link>
-          </li>
-        ) : null}
-      </ul>
+      <div class="relative">
+        <div class="overflow-y-auto py-4 px-8">
+          <div class="flex w-max flex-row gap-2">
+            {props.collection.map((media) => (
+              <MediaCard key={media.id} media={media} />
+            ))}
+            {props.viewAllHref ? (
+              <Link href={props.viewAllHref}>
+                <span>Explore All</span>
+              </Link>
+            ) : null}
+          </div>
+        </div>
+      </div>
     </section>
   );
 });
