@@ -29,6 +29,17 @@ export const Footer = component$(() => {
         </a>{" "}
         but is not endorsed or certified by TMDB.
       </div>
+      <div class="text-sm opacity-60">
+        <a href="https://github.com/wmalarski/qwik-city-movies">
+          <img
+            src="/images/git-hub.svg"
+            width={24}
+            height={24}
+            alt="GitHub repository"
+            aria-label="GitHub repository"
+          />
+        </a>
+      </div>
     </footer>
   );
 });
