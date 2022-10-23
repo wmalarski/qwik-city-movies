@@ -7,7 +7,7 @@ type Props = {
   collection: Media[];
   mediaType: MediaType;
   title: string;
-  viewAllHref: string;
+  viewAllHref?: string;
 };
 
 export const Carousel = component$((props: Props) => {
@@ -15,9 +15,11 @@ export const Carousel = component$((props: Props) => {
     <section>
       <div>
         <h2>{props.title}</h2>
-        <Link href={props.viewAllHref}>
-          <span>Explore All</span>
-        </Link>
+        {props.viewAllHref ? (
+          <Link href={props.viewAllHref}>
+            <span>Explore All</span>
+          </Link>
+        ) : null}
       </div>
       <ul class="flex flex-row gap-2 p-2">
         {props.collection.map((media) => (
@@ -28,11 +30,13 @@ export const Carousel = component$((props: Props) => {
             />
           </li>
         ))}
-        <li>
-          <Link href={props.viewAllHref}>
-            <span>Explore All</span>
-          </Link>
-        </li>
+        {props.viewAllHref ? (
+          <li>
+            <Link href={props.viewAllHref}>
+              <span>Explore All</span>
+            </Link>
+          </li>
+        ) : null}
       </ul>
     </section>
   );

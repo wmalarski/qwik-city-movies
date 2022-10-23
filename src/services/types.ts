@@ -61,6 +61,29 @@ export type Production = {
   origin_country?: string;
 };
 
+export type Video = {
+  iso_639_1?: string;
+  iso_3166_1?: string;
+  name?: string;
+  key?: string;
+  site?: string;
+  size?: number;
+  type?: string;
+  official?: boolean;
+  published_at?: string;
+  id?: string;
+};
+
+export type Image = {
+  aspect_ratio?: number;
+  file_path?: string;
+  height?: number;
+  iso_639_1?: string | null;
+  vote_average?: number;
+  vote_count?: number;
+  width?: number;
+};
+
 export type MediaDetails = TvMedia &
   MovieMedia & {
     external_ids?: Record<string, string>;
@@ -74,6 +97,14 @@ export type MediaDetails = TvMedia &
     credits?: {
       cast?: PersonMedia[];
       crew?: PersonMedia[];
+    };
+    images?: {
+      backdrops?: Image[];
+      logos?: Image[];
+      posters?: [];
+    };
+    videos?: {
+      results?: Video[];
     };
   };
 

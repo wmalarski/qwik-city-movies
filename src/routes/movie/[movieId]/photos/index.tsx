@@ -12,7 +12,7 @@ export default component$(() => {
       onResolved={(data) => (
         <section>
           <h2>PHOTOS</h2>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
+          <pre>{JSON.stringify(data.images, null, 2)}</pre>
         </section>
       )}
     />
