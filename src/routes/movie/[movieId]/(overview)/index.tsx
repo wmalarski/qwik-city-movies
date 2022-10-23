@@ -1,4 +1,5 @@
 import { component$, Resource, useContext } from "@builder.io/qwik";
+import { DocumentHead } from "@builder.io/qwik-city";
 import { Carousel } from "~/modules/Carousel/Carousel";
 import { MovieInfoCard } from "~/modules/MovieInfoCard/MovieInfoCard";
 import { MovieResourceContext } from "../context";
@@ -20,3 +21,7 @@ export default component$(() => {
     />
   );
 });
+
+export const head: DocumentHead = {
+  title: "Qwik City Movies",
+};

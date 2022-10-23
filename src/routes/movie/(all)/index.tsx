@@ -37,7 +37,7 @@ export default component$(() => {
       onResolved={(data) => (
         <div class="flex flex-col gap-4">
           {data.featured ? (
-            <Link href={paths.media("movie", data.featured?.id)}>
+            <Link prefetch href={paths.media("movie", data.featured?.id)}>
               <MovieHero media={data.featured} />
             </Link>
           ) : null}
@@ -63,5 +63,5 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: "Movies",
+  title: "Qwik City Movies",
 };

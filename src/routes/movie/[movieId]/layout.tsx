@@ -56,6 +56,7 @@ export default component$(() => {
       />
       <div class="flex flex-row items-center justify-center gap-4">
         <Link
+          prefetch
           href={overviewHref}
           class={clsx("p-2 text-xl uppercase opacity-50", {
             "border-b-2 border-b-white opacity-100":
@@ -65,6 +66,7 @@ export default component$(() => {
           Overview
         </Link>
         <Link
+          prefetch
           href={videoHref}
           class={clsx("p-2 text-xl uppercase opacity-50", {
             "border-b-2 border-b-white opacity-100":
@@ -74,6 +76,7 @@ export default component$(() => {
           Videos
         </Link>
         <Link
+          prefetch
           href={photosHref}
           class={clsx("p-2 text-xl uppercase opacity-50", {
             "border-b-2 border-b-white opacity-100":

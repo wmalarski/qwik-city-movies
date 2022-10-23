@@ -1,5 +1,5 @@
 import { component$, Resource } from "@builder.io/qwik";
-import { RequestEvent, useEndpoint } from "@builder.io/qwik-city";
+import { DocumentHead, RequestEvent, useEndpoint } from "@builder.io/qwik-city";
 import { z } from "zod";
 import { Carousel } from "~/modules/Carousel/Carousel";
 import { MovieInfoCard } from "~/modules/MovieInfoCard/MovieInfoCard";
@@ -44,3 +44,7 @@ export default component$(() => {
     />
   );
 });
+
+export const head: DocumentHead = {
+  title: "Qwik City Movies",
+};

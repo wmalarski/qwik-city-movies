@@ -1,4 +1,5 @@
 import { component$, Resource, useContext } from "@builder.io/qwik";
+import { DocumentHead } from "@builder.io/qwik-city";
 import { MovieResourceContext } from "../context";
 
 export default component$(() => {
@@ -39,3 +40,7 @@ export default component$(() => {
     </section>
   );
 });
+
+export const head: DocumentHead = {
+  title: "Qwik City Movies",
+};

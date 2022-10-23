@@ -7,7 +7,7 @@ export const Navbar = component$(() => {
     <nav class="h-screen bg-black px-4 py-8">
       <ul class="flex flex-col gap-8">
         <li class="hover:opacity-80">
-          <Link href={paths.index}>
+          <Link prefetch href={paths.index}>
             <img
               src="/images/home.svg"
               width={24}
@@ -18,7 +18,7 @@ export const Navbar = component$(() => {
           </Link>
         </li>
         <li class="hover:opacity-80">
-          <Link href={paths.movies}>
+          <Link prefetch href={paths.movies}>
             <img
               src="/images/movie.svg"
               width={24}
@@ -29,7 +29,7 @@ export const Navbar = component$(() => {
           </Link>
         </li>
         <li class="hover:opacity-80">
-          <Link href={paths.tv}>
+          <Link prefetch href={paths.tv}>
             <img
               src="/images/tv.svg"
               width={24}
@@ -40,7 +40,7 @@ export const Navbar = component$(() => {
           </Link>
         </li>
         <li class="hover:opacity-80">
-          <Link href={paths.search}>
+          <Link prefetch href={paths.search}>
             <img
               src="/images/magnifier.svg"
               width={24}
