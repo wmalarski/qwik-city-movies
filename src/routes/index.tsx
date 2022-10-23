@@ -41,12 +41,12 @@ export default component$(() => {
       onResolved={(data) => (
         <div class="flex flex-col gap-4">
           {data.featuredTv ? (
-            <Link prefetch href={paths.media("tv", data.featuredTv.id)}>
+            <Link href={paths.media("tv", data.featuredTv.id)}>
               <TvHero media={data.featuredTv} />
             </Link>
           ) : null}
           {data.featuredMovie ? (
-            <Link prefetch href={paths.media("movie", data.featuredMovie.id)}>
+            <Link href={paths.media("movie", data.featuredMovie.id)}>
               <MovieHero media={data.featuredMovie} />
             </Link>
           ) : null}
