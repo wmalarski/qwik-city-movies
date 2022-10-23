@@ -14,6 +14,7 @@ export const MediaGrid = component$((props: Props) => {
           <MediaCard media={media} />
         ))}
       </div>
+      {/* TODO: Do infinite loading  */}
     </section>
   );
 });

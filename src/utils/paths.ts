@@ -1,6 +1,7 @@
 import type { MediaType } from "~/services/types";
 
 export const paths = {
+  genre: (mediaType: MediaType, id: number) => `/genre/${id}/${mediaType}`,
   index: "/",
   media: (mediaType: MediaType, id: number) => `/${mediaType}/${id}`,
   movieCategory: (category: string) => `/movie/categories/${category}`,

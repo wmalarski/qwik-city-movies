@@ -14,28 +14,20 @@ export const onGet = async (event: RequestEvent) => {
     throw event.response.redirect(paths.notFound);
   }
 
-  const { getMediaByGenre } = await import("~/services/tmdb");
+  const { getMediaByGenre, getGenreList } = await import("~/services/tmdb");
 
-  const [movies, tvShows] = await Promise.all([
-    getMediaByGenre({
-      genre: parseResult.data.genreId,
-      media: "movie",
-      page: 1,
-    }),
+  const [tvShows, genres] = await Promise.all([
     getMediaByGenre({
       genre: parseResult.data.genreId,
       media: "tv",
       page: 1,
     }),
+    getGenreList({ media: "tv" }),
   ]);
 
-  const all = [...(movies?.results || []), ...(tvShows?.results || [])].map(
-    (item) => item
-  );
+  const genre = genres.find((genre) => genre.id === parseResult.data.genreId);
 
-  console.log(all);
-
-  return { movies, tvShows };
+  return { genre, tvShows };
 };
 
 export default component$(() => {
@@ -47,13 +39,9 @@ export default component$(() => {
       onPending={() => <div>Loading...</div>}
       onRejected={() => <div>Rejected</div>}
       onResolved={(data) => (
-        <div style="flex flex-col">
-          <MediaGrid
-            collection={[
-              ...(data.movies?.results || []),
-              ...(data.tvShows?.results || []),
-            ]}
-          />
+        <div style="flex flex-col gap-4">
+          <h1 class="text-4xl">{`Genre: ${data.genre?.name}`}</h1>
+          <MediaGrid collection={data.tvShows?.results} />
         </div>
       )}
     />

@@ -2,6 +2,7 @@ import fetch from "node-fetch";
 import { serverEnv } from "~/env/server";
 import type {
   Collection,
+  Genre,
   Media,
   MediaType,
   MediaTypeArg,
@@ -159,4 +160,13 @@ export const getMediaByGenre = async ({
     media_type: media,
   })) as (TvMedia | MovieMedia)[];
   return { ...result, results };
+};
+
+type GetGenreList = {
+  media: MediaType;
+};
+
+export const getGenreList = async ({ media }: GetGenreList) => {
+  const res = await fetchTMDB<{ genres: Genre[] }>(`genre/${media}/list`, {});
+  return res.genres;
 };
