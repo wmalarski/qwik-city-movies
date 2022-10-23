@@ -10,6 +10,7 @@ export const paths = {
   movies: "/movie",
   notFound: "/404",
   person: (id: number) => `/person/${id}`,
+  search: "/search",
   tv: "/tv",
   tvCategory: (category: string) => `/tv/categories/${category}`,
 };

@@ -4,16 +4,51 @@ import { paths } from "~/utils/paths";
 
 export const Navbar = component$(() => {
   return (
-    <nav class="h-screen bg-black p-2">
-      <ul class="flex flex-col gap-2 ">
-        <li>
-          <Link href={paths.index}>All</Link>
+    <nav class="h-screen bg-black px-4 py-8">
+      <ul class="flex flex-col gap-8">
+        <li class="hover:opacity-80">
+          <Link href={paths.index}>
+            <img
+              src="/images/home.svg"
+              width={24}
+              height={24}
+              alt="home"
+              aria-label="Home"
+            />
+          </Link>
         </li>
-        <li>
-          <Link href={paths.movies}>Movies</Link>
+        <li class="hover:opacity-80">
+          <Link href={paths.movies}>
+            <img
+              src="/images/movie.svg"
+              width={24}
+              height={24}
+              alt="movie"
+              aria-label="Movies"
+            />
+          </Link>
         </li>
-        <li>
-          <Link href={paths.tv}>TV</Link>
+        <li class="hover:opacity-80">
+          <Link href={paths.tv}>
+            <img
+              src="/images/tv.svg"
+              width={24}
+              height={24}
+              alt="tv"
+              aria-label="TV"
+            />
+          </Link>
+        </li>
+        <li class="hover:opacity-80">
+          <Link href={paths.search}>
+            <img
+              src="/images/magnifier.svg"
+              width={24}
+              height={24}
+              alt="search"
+              aria-label="Search"
+            />
+          </Link>
         </li>
       </ul>
     </nav>

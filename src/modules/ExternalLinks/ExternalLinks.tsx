@@ -8,7 +8,7 @@ type Props = {
 
 export const ExternalLinks = component$((props: Props) => {
   return (
-    <ul class="flex flex-row gap-4">
+    <ul class="flex flex-row gap-4 opacity-80">
       {props.links.twitter_id ? (
         <li>
           <a
@@ -17,9 +17,13 @@ export const ExternalLinks = component$((props: Props) => {
             aria-label="Twitter account"
             rel="noopener"
           >
-            {/* TODO: Icons */}
-            {/* <TwitterIcon width={24} height={24} /> */}
-            Twitter
+            <img
+              src="/images/twitter.svg"
+              width={20}
+              height={20}
+              alt="twitter"
+              class="scale-95 transition duration-300 ease-in-out hover:scale-110"
+            />
           </a>
         </li>
       ) : null}
@@ -31,8 +35,13 @@ export const ExternalLinks = component$((props: Props) => {
             aria-label="Facebook account"
             rel="noopener"
           >
-            {/* <FacebookIcon width={24} height={24} /> */}
-            Facebook
+            <img
+              src="/images/facebook.svg"
+              width={20}
+              height={20}
+              alt="facebook"
+              class="scale-95 transition duration-300 ease-in-out hover:scale-110"
+            />
           </a>
         </li>
       ) : null}
@@ -44,8 +53,13 @@ export const ExternalLinks = component$((props: Props) => {
             aria-label="Instagram account"
             rel="noopener"
           >
-            {/* <InstagramIcon width={24} height={24} /> */}
-            Instagram
+            <img
+              src="/images/instagram.svg"
+              width={20}
+              height={20}
+              alt="instagram"
+              class="scale-95 transition duration-300 ease-in-out hover:scale-110"
+            />
           </a>
         </li>
       ) : null}
@@ -59,8 +73,13 @@ export const ExternalLinks = component$((props: Props) => {
             aria-label="IMDb account"
             rel="noopener"
           >
-            {/* <IMDBIcon width={24} height={24} /> */}
-            IMDB
+            <img
+              src="/images/imdb.svg"
+              width={20}
+              height={20}
+              alt="imdb"
+              class="scale-95 transition duration-300 ease-in-out hover:scale-110"
+            />
           </a>
         </li>
       ) : null}
@@ -72,8 +91,13 @@ export const ExternalLinks = component$((props: Props) => {
             aria-label="Homepage"
             rel="noopener"
           >
-            {/* <LinkIcon width={24} height={24} /> */}
-            Homepage
+            <img
+              src="/images/link.svg"
+              width={20}
+              height={20}
+              alt="homepage"
+              class="scale-95 transition duration-300 ease-in-out hover:scale-110"
+            />
           </a>
         </li>
       ) : null}
