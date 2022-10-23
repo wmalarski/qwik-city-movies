@@ -42,7 +42,7 @@ export default component$(() => {
   useContextProvider(MovieResourceContext, resource);
 
   return (
-    <div class="flex flex-col gap-4 p-4">
+    <div class="flex flex-col gap-4">
       <Resource
         value={resource}
         onPending={() => <div>Loading...</div>}

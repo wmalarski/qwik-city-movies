@@ -4,8 +4,8 @@ import { paths } from "~/utils/paths";
 
 export const Navbar = component$(() => {
   return (
-    <nav class="h-screen">
-      <ul class="flex flex-col gap-2 p-2">
+    <nav class="h-screen bg-black p-2">
+      <ul class="flex flex-col gap-2 ">
         <li>
           <Link href={paths.index}>All</Link>
         </li>

@@ -1,5 +1,5 @@
 import { component$, Resource } from "@builder.io/qwik";
-import { useEndpoint, type DocumentHead } from "@builder.io/qwik-city";
+import { Link, useEndpoint, type DocumentHead } from "@builder.io/qwik-city";
 import { Carousel } from "~/modules/Carousel/Carousel";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
 import { TvHero } from "~/modules/TvHero/TvHero";
@@ -39,9 +39,17 @@ export default component$(() => {
       onPending={() => <div>Loading...</div>}
       onRejected={() => <div>Rejected</div>}
       onResolved={(data) => (
-        <div class="flex flex-col gap-4 p-4">
-          {data.featuredTv ? <TvHero media={data.featuredTv} /> : null}
-          {data.featuredMovie ? <MovieHero media={data.featuredMovie} /> : null}
+        <div class="flex flex-col gap-4">
+          {data.featuredTv ? (
+            <Link href={paths.media("tv", data.featuredTv.id)}>
+              <TvHero media={data.featuredTv} />
+            </Link>
+          ) : null}
+          {data.featuredMovie ? (
+            <Link href={paths.media("movie", data.featuredMovie.id)}>
+              <MovieHero media={data.featuredMovie} />
+            </Link>
+          ) : null}
           <Carousel
             collection={data.movies?.results || []}
             title={getListItem({ query: "trending", type: "movie" })}

@@ -1,8 +1,5 @@
 import { component$ } from "@builder.io/qwik";
-import { Link } from "@builder.io/qwik-city";
 import type { TvMedia } from "~/services/types";
-import { getHeading } from "~/utils/format";
-import { paths } from "~/utils/paths";
 
 type Props = {
   media: TvMedia;
@@ -10,42 +7,38 @@ type Props = {
 
 export const TvHero = component$((props: Props) => {
   return (
-    <section>
-      <Link href={paths.media("tv", props.media.id)}>
-        <div>
-          <div>
-            <img
-              // src={"https://image.tmdb.org/t/p/original" + props.item.backdrop_path}
-              src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${props.media.backdrop_path}`}
-              alt={getHeading(props.media)}
-              style={{ height: "100%" }}
-            />
-          </div>
+    <section class="bg-black">
+      <div class="relative aspect-square md:aspect-[3/2] lg:aspect-[25/9]">
+        <div class="absolute top-0 bottom-0 right-0 lg:left-1/3">
+          <img
+            // src={"https://image.tmdb.org/t/p/original" + props.item.backdrop_path}
+            src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${props.media.backdrop_path}`}
+            alt={props.media.name || props.media.original_name}
+            class="h-full w-full max-w-full object-cover"
+            height={255}
+          />
         </div>
-
-        <div>
+        <div class="absolute bottom-0 left-0 flex flex-col gap-2 bg-gradient-to-t from-black via-black to-transparent p-9 lg:w-2/3 lg:bg-gradient-to-r lg:px-24">
+          <h1 class="mt-2 text-4xl lg:text-5xl">
+            {props.media.name || props.media.original_name}
+          </h1>
           <div>
-            <h1>{getHeading(props.media)}</h1>
-            <div>
+            <div class="flex flex-row gap-4 opacity-50">
               <div>
-                <div>
-                  <div
-                    style={{
-                      width: `${(props.media.vote_average || 0) * 100}%`,
-                    }}
-                  />
+                <div
+                  style={{
+                    width: `${(props.media.vote_average || 0) * 100}%`,
+                  }}
+                >
+                  {props.media.vote_average}
                 </div>
-                <div>{props.media.vote_count} Reviews</div>
               </div>
-
-              <div>
-                <span>{props.media.first_air_date}</span>
-              </div>
+              <div>{`${props.media.vote_count} Reviews`}</div>
             </div>
-            <div>{props.media.overview}</div>
           </div>
+          <div>{props.media.overview}</div>
         </div>
-      </Link>
+      </div>
     </section>
   );
 });
