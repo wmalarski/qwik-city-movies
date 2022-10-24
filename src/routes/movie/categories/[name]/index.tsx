@@ -3,10 +3,14 @@ import {
   component$,
   Resource,
   useContext,
-  useResource$,
   useStore,
 } from "@builder.io/qwik";
-import { DocumentHead, RequestEvent, useLocation } from "@builder.io/qwik-city";
+import {
+  DocumentHead,
+  RequestEvent,
+  useEndpoint,
+  useLocation,
+} from "@builder.io/qwik-city";
 import { z } from "zod";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { ContainerContext } from "~/routes/context";
@@ -51,7 +55,7 @@ export default component$(() => {
     }
   );
 
-  const resource = useResource$(() => fetcher$(1));
+  const resource = useEndpoint<inferPromise<typeof onGet>>();
 
   const store = useStore({
     currentPage: 1,

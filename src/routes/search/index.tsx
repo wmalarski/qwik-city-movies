@@ -3,11 +3,11 @@ import {
   component$,
   Resource,
   useContext,
-  useResource$,
   useStore,
 } from "@builder.io/qwik";
 import {
   RequestEvent,
+  useEndpoint,
   useLocation,
   type DocumentHead,
 } from "@builder.io/qwik-city";
@@ -46,7 +46,7 @@ export default component$(() => {
     }
   );
 
-  const resource = useResource$(() => fetcher$(1));
+  const resource = useEndpoint<inferPromise<typeof onGet>>();
 
   const store = useStore({
     currentPage: 1,
