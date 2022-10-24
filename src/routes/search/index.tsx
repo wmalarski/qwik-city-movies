@@ -25,8 +25,13 @@ export default component$(() => {
         query: currentUrl.searchParams.get("query") || "",
       });
       const url = `${currentUrl.origin}${currentUrl.pathname}/api?${params}`;
-      const response = await fetch(url);
-      return response.json();
+      try {
+        const response = await fetch(url);
+        return response.json();
+      } catch (err) {
+        console.error(err);
+        throw err;
+      }
     }
   );
 

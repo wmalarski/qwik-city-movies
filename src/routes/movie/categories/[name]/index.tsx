@@ -22,8 +22,13 @@ export default component$(() => {
     async (page: number): Promise<inferPromise<typeof onGet>> => {
       const params = new URLSearchParams({ page: String(page) });
       const url = `${location.href}/api?${params}`;
-      const response = await fetch(url);
-      return response.json();
+      try {
+        const response = await fetch(url);
+        return response.json();
+      } catch (err) {
+        console.error(err);
+        throw err;
+      }
     }
   );
 
