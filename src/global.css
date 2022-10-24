@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body, html {
+  color-scheme: dark;
+}
+
 body {
   font-family: "Poppins", ui-sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, sans-serif;

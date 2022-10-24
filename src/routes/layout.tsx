@@ -6,7 +6,7 @@ export default component$(() => {
   return (
     <div class="flex h-screen w-screen flex-row">
       <Navbar />
-      <div class="w-full overflow-scroll">
+      <div class="w-full overflow-y-scroll">
         <main>
           <Slot />
         </main>

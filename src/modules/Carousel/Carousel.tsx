@@ -26,9 +26,9 @@ export const Carousel = component$((props: Props) => {
       </div>
       <div class="relative">
         <div class="overflow-y-auto py-4 px-8">
-          <div class="flex w-max flex-row gap-2">
+          <div class="carousel flex w-max flex-row gap-2">
             {props.collection?.map((media) => (
-              <div class="w-60" key={media.id}>
+              <div class="carousel-item w-60" key={media.id}>
                 <MediaCard media={media} />
               </div>
             ))}
