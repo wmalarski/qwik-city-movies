@@ -1,37 +1,37 @@
-import { component$, Resource } from "@builder.io/qwik";
-import { DocumentHead, RequestEvent, useEndpoint } from "@builder.io/qwik-city";
-import { z } from "zod";
+import {
+  $,
+  component$,
+  Resource,
+  useContext,
+  useResource$,
+  useStore,
+} from "@builder.io/qwik";
+import { DocumentHead, useLocation } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
-import type { inferPromise } from "~/services/types";
-import { paths } from "~/utils/paths";
-
-export const onGet = async (event: RequestEvent) => {
-  const parseResult = z
-    .object({ genreId: z.number().min(0).step(1) })
-    .safeParse({ genreId: +event.params.genreId });
-
-  if (!parseResult.success) {
-    throw event.response.redirect(paths.notFound);
-  }
-
-  const { getMediaByGenre, getGenreList } = await import("~/services/tmdb");
-
-  const [movies, genres] = await Promise.all([
-    getMediaByGenre({
-      genre: parseResult.data.genreId,
-      media: "movie",
-      page: 1,
-    }),
-    getGenreList({ media: "movie" }),
-  ]);
-
-  const genre = genres.find((genre) => genre.id === parseResult.data.genreId);
-
-  return { genre, movies };
-};
+import { ContainerContext } from "~/routes/context";
+import type { inferPromise, Media } from "~/services/types";
+import type { onGet } from "./api";
 
 export default component$(() => {
-  const resource = useEndpoint<inferPromise<typeof onGet>>();
+  const location = useLocation();
+
+  const container = useContext(ContainerContext);
+
+  const fetcher$ = $(
+    async (page: number): Promise<inferPromise<typeof onGet>> => {
+      const params = new URLSearchParams({ page: String(page) });
+      const url = `${location.href}/api?${params}`;
+      const response = await fetch(url);
+      return response.json();
+    }
+  );
+
+  const resource = useResource$(() => fetcher$(1));
+
+  const store = useStore({
+    currentPage: 1,
+    results: [] as Media[],
+  });
 
   return (
     <Resource
@@ -42,11 +42,15 @@ export default component$(() => {
         <div class="flex flex-col">
           <h1 class="px-8 pt-4 text-4xl">{`Movie Genre: ${data.genre?.name}`}</h1>
           <MediaGrid
-            collection={data.movies?.results}
-            currentPage={data.movies?.page || 1}
+            collection={[...(data.movies.results || []), ...store.results]}
+            currentPage={store.currentPage}
             pageCount={data.movies?.total_pages || 1}
-            onMore$={() => {
-              //
+            parentContainer={container.value}
+            onMore$={async () => {
+              const newResult = await fetcher$(store.currentPage + 1);
+              const newMedia = newResult.movies.results || [];
+              store.currentPage = newResult.movies.page || store.currentPage;
+              store.results = [...store.results, ...newMedia];
             }}
           />
         </div>
@@ -55,9 +59,6 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead<inferPromise<typeof onGet>> = (event) => {
-  const name = event.data?.genre?.name;
-  return {
-    title: `${name} Movies - Qwik City Movies`,
-  };
+export const head: DocumentHead = {
+  title: "Qwik City Movies",
 };

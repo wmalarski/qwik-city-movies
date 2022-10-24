@@ -18,12 +18,14 @@ export default component$(() => {
 
   const container = useContext(ContainerContext);
 
-  const fetcher$ = $(async (page: number) => {
-    const params = new URLSearchParams({ page: String(page) });
-    const url = `${location.href}/api?${params}`;
-    const response = await fetch(url);
-    return response.json() as inferPromise<typeof onGet>;
-  });
+  const fetcher$ = $(
+    async (page: number): Promise<inferPromise<typeof onGet>> => {
+      const params = new URLSearchParams({ page: String(page) });
+      const url = `${location.href}/api?${params}`;
+      const response = await fetch(url);
+      return response.json();
+    }
+  );
 
   const resource = useResource$(() => fetcher$(1));
 

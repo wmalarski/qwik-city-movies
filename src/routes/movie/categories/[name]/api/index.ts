@@ -3,7 +3,7 @@ import { z } from "zod";
 import { paths } from "~/utils/paths";
 
 export const onGet = async (event: RequestEvent) => {
-  const rawPage = event.url.searchParams.get("page") || "";
+  const rawPage = event.url.searchParams.get("page") || "1";
   const parseResult = z
     .object({ name: z.string().min(1), page: z.number().min(1).step(1) })
     .safeParse({ ...event.params, page: +rawPage });
