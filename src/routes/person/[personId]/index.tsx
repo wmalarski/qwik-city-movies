@@ -41,6 +41,9 @@ export default component$(() => {
               ...(data.combined_credits?.cast || []),
               ...(data.combined_credits?.crew || []),
             ]}
+            currentPage={1}
+            pageCount={1}
+            onMore$={() => void 0}
           />
         </div>
       )}

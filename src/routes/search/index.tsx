@@ -53,7 +53,14 @@ export default component$(() => {
         onRejected={() => <div>Rejected</div>}
         onResolved={(data) =>
           data ? (
-            <MediaGrid collection={data?.result?.results || []} />
+            <MediaGrid
+              collection={data.result?.results || []}
+              currentPage={data.result?.page || 1}
+              pageCount={data.result?.total_pages || 1}
+              onMore$={() => {
+                //
+              }}
+            />
           ) : (
             <span class="w-full py-40 text-center text-4xl opacity-60">
               Type something to search...

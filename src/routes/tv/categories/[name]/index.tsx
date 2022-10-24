@@ -49,7 +49,16 @@ export default component$(() => {
           value={resource}
           onPending={() => <div class="h-screen" />}
           onRejected={() => <div>Rejected</div>}
-          onResolved={(data) => <MediaGrid collection={data.results || []} />}
+          onResolved={(data) => (
+            <MediaGrid
+              collection={data.results || []}
+              currentPage={data.page || 1}
+              pageCount={data.total_pages || 1}
+              onMore$={() => {
+                //
+              }}
+            />
+          )}
         />
       </div>
     </div>
