@@ -43,7 +43,12 @@ export default component$(() => {
         <Resource
           value={resource}
           onPending={() => <div class="h-screen" />}
-          onRejected={() => <div>Rejected</div>}
+          onRejected={(e) => (
+            <div>
+              Rejected
+              <pre>{JSON.stringify(e, null, 2)}</pre>
+            </div>
+          )}
           onResolved={(data) => (
             <MediaGrid
               collection={[...(data.results || []), ...store.results]}
