@@ -29,7 +29,7 @@ export default component$(() => {
         const response = await fetch(url);
         return response.json();
       } catch (err) {
-        console.error(err);
+        console.log(err);
         throw err;
       }
     }
