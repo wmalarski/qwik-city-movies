@@ -1,43 +1,38 @@
-import { component$, Resource } from "@builder.io/qwik";
 import {
-  DocumentHead,
-  RequestEvent,
-  useEndpoint,
-  useLocation,
-} from "@builder.io/qwik-city";
-import { z } from "zod";
+  $,
+  component$,
+  Resource,
+  useContext,
+  useResource$,
+  useStore,
+} from "@builder.io/qwik";
+import { DocumentHead, useLocation } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
-import type { inferPromise } from "~/services/types";
+import { ContainerContext } from "~/routes/context";
+import type { inferPromise, Media } from "~/services/types";
 import { getListItem } from "~/utils/format";
-import { paths } from "~/utils/paths";
-
-export const onGet = async (event: RequestEvent) => {
-  const parseResult = z
-    .object({ name: z.string().min(1) })
-    .safeParse(event.params);
-
-  if (!parseResult.success) {
-    throw event.response.redirect(paths.notFound);
-  }
-
-  const { getTvShows, getTrending } = await import("~/services/tmdb");
-  const name = parseResult.data.name;
-
-  try {
-    const movies =
-      name === "trending"
-        ? await getTrending({ mediaType: "tv", page: 1 })
-        : await getTvShows({ page: 1, query: name });
-    return movies;
-  } catch {
-    throw event.response.redirect(paths.notFound);
-  }
-};
+import type { onGet } from "./api";
 
 export default component$(() => {
   const location = useLocation();
 
-  const resource = useEndpoint<inferPromise<typeof onGet>>();
+  const container = useContext(ContainerContext);
+
+  const fetcher$ = $(
+    async (page: number): Promise<inferPromise<typeof onGet>> => {
+      const params = new URLSearchParams({ page: String(page) });
+      const url = `${location.href}/api?${params}`;
+      const response = await fetch(url);
+      return response.json();
+    }
+  );
+
+  const resource = useResource$(() => fetcher$(1));
+
+  const store = useStore({
+    currentPage: 1,
+    results: [] as Media[],
+  });
 
   return (
     <div class="flex flex-col">
@@ -51,11 +46,15 @@ export default component$(() => {
           onRejected={() => <div>Rejected</div>}
           onResolved={(data) => (
             <MediaGrid
-              collection={data.results || []}
-              currentPage={data.page || 1}
+              collection={[...(data.results || []), ...store.results]}
+              currentPage={store.currentPage}
               pageCount={data.total_pages || 1}
-              onMore$={() => {
-                //
+              parentContainer={container.value}
+              onMore$={async () => {
+                const newResult = await fetcher$(store.currentPage + 1);
+                const newMedia = newResult.results || [];
+                store.currentPage = newResult.page || store.currentPage;
+                store.results = [...store.results, ...newMedia];
               }}
             />
           )}

@@ -43,7 +43,6 @@ export default component$(() => {
             ]}
             currentPage={1}
             pageCount={1}
-            onMore$={() => void 0}
           />
         </div>
       )}

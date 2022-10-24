@@ -5,15 +5,12 @@
 
 ## TODO List
 
-- [ ] - search/genres/categories infinite loop
 - [ ] - buttons in carousel
 - [ ] - person sub-pages
 - [ ] - tv show sub-pages
 - [ ] - movie images page
 - [ ] - check design and responsiveness
 - [ ] - check accessibility
-- [ ] - genre infinite loop
-- [ ] - deploy damn thing
 
 ## Links
 

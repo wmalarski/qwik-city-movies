@@ -58,7 +58,7 @@ export default component$(() => {
           <Carousel
             collection={data.tv?.results || []}
             title={getListItem({ query: "trending", type: "tv" })}
-            viewAllHref={paths.movieCategory("trending")}
+            viewAllHref={paths.tvCategory("trending")}
           />
         </div>
       )}

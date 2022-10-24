@@ -1,30 +1,41 @@
-import { component$, Resource } from "@builder.io/qwik";
 import {
-  RequestEvent,
-  useEndpoint,
-  useLocation,
-  type DocumentHead,
-} from "@builder.io/qwik-city";
+  $,
+  component$,
+  Resource,
+  useContext,
+  useResource$,
+  useStore,
+} from "@builder.io/qwik";
+import { useLocation, type DocumentHead } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
-import type { inferPromise } from "~/services/types";
-
-export const onGet = async (event: RequestEvent) => {
-  const query = event.url.searchParams.get("query");
-
-  if (!query) {
-    return null;
-  }
-
-  const { search } = await import("~/services/tmdb");
-  const result = await search({ page: 1, query });
-
-  return { query, result };
-};
+import type { inferPromise, Media } from "~/services/types";
+import { ContainerContext } from "../context";
+import { onGet } from "./api";
 
 export default component$(() => {
   const location = useLocation();
 
-  const resource = useEndpoint<inferPromise<typeof onGet>>();
+  const container = useContext(ContainerContext);
+
+  const fetcher$ = $(
+    async (page: number): Promise<inferPromise<typeof onGet>> => {
+      const currentUrl = new URL(location.href);
+      const params = new URLSearchParams({
+        page: String(page),
+        query: currentUrl.searchParams.get("query") || "",
+      });
+      const url = `${currentUrl.origin}${currentUrl.pathname}/api?${params}`;
+      const response = await fetch(url);
+      return response.json();
+    }
+  );
+
+  const resource = useResource$(() => fetcher$(1));
+
+  const store = useStore({
+    currentPage: 1,
+    results: [] as Media[],
+  });
 
   return (
     <div class="flex flex-col">
@@ -54,11 +65,15 @@ export default component$(() => {
         onResolved={(data) =>
           data ? (
             <MediaGrid
-              collection={data.result?.results || []}
-              currentPage={data.result?.page || 1}
+              collection={[...(data.result.results || []), ...store.results]}
+              currentPage={store.currentPage}
               pageCount={data.result?.total_pages || 1}
-              onMore$={() => {
-                //
+              parentContainer={container.value}
+              onMore$={async () => {
+                const newResult = await fetcher$(store.currentPage + 1);
+                const newMedia = newResult?.result.results || [];
+                store.currentPage = newResult?.result.page || store.currentPage;
+                store.results = [...store.results, ...newMedia];
               }}
             />
           ) : (
