@@ -6,11 +6,27 @@ import {
   useResource$,
   useStore,
 } from "@builder.io/qwik";
-import { useLocation, type DocumentHead } from "@builder.io/qwik-city";
+import {
+  RequestEvent,
+  useLocation,
+  type DocumentHead,
+} from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import type { inferPromise, Media } from "~/services/types";
 import { ContainerContext } from "../context";
-import { onGet } from "./api";
+
+export const onGet = async (event: RequestEvent) => {
+  const query = event.url.searchParams.get("query");
+
+  if (!query) {
+    return null;
+  }
+
+  const { search } = await import("~/services/tmdb");
+  const result = await search({ page: 1, query });
+
+  return { query, result };
+};
 
 export default component$(() => {
   const location = useLocation();
@@ -25,13 +41,8 @@ export default component$(() => {
         query: currentUrl.searchParams.get("query") || "",
       });
       const url = `${currentUrl.origin}${currentUrl.pathname}/api?${params}`;
-      try {
-        const response = await fetch(url);
-        return response.json();
-      } catch (err) {
-        console.log(err);
-        throw err;
-      }
+      const response = await fetch(url);
+      return response.json();
     }
   );
 

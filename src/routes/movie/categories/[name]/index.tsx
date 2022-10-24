@@ -6,12 +6,36 @@ import {
   useResource$,
   useStore,
 } from "@builder.io/qwik";
-import { DocumentHead, useLocation } from "@builder.io/qwik-city";
+import { DocumentHead, RequestEvent, useLocation } from "@builder.io/qwik-city";
+import { z } from "zod";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { ContainerContext } from "~/routes/context";
 import type { inferPromise, Media } from "~/services/types";
 import { getListItem } from "~/utils/format";
-import type { onGet } from "./api";
+import { paths } from "~/utils/paths";
+
+export const onGet = async (event: RequestEvent) => {
+  const parseResult = z
+    .object({ name: z.string().min(1) })
+    .safeParse({ ...event.params });
+
+  if (!parseResult.success) {
+    throw event.response.redirect(paths.notFound);
+  }
+
+  const { getMovies, getTrending } = await import("~/services/tmdb");
+  const name = parseResult.data.name;
+
+  try {
+    const movies =
+      name === "trending"
+        ? await getTrending({ mediaType: "movie", page: 1 })
+        : await getMovies({ page: 1, query: name });
+    return movies;
+  } catch {
+    throw event.response.redirect(paths.notFound);
+  }
+};
 
 export default component$(() => {
   const location = useLocation();
@@ -22,13 +46,8 @@ export default component$(() => {
     async (page: number): Promise<inferPromise<typeof onGet>> => {
       const params = new URLSearchParams({ page: String(page) });
       const url = `${location.href}/api?${params}`;
-      try {
-        const response = await fetch(url);
-        return response.json();
-      } catch (err) {
-        console.log(err);
-        throw err;
-      }
+      const response = await fetch(url);
+      return response.json();
     }
   );
 
