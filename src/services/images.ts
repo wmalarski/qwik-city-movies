@@ -10,12 +10,6 @@ export const getBackdrop = (media: ProductionMedia, size: BackdropSizes) => {
   }
 };
 
-type LogoSizes = "w45" | "w92" | "w154" | "w185" | "w300" | "w500" | "original";
-
-export const getLogo = (logoPath: string, size: LogoSizes) => {
-  return `${imageBase}/${size}${logoPath}`;
-};
-
 type PosterSizes =
   | "w92"
   | "w154"
