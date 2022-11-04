@@ -1,7 +1,7 @@
 import { component$, Resource, useContext } from "@builder.io/qwik";
 import { DocumentHead } from "@builder.io/qwik-city";
-import { Carousel } from "~/modules/Carousel/Carousel";
 import { MovieInfoCard } from "~/modules/MovieInfoCard/MovieInfoCard";
+import { PersonCarousel } from "~/modules/PersonCarousel/PersonCarousel";
 import { MovieResourceContext } from "../context";
 
 export default component$(() => {
@@ -15,7 +15,7 @@ export default component$(() => {
       onResolved={(data) => (
         <flex class="flex flex-col">
           <MovieInfoCard media={data} />
-          <Carousel collection={data.credits?.cast || []} title="Cast" />
+          <PersonCarousel collection={data.credits?.cast || []} title="Cast" />
         </flex>
       )}
     />

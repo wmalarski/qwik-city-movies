@@ -27,13 +27,13 @@ export const onGet = async (event: RequestEvent) => {
     throw event.response.redirect(paths.notFound);
   }
 
-  const { getMovies, getTrending } = await import("~/services/tmdb");
+  const { getMovies, getTrendingMovie } = await import("~/services/tmdb");
   const name = parseResult.data.name;
 
   try {
     const movies =
       name === "trending"
-        ? await getTrending({ mediaType: "movie", page: 1 })
+        ? await getTrendingMovie({ page: 1 })
         : await getMovies({ page: 1, query: name });
     return movies;
   } catch {

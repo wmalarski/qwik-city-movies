@@ -1,23 +1,27 @@
 import { component$, Resource } from "@builder.io/qwik";
 import { Link, useEndpoint, type DocumentHead } from "@builder.io/qwik-city";
-import { Carousel } from "~/modules/Carousel/Carousel";
+import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
 import { TvHero } from "~/modules/TvHero/TvHero";
-import type { inferPromise } from "~/services/types";
+import type { inferPromise, MovieMedia, TvMedia } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
 export const onGet = async () => {
-  const { getTrending, getRandomMedia, getMovie, getTvShow } = await import(
-    "~/services/tmdb"
-  );
+  const {
+    getTrendingTv,
+    getTrendingMovie,
+    getRandomMedia,
+    getMovie,
+    getTvShow,
+  } = await import("~/services/tmdb");
 
   const [movies, tv] = await Promise.all([
-    getTrending({ mediaType: "movie", page: 1 }),
-    getTrending({ mediaType: "tv", page: 1 }),
+    getTrendingMovie({ page: 1 }),
+    getTrendingTv({ page: 1 }),
   ]);
 
-  const random = getRandomMedia({
+  const random = getRandomMedia<TvMedia | MovieMedia>({
     collections: [movies, tv],
   });
 
@@ -50,12 +54,12 @@ export default component$(() => {
               <MovieHero media={data.featuredMovie} />
             </Link>
           ) : null}
-          <Carousel
+          <MediaCarousel
             collection={data.movies?.results || []}
             title={getListItem({ query: "trending", type: "movie" })}
             viewAllHref={paths.movieCategory("trending")}
           />
-          <Carousel
+          <MediaCarousel
             collection={data.tv?.results || []}
             title={getListItem({ query: "trending", type: "tv" })}
             viewAllHref={paths.tvCategory("trending")}

@@ -1,6 +1,6 @@
 import { component$, Resource } from "@builder.io/qwik";
 import { Link, useEndpoint, type DocumentHead } from "@builder.io/qwik-city";
-import { Carousel } from "~/modules/Carousel/Carousel";
+import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
 import type { inferPromise } from "~/services/types";
 import { getListItem } from "~/utils/format";
@@ -41,17 +41,17 @@ export default component$(() => {
               <MovieHero media={data.featured} />
             </Link>
           ) : null}
-          <Carousel
+          <MediaCarousel
             collection={data.popular?.results || []}
             title={getListItem({ query: "popular", type: "movie" })}
             viewAllHref={paths.movieCategory("popular")}
           />
-          <Carousel
+          <MediaCarousel
             collection={data.topRated?.results || []}
             title={getListItem({ query: "top_rated", type: "movie" })}
             viewAllHref={paths.movieCategory("top_rated")}
           />
-          <Carousel
+          <MediaCarousel
             collection={data.nowPlaying?.results || []}
             title={getListItem({ query: "now_playing", type: "movie" })}
             viewAllHref={paths.movieCategory("now_playing")}

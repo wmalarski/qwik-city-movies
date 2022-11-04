@@ -1,9 +1,9 @@
 import { $, component$, PropFunction, useSignal } from "@builder.io/qwik";
-import type { Media } from "~/services/types";
+import type { MovieMedia, TvMedia } from "~/services/types";
 import { MediaCard } from "../MediaCard/MediaCard";
 
 type Props = {
-  collection: Media[];
+  collection: (TvMedia | MovieMedia)[];
   currentPage: number;
   pageCount: number;
   onMore$?: PropFunction<() => void>;

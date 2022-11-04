@@ -1,6 +1,6 @@
 import { component$, Resource } from "@builder.io/qwik";
 import { Link, useEndpoint, type DocumentHead } from "@builder.io/qwik-city";
-import { Carousel } from "~/modules/Carousel/Carousel";
+import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { TvHero } from "~/modules/TvHero/TvHero";
 import type { inferPromise } from "~/services/types";
 import { getListItem } from "~/utils/format";
@@ -40,22 +40,22 @@ export default component$(() => {
           <Link href={paths.media("tv", data.featured?.id)}>
             <TvHero media={data.featured} />
           </Link>
-          <Carousel
+          <MediaCarousel
             collection={data.popular?.results || []}
             title={getListItem({ query: "popular", type: "tv" })}
             viewAllHref={paths.tvCategory("popular")}
           />
-          <Carousel
+          <MediaCarousel
             collection={data.topRated?.results || []}
             title={getListItem({ query: "top_rated", type: "tv" })}
             viewAllHref={paths.tvCategory("top_rated")}
           />
-          <Carousel
+          <MediaCarousel
             collection={data.onTheAir?.results || []}
             title={getListItem({ query: "on_the_air", type: "tv" })}
             viewAllHref={paths.tvCategory("on_the_air")}
           />
-          <Carousel
+          <MediaCarousel
             collection={data.airingToday?.results || []}
             title={getListItem({ query: "airing_today", type: "tv" })}
             viewAllHref={paths.tvCategory("airing_today")}

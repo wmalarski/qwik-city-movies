@@ -4,7 +4,6 @@ import type {
   Genre,
   Media,
   MediaType,
-  MediaTypeArg,
   MovieMedia,
   MovieMediaDetails,
   PersonMediaDetails,
@@ -34,13 +33,22 @@ const fetchTMDB = async <T = unknown>(
   return response.json() as T;
 };
 
-type GetTrending = {
-  mediaType: MediaTypeArg;
+type GetTrendingTv = {
   page: number;
 };
 
-export const getTrending = ({ mediaType, page }: GetTrending) => {
-  return fetchTMDB<Collection<Media>>(`trending/${mediaType}/week`, {
+export const getTrendingTv = ({ page }: GetTrendingTv) => {
+  return fetchTMDB<Collection<TvMedia>>(`trending/tv/week`, {
+    page: String(page),
+  });
+};
+
+type GetTrendingMovie = {
+  page: number;
+};
+
+export const getTrendingMovie = ({ page }: GetTrendingMovie) => {
+  return fetchTMDB<Collection<MovieMedia>>(`trending/movie/week`, {
     page: String(page),
   });
 };

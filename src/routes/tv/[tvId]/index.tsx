@@ -1,8 +1,8 @@
 import { component$, Resource } from "@builder.io/qwik";
 import { DocumentHead, RequestEvent, useEndpoint } from "@builder.io/qwik-city";
 import { z } from "zod";
-import { Carousel } from "~/modules/Carousel/Carousel";
 import { MovieInfoCard } from "~/modules/MovieInfoCard/MovieInfoCard";
+import { PersonCarousel } from "~/modules/PersonCarousel/PersonCarousel";
 import { TvHero } from "~/modules/TvHero/TvHero";
 import type { inferPromise } from "~/services/types";
 import { paths } from "~/utils/paths";
@@ -38,7 +38,7 @@ export default component$(() => {
         <flex class="flex flex-col">
           <TvHero media={data} />
           <MovieInfoCard media={data} />
-          <Carousel collection={data?.credits?.cast || []} title="Cast" />
+          <PersonCarousel collection={data?.credits?.cast || []} title="Cast" />
         </flex>
       )}
     />
