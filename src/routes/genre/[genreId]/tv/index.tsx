@@ -9,7 +9,7 @@ import {
 import { DocumentHead, useLocation } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { ContainerContext } from "~/routes/context";
-import type { inferPromise, Media } from "~/services/types";
+import type { inferPromise, ProductionMedia } from "~/services/types";
 import type { onGet } from "./api";
 
 export default component$(() => {
@@ -30,7 +30,7 @@ export default component$(() => {
 
   const store = useStore({
     currentPage: 1,
-    results: [] as Media[],
+    results: [] as ProductionMedia[],
   });
 
   return (

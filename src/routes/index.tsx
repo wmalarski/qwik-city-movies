@@ -3,7 +3,7 @@ import { Link, useEndpoint, type DocumentHead } from "@builder.io/qwik-city";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
 import { TvHero } from "~/modules/TvHero/TvHero";
-import type { inferPromise, MovieMedia, TvMedia } from "~/services/types";
+import type { inferPromise, ProductionMedia } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
@@ -21,7 +21,7 @@ export const onGet = async () => {
     getTrendingTv({ page: 1 }),
   ]);
 
-  const random = getRandomMedia<TvMedia | MovieMedia>({
+  const random = getRandomMedia<ProductionMedia>({
     collections: [movies, tv],
   });
 

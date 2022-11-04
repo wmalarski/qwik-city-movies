@@ -38,11 +38,13 @@ export type MovieMedia = {
   vote_count?: number;
 };
 
+export type ProductionMedia = TvMedia | MovieMedia;
+
 export type PersonMedia = {
   profile_path?: string;
   adult?: boolean;
   id: number;
-  known_for?: (TvMedia | MovieMedia)[];
+  known_for?: ProductionMedia[];
   name?: string;
   popularity?: number;
   media_type?: "person";
@@ -58,8 +60,8 @@ export type PersonMediaDetails = PersonMedia & {
   deathday?: string;
   place_of_birth?: string;
   combined_credits?: {
-    cast: (TvMedia | MovieMedia)[];
-    crew: (TvMedia | MovieMedia)[];
+    cast: ProductionMedia[];
+    crew: ProductionMedia[];
   };
 };
 
@@ -125,11 +127,7 @@ export type TvMediaDetails = TvMedia & MediaDetails;
 
 export type MovieMediaDetails = MovieMedia & MediaDetails;
 
-export type Media = MovieMedia | TvMedia | PersonMedia;
-
-export type MediaType = Media["media_type"];
-
-export type MediaTypeArg = "all" | MediaType;
+export type MediaType = "movie" | "tv" | "person";
 
 export type Collection<T> = {
   page?: number;

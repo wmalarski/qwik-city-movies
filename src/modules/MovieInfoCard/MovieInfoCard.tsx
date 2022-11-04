@@ -87,21 +87,24 @@ export const MovieInfoCard = component$((props: Props) => {
                 <div>{formatCurrency(props.media.revenue)}</div>
               </>
             ) : null}
-            {props.media.genres ? (
+            {props.media.media_type && props.media.genres ? (
               <>
                 <div>Genre</div>
                 <div>
-                  {props.media.genres.map((genre, i, arr) => (
-                    <>
-                      <Link
-                        class="link"
-                        href={paths.genre(props.media.media_type, genre.id)}
-                      >
-                        {genre.name}
-                      </Link>
-                      {i < arr.length - 1 ? ", " : ""}
-                    </>
-                  ))}
+                  {props.media.genres.map(
+                    (genre, i, arr) =>
+                      props.media.media_type && (
+                        <>
+                          <Link
+                            class="link"
+                            href={paths.genre(props.media.media_type, genre.id)}
+                          >
+                            {genre.name}
+                          </Link>
+                          {i < arr.length - 1 ? ", " : ""}
+                        </>
+                      )
+                  )}
                 </div>
               </>
             ) : null}

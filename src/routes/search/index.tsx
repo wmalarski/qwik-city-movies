@@ -12,7 +12,7 @@ import {
   type DocumentHead,
 } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
-import type { inferPromise, Media } from "~/services/types";
+import type { inferPromise, ProductionMedia } from "~/services/types";
 import { ContainerContext } from "../context";
 
 export const onGet = async (event: RequestEvent) => {
@@ -50,7 +50,7 @@ export default component$(() => {
 
   const store = useStore({
     currentPage: 1,
-    results: [] as Media[],
+    results: [] as ProductionMedia[],
   });
 
   return (

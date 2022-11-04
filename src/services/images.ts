@@ -1,10 +1,10 @@
-import type { Media } from "./types";
+import type { PersonMedia, ProductionMedia } from "./types";
 
 const imageBase = "https://image.tmdb.org/t/p";
 
 type BackdropSizes = "w300" | "w780" | "w1280" | "original";
 
-export const getBackdrop = (media: Media, size: BackdropSizes) => {
+export const getBackdrop = (media: ProductionMedia, size: BackdropSizes) => {
   if ("backdrop_path" in media) {
     return `${imageBase}/${size}${media.backdrop_path}`;
   }
@@ -25,7 +25,7 @@ type PosterSizes =
   | "w780"
   | "original";
 
-export const getPoster = (media: Media, size: PosterSizes) => {
+export const getPoster = (media: ProductionMedia, size: PosterSizes) => {
   if ("poster_path" in media) {
     return `${imageBase}/${size}${media.poster_path}`;
   }
@@ -33,7 +33,7 @@ export const getPoster = (media: Media, size: PosterSizes) => {
 
 type ProfileSizes = "w45" | "w185" | "h632" | "original";
 
-export const getProfile = (media: Media, size: ProfileSizes) => {
+export const getProfile = (media: PersonMedia, size: ProfileSizes) => {
   if ("profile_path" in media) {
     return `${imageBase}/${size}${media.profile_path}`;
   }

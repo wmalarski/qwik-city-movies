@@ -1,10 +1,10 @@
 import { component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
-import type { MovieMedia, TvMedia } from "~/services/types";
+import type { ProductionMedia } from "~/services/types";
 import { MediaCard } from "../MediaCard/MediaCard";
 
 type Props = {
-  collection: (TvMedia | MovieMedia)[];
+  collection: ProductionMedia[];
   title: string;
   viewAllHref: string;
 };

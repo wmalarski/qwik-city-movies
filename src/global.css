@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body, html {
+body,
+html {
   color-scheme: dark;
 }
 

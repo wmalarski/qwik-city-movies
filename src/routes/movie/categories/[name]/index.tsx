@@ -14,7 +14,7 @@ import {
 import { z } from "zod";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { ContainerContext } from "~/routes/context";
-import type { inferPromise, Media } from "~/services/types";
+import type { inferPromise, ProductionMedia } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
@@ -59,7 +59,7 @@ export default component$(() => {
 
   const store = useStore({
     currentPage: 1,
-    results: [] as Media[],
+    results: [] as ProductionMedia[],
   });
 
   return (

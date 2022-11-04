@@ -2,11 +2,11 @@ import { serverEnv } from "~/env/server";
 import type {
   Collection,
   Genre,
-  Media,
   MediaType,
   MovieMedia,
   MovieMediaDetails,
   PersonMediaDetails,
+  ProductionMedia,
   TvMedia,
   TvMediaDetails,
 } from "./types";
@@ -127,7 +127,7 @@ type Search = {
 };
 
 export const search = ({ query, page }: Search) => {
-  return fetchTMDB<Collection<Media>>("search/multi", {
+  return fetchTMDB<Collection<ProductionMedia>>("search/multi", {
     page: String(page),
     query,
   });

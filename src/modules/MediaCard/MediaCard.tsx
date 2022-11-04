@@ -2,12 +2,12 @@ import { component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import { Stars } from "~/components/Stars/Stars";
 import { getPoster } from "~/services/images";
-import type { MovieMedia, TvMedia } from "~/services/types";
+import type { ProductionMedia } from "~/services/types";
 import { paths } from "~/utils/paths";
 import { getHeading, getMediaType } from "./MediaCard.utils";
 
 type Props = {
-  media: TvMedia | MovieMedia;
+  media: ProductionMedia;
 };
 
 export const MediaCard = component$((props: Props) => {
