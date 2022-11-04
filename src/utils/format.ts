@@ -34,15 +34,6 @@ export const getHeading = (media: Media): string | undefined => {
   }
 };
 
-export const getImgSrc = (media: Media): string | null | undefined => {
-  if ("poster_path" in media) {
-    return media.poster_path;
-  }
-  if ("profile_path" in media) {
-    return media.profile_path;
-  }
-};
-
 export function formatDate(date: string) {
   return new Date(date).toLocaleDateString("en-us", {
     day: "numeric",

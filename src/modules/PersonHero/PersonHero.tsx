@@ -1,4 +1,5 @@
 import { component$ } from "@builder.io/qwik";
+import { getProfile } from "~/services/images";
 import type { PersonMediaDetails } from "~/services/types";
 import { formatDate } from "~/utils/format";
 import { ExternalLinks } from "../ExternalLinks/ExternalLinks";
@@ -22,18 +23,17 @@ export const PersonHero = component$((props: Props) => {
 
   return (
     <section class="flex justify-center p-6">
-      <div class="flex max-w-5xl  flex-row items-center gap-8">
+      <div class="flex max-w-5xl flex-row items-center gap-8">
         <div class="hidden flex-grow md:flex">
           {props.person.profile_path ? (
             <div class="min-w-max">
-              <img
-                src={
-                  "https://image.tmdb.org/t/p/w370_and_h556_bestv2" +
-                  props.person.profile_path
-                }
-                alt={props.person.name}
-                class="w-80"
-              />
+              <picture>
+                <img
+                  alt={props.person.name}
+                  class="w-80"
+                  src={getProfile(props.person, "w185")}
+                />
+              </picture>
             </div>
           ) : null}
         </div>

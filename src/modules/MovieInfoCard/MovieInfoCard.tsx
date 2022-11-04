@@ -1,6 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import { ExternalLinks } from "~/modules/ExternalLinks/ExternalLinks";
+import { getPoster } from "~/services/images";
 import type { MovieMediaDetails, TvMediaDetails } from "~/services/types";
 import {
   formatCurrency,
@@ -29,11 +30,13 @@ export const MovieInfoCard = component$((props: Props) => {
       <div class="flex max-w-5xl flex-row items-center gap-8">
         <div class="hidden flex-grow md:flex">
           <div class="min-w-max">
-            <img
-              class="w-80"
-              alt="name"
-              src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${props.media.poster_path}`}
-            />
+            <picture>
+              <img
+                alt="Poster"
+                class="h-full w-full max-w-full object-cover"
+                src={getPoster(props.media, "w342")}
+              />
+            </picture>
           </div>
         </div>
 
