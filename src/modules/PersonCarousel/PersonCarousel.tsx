@@ -18,7 +18,7 @@ export const PersonCarousel = component$((props: Props) => {
         <div class="overflow-y-auto py-4 px-8">
           <div class="carousel flex w-max flex-row gap-2">
             {props.collection?.map((media) => (
-              <div class="carousel-item w-60" key={media.id}>
+              <div class="carousel-item" key={media.id}>
                 <PersonCarouselItem media={media} />
               </div>
             ))}

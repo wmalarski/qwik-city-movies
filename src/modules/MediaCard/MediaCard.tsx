@@ -20,7 +20,7 @@ export const MediaCard = component$((props: Props) => {
         <picture>
           <img
             alt={heading}
-            class="h-full w-full max-w-full object-cover"
+            class="h-[400px] w-full max-w-full object-cover"
             src={getPoster(props.media, "w185")}
           />
         </picture>

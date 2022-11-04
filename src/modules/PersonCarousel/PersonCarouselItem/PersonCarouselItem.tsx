@@ -12,10 +12,10 @@ export const PersonCarouselItem = component$((props: Props) => {
   return (
     <Link href={paths.media("person", props.media.id)}>
       <div class="transition-scale scale-95 border-4 border-base-300 duration-300 ease-in-out hover:scale-100">
-        <picture>
+        <picture class="h-full w-full">
           <img
             alt={props.media.name}
-            class="h-full w-full max-w-full object-cover"
+            class="h-60 w-full max-w-full object-cover"
             src={getProfile(props.media, "w185")}
           />
         </picture>
