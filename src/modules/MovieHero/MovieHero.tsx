@@ -35,7 +35,7 @@ export const MovieHero = component$((props: Props) => {
           <div>
             <div class="flex flex-row gap-4">
               <Stars rating={props.media.vote_average} />
-              <div class="text-sm opacity-50">{`${props.media.vote_count} Reviews`}</div>
+              <div class="text-sm opacity-80">{`${props.media.vote_count} Reviews`}</div>
             </div>
           </div>
           <div>{props.media.overview}</div>

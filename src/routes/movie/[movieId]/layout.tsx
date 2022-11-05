@@ -57,7 +57,7 @@ export default component$(() => {
       <div class="flex flex-row items-center justify-center gap-4">
         <Link
           href={overviewHref}
-          class={clsx("p-2 text-xl uppercase opacity-50", {
+          class={clsx("p-2 text-xl uppercase opacity-80", {
             "border-b-2 border-b-white opacity-100":
               overviewHref === location.pathname,
           })}
@@ -66,7 +66,7 @@ export default component$(() => {
         </Link>
         <Link
           href={videoHref}
-          class={clsx("p-2 text-xl uppercase opacity-50", {
+          class={clsx("p-2 text-xl uppercase opacity-80", {
             "border-b-2 border-b-white opacity-100":
               videoHref === location.pathname,
           })}
@@ -75,7 +75,7 @@ export default component$(() => {
         </Link>
         <Link
           href={photosHref}
-          class={clsx("p-2 text-xl uppercase opacity-50", {
+          class={clsx("p-2 text-xl uppercase opacity-80", {
             "border-b-2 border-b-white opacity-100":
               photosHref === location.pathname,
           })}

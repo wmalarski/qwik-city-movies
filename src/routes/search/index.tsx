@@ -99,7 +99,7 @@ export default component$(() => {
                 }}
               />
             ) : (
-              <span class="w-full py-40 text-center text-4xl opacity-60">
+              <span class="w-full py-40 text-center text-4xl opacity-80">
                 Type something to search...
               </span>
             )}

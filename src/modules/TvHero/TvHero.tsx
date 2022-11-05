@@ -32,7 +32,7 @@ export const TvHero = component$((props: Props) => {
             {props.media.name || props.media.original_name}
           </h1>
           <div>
-            <div class="flex flex-row gap-4 opacity-50">
+            <div class="flex flex-row gap-4 opacity-80">
               <div>
                 <div
                   style={{ width: `${(props.media.vote_average || 0) * 100}%` }}

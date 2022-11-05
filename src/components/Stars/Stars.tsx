@@ -16,7 +16,7 @@ export const Stars = component$((props: Props) => {
         alt="rating"
         style={{ clipPath: `inset(0px ${100 - value * 10}% 0px 0px)` }}
       />
-      <div class="text-sm opacity-60">{value}</div>
+      <div class="text-sm opacity-80">{value}</div>
     </div>
   );
 });

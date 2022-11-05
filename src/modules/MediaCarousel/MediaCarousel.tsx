@@ -16,7 +16,7 @@ export const MediaCarousel = component$((props: Props) => {
         <h2 class="text-2xl text-white">{props.title}</h2>
         <div class="flex-auto" />
         <Link
-          class="transition-text opacity-50 duration-100 ease-in-out hover:text-qwik-light-blue hover:opacity-100"
+          class="transition-text opacity-80 duration-100 ease-in-out hover:text-qwik-light-blue hover:opacity-100"
           href={props.viewAllHref}
         >
           Explore All
