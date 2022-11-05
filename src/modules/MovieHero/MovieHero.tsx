@@ -15,12 +15,16 @@ export const MovieHero = component$((props: Props) => {
           <picture>
             <source
               srcSet={getBackdrop(props.media, "w1280")}
-              media="(min-width: 1280px)"
+              media="(min-width: 780px)"
+            />
+            <source
+              srcSet={getBackdrop(props.media, "w780")}
+              media="(min-width: 300px)"
             />
             <img
               alt={props.media.title || props.media.original_title}
               class="h-full w-full max-w-full object-cover"
-              src={getBackdrop(props.media, "w780")}
+              src={getBackdrop(props.media, "w300")}
             />
           </picture>
         </div>
