@@ -82,26 +82,29 @@ export default component$(() => {
             Rejected <pre>{JSON.stringify(e, null, 2)}</pre>
           </div>
         )}
-        onResolved={(data) =>
-          data ? (
-            <MediaGrid
-              collection={[...(data.result.results || []), ...store.results]}
-              currentPage={store.currentPage}
-              pageCount={data.result?.total_pages || 1}
-              parentContainer={container.value}
-              onMore$={async () => {
-                const newResult = await fetcher$(store.currentPage + 1);
-                const newMedia = newResult?.result.results || [];
-                store.currentPage = newResult?.result.page || store.currentPage;
-                store.results = [...store.results, ...newMedia];
-              }}
-            />
-          ) : (
-            <span class="w-full py-40 text-center text-4xl opacity-60">
-              Type something to search...
-            </span>
-          )
-        }
+        onResolved={(data) => (
+          <>
+            {data ? (
+              <MediaGrid
+                collection={[...(data.result.results || []), ...store.results]}
+                currentPage={store.currentPage}
+                pageCount={data.result?.total_pages || 1}
+                parentContainer={container.value}
+                onMore$={async () => {
+                  const newResult = await fetcher$(store.currentPage + 1);
+                  const newMedia = newResult?.result.results || [];
+                  store.currentPage =
+                    newResult?.result.page || store.currentPage;
+                  store.results = [...store.results, ...newMedia];
+                }}
+              />
+            ) : (
+              <span class="w-full py-40 text-center text-4xl opacity-60">
+                Type something to search...
+              </span>
+            )}
+          </>
+        )}
       />
     </div>
   );
