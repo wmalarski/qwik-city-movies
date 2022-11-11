@@ -38,20 +38,20 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@builder.io/qwik-city@0.0.118":
-  version "0.0.118"
-  resolved "https://registry.yarnpkg.com/@builder.io/qwik-city/-/qwik-city-0.0.118.tgz#0729b4939f5adca81c74c8fd13e4b106b29a66a6"
-  integrity sha512-vkc20xK3HUr6rviVpDeOwbzCfo6QTjZWBL9oyGYcYLfqqC1gvvuc+zf548APAwbTQa+4/7pzJCNMVixvDyD/4g==
+"@builder.io/qwik-city@0.0.112":
+  version "0.0.112"
+  resolved "https://registry.yarnpkg.com/@builder.io/qwik-city/-/qwik-city-0.0.112.tgz#eeed5a4f50b782ada151ac1ff9b9f95be48b6869"
+  integrity sha512-fHkmfdBPo3rghVRVeZm84S+GGNi2MdikP18MYkMexVDm1RiDe3Bg3BrZQ4A+YqG465W83Ouu+fY399OZeCkcLw==
   dependencies:
-    "@mdx-js/mdx" "2.1.5"
-    "@types/mdx" "2.0.3"
+    "@mdx-js/mdx" "2.1.3"
+    "@types/mdx" "2.0.2"
     source-map "0.7.4"
     vfile "5.3.5"
 
-"@builder.io/qwik@0.12.1":
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/@builder.io/qwik/-/qwik-0.12.1.tgz#77a7bde7ff96cca9bd72e20797744dfd7eaeee50"
-  integrity sha512-ePxm9tr6qa+cNySuIhXOElozkkqdRfyPvEPEV659QJSq704C031/VC0S2lqqvKsc9+ZogBlejGuYWLmtRrsT6w==
+"@builder.io/qwik@0.11.1":
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/@builder.io/qwik/-/qwik-0.11.1.tgz#5adfef5babde9cbac1f07c80bd3ae83c94e076fd"
+  integrity sha512-pD4rN1XpYqkUkDcvvwPFkkE78tSCyylbe0SnD4A6tA+stiCGt7NINTn6N8cxngGKunSuc9hPBA7hrP5I9g1aDA==
 
 "@cush/relative@^1.0.0":
   version "1.0.0"
@@ -102,10 +102,10 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@mdx-js/mdx@2.1.5":
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/@mdx-js/mdx/-/mdx-2.1.5.tgz#577937349fd555154382c2f805f5f52834a64903"
-  integrity sha512-zEG0lt+Bl/r5U6e0TOS7qDbsXICtemfAPquxWFsMbdzrvlWaqMGemLl+sjVpqlyaaiCiGVQBSGdCk0t1qXjkQg==
+"@mdx-js/mdx@2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@mdx-js/mdx/-/mdx-2.1.3.tgz#d5821920ebe546b45192f4c7a64dcc68a658f7f9"
+  integrity sha512-ahbb47HJIJ4xnifaL06tDJiSyLEy1EhFAStO7RZIm3GTa7yGW3NGhZaj+GUCveFgl5oI54pY4BgiLmYm97y+zg==
   dependencies:
     "@types/estree-jsx" "^1.0.0"
     "@types/mdx" "^2.0.0"
@@ -125,10 +125,10 @@
     unist-util-visit "^4.0.0"
     vfile "^5.0.0"
 
-"@netlify/vite-plugin-netlify-edge@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@netlify/vite-plugin-netlify-edge/-/vite-plugin-netlify-edge-1.1.1.tgz#d1e894fcd3711c787f4586565908edd52248716a"
-  integrity sha512-s/FVk0L87+boNPPW9OkTEFLsYPIKK/e6huj/MWb4ukoC0S2iDhi3uBlyEUM/ujHJnpyWGoZIUiZ7mPsdNwz/rA==
+"@netlify/vite-plugin-netlify-edge@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@netlify/vite-plugin-netlify-edge/-/vite-plugin-netlify-edge-1.1.0.tgz#7ef56bad3bf14b133d493735c07e5f5e5f2573fe"
+  integrity sha512-Z99j8uVW1pD/Ye9Bfm9r3wMQsvWkyuh1w/G721L7oKg4aaut6onWIxelu4N/uVM9qFFtZ2u+xWWJEdOcr5iiOA==
   dependencies:
     fast-glob "^3.2.11"
 
@@ -233,7 +233,12 @@
   dependencies:
     "@types/unist" "*"
 
-"@types/mdx@2.0.3", "@types/mdx@^2.0.0":
+"@types/mdx@2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@types/mdx/-/mdx-2.0.2.tgz#64be19baddba4323ae7893e077e98759316fe279"
+  integrity sha512-mJGfgj4aWpiKb8C0nnJJchs1sHBHn0HugkVfqqyQi7Wn6mBRksLeQsPOFvih/Pu8L1vlDzfe/LidhVHBeUk3aQ==
+
+"@types/mdx@^2.0.0":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/mdx/-/mdx-2.0.3.tgz#43fd32414f17fcbeced3578109a6edd877a2d96e"
   integrity sha512-IgHxcT3RC8LzFLhKwP3gbMPeaK7BM9eBH46OdapPA7yvuIUJ8H6zHZV53J8hGZcTSnt95jANt+rTBNUUc22ACQ==

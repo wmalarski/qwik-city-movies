@@ -1,5 +1,6 @@
-import { createQwikCity } from "@builder.io/qwik-city/middleware/netlify-edge";
-import qwikCityPlan from "@qwik-city-plan";
+import { qwikCity } from "@builder.io/qwik-city/middleware/netlify-edge";
 import render from "./entry.ssr";
 
-export default createQwikCity({ qwikCityPlan, render });
+const qwikCityHandler = qwikCity(render);
+
+export default qwikCityHandler;
