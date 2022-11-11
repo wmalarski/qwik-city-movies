@@ -116,7 +116,7 @@ export type MediaDetails = {
   images?: {
     backdrops?: Image[];
     logos?: Image[];
-    posters?: [];
+    posters?: Image[];
   };
   videos?: {
     results?: Video[];

@@ -30,7 +30,7 @@ export const MediaCarousel = component$((props: Props) => {
               </div>
             ))}
             <a
-              class="transition-text flex w-44 items-center justify-center duration-100 ease-in-out hover:text-qwik-light-blue "
+              class="transition-text flex w-44 items-center justify-center duration-100 ease-in-out hover:text-qwik-light-blue"
               href={props.viewAllHref}
             >
               Explore All

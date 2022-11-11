@@ -1,4 +1,4 @@
-import type { PersonMedia, ProductionMedia } from "./types";
+import type { Image, PersonMedia, ProductionMedia } from "./types";
 
 const imageBase = "https://image.tmdb.org/t/p";
 
@@ -23,6 +23,10 @@ export const getPoster = (media: ProductionMedia, size: PosterSizes) => {
   if ("poster_path" in media) {
     return `${imageBase}/${size}${media.poster_path}`;
   }
+};
+
+export const getImage = (image: Image, size: PosterSizes) => {
+  return `${imageBase}/${size}${image.file_path}`;
 };
 
 type ProfileSizes = "w45" | "w185" | "h632" | "original";

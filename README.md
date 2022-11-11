@@ -8,9 +8,7 @@
 - [ ] - buttons in carousel
 - [ ] - person sub-pages
 - [ ] - tv show sub-pages
-- [ ] - movie images page
 - [ ] - check design and responsiveness
-- [ ] - check accessibility
 
 ## Links
 
