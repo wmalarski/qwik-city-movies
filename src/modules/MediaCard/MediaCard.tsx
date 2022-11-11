@@ -1,5 +1,4 @@
 import { component$ } from "@builder.io/qwik";
-import { Link } from "@builder.io/qwik-city";
 import { Stars } from "~/components/Stars/Stars";
 import { getPoster } from "~/services/images";
 import type { ProductionMedia } from "~/services/types";
@@ -15,7 +14,7 @@ export const MediaCard = component$((props: Props) => {
   const heading = getHeading(props.media);
 
   return (
-    <Link href={paths.media(mediaType, props.media.id)}>
+    <a href={paths.media(mediaType, props.media.id)}>
       <div class="transition-scale scale-95 border-4 border-base-300 duration-300 ease-in-out hover:scale-100">
         <picture>
           <img
@@ -27,6 +26,6 @@ export const MediaCard = component$((props: Props) => {
       </div>
       <h2>{heading}</h2>
       <Stars rating={props.media.vote_average} />
-    </Link>
+    </a>
   );
 });

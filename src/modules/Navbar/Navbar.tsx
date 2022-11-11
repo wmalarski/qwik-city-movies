@@ -1,5 +1,4 @@
 import { component$ } from "@builder.io/qwik";
-import { Link } from "@builder.io/qwik-city";
 import { paths } from "~/utils/paths";
 
 export const Navbar = component$(() => {
@@ -7,7 +6,7 @@ export const Navbar = component$(() => {
     <nav class="h-screen bg-black px-4 py-8">
       <ul class="flex flex-col gap-8">
         <li class="hover:opacity-80">
-          <Link href={paths.index}>
+          <a href={paths.index}>
             <img
               src="/images/home.svg"
               width={24}
@@ -15,10 +14,10 @@ export const Navbar = component$(() => {
               alt="home"
               aria-label="Home"
             />
-          </Link>
+          </a>
         </li>
         <li class="hover:opacity-80">
-          <Link href={paths.movies}>
+          <a href={paths.movies}>
             <img
               src="/images/movie.svg"
               width={24}
@@ -26,10 +25,10 @@ export const Navbar = component$(() => {
               alt="movie"
               aria-label="Movies"
             />
-          </Link>
+          </a>
         </li>
         <li class="hover:opacity-80">
-          <Link href={paths.tv}>
+          <a href={paths.tv}>
             <img
               src="/images/tv.svg"
               width={24}
@@ -37,10 +36,10 @@ export const Navbar = component$(() => {
               alt="tv"
               aria-label="TV"
             />
-          </Link>
+          </a>
         </li>
         <li class="hover:opacity-80">
-          <Link href={paths.search}>
+          <a href={paths.search}>
             <img
               src="/images/magnifier.svg"
               width={24}
@@ -48,7 +47,7 @@ export const Navbar = component$(() => {
               alt="search"
               aria-label="Search"
             />
-          </Link>
+          </a>
         </li>
       </ul>
     </nav>

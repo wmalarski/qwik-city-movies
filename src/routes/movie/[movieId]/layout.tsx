@@ -4,12 +4,7 @@ import {
   Slot,
   useContextProvider,
 } from "@builder.io/qwik";
-import {
-  Link,
-  RequestEvent,
-  useEndpoint,
-  useLocation,
-} from "@builder.io/qwik-city";
+import { RequestEvent, useEndpoint, useLocation } from "@builder.io/qwik-city";
 import clsx from "clsx";
 import { z } from "zod";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
@@ -55,7 +50,7 @@ export default component$(() => {
         onResolved={(data) => <MovieHero media={data} />}
       />
       <div class="flex flex-row items-center justify-center gap-4">
-        <Link
+        <a
           href={overviewHref}
           class={clsx("p-2 text-xl uppercase opacity-80", {
             "border-b-2 border-b-white opacity-100":
@@ -63,8 +58,8 @@ export default component$(() => {
           })}
         >
           Overview
-        </Link>
-        <Link
+        </a>
+        <a
           href={videoHref}
           class={clsx("p-2 text-xl uppercase opacity-80", {
             "border-b-2 border-b-white opacity-100":
@@ -72,8 +67,8 @@ export default component$(() => {
           })}
         >
           Videos
-        </Link>
-        <Link
+        </a>
+        <a
           href={photosHref}
           class={clsx("p-2 text-xl uppercase opacity-80", {
             "border-b-2 border-b-white opacity-100":
@@ -81,7 +76,7 @@ export default component$(() => {
           })}
         >
           Photos
-        </Link>
+        </a>
       </div>
       <Slot />
     </div>

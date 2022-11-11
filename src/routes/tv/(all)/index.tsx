@@ -1,5 +1,5 @@
 import { component$, Resource } from "@builder.io/qwik";
-import { Link, useEndpoint, type DocumentHead } from "@builder.io/qwik-city";
+import { useEndpoint, type DocumentHead } from "@builder.io/qwik-city";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { TvHero } from "~/modules/TvHero/TvHero";
 import type { inferPromise } from "~/services/types";
@@ -37,9 +37,9 @@ export default component$(() => {
       onRejected={() => <div>Rejected</div>}
       onResolved={(data) => (
         <div class="flex flex-col gap-4">
-          <Link href={paths.media("tv", data.featured?.id)}>
+          <a href={paths.media("tv", data.featured?.id)}>
             <TvHero media={data.featured} />
-          </Link>
+          </a>
           <MediaCarousel
             collection={data.popular?.results || []}
             title={getListItem({ query: "popular", type: "tv" })}

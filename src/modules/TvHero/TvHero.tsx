@@ -14,11 +14,11 @@ export const TvHero = component$((props: Props) => {
           <picture>
             <source
               srcSet={getBackdrop(props.media, "w1280")}
-              media="(min-width: 780px)"
+              media="(min-width: 880px)"
             />
             <source
               srcSet={getBackdrop(props.media, "w780")}
-              media="(min-width: 300px)"
+              media="(min-width: 400px)"
             />
             <img
               alt={props.media.name || props.media.original_name}

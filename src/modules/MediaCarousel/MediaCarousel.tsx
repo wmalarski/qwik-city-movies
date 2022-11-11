@@ -1,5 +1,4 @@
 import { component$ } from "@builder.io/qwik";
-import { Link } from "@builder.io/qwik-city";
 import type { ProductionMedia } from "~/services/types";
 import { MediaCard } from "../MediaCard/MediaCard";
 
@@ -15,12 +14,12 @@ export const MediaCarousel = component$((props: Props) => {
       <div class="flex flex-row items-center py-2 px-12">
         <h2 class="text-2xl text-white">{props.title}</h2>
         <div class="flex-auto" />
-        <Link
+        <a
           class="transition-text opacity-80 duration-100 ease-in-out hover:text-qwik-light-blue hover:opacity-100"
           href={props.viewAllHref}
         >
           Explore All
-        </Link>
+        </a>
       </div>
       <div class="relative">
         <div class="overflow-y-auto py-4 px-8">
@@ -30,12 +29,12 @@ export const MediaCarousel = component$((props: Props) => {
                 <MediaCard media={media} />
               </div>
             ))}
-            <Link
+            <a
               class="transition-text flex w-44 items-center justify-center duration-100 ease-in-out hover:text-qwik-light-blue "
               href={props.viewAllHref}
             >
               Explore All
-            </Link>
+            </a>
           </div>
         </div>
         {/* TODO: Add buttons */}

@@ -1,5 +1,4 @@
 import { component$ } from "@builder.io/qwik";
-import { Link } from "@builder.io/qwik-city";
 import { ExternalLinks } from "~/modules/ExternalLinks/ExternalLinks";
 import { getPoster } from "~/services/images";
 import type { MovieMediaDetails, TvMediaDetails } from "~/services/types";
@@ -66,9 +65,7 @@ export const MovieInfoCard = component$((props: Props) => {
                 <div>
                   {directors.map((person, i) => (
                     <>
-                      <Link class="link" href={paths.person(person.id)}>
-                        {person.name}
-                      </Link>
+                      <a href={paths.person(person.id)}>{person.name}</a>
                       {i < directors.length - 1 ? ", " : ""}
                     </>
                   ))}
@@ -95,12 +92,11 @@ export const MovieInfoCard = component$((props: Props) => {
                     (genre, i, arr) =>
                       props.media.media_type && (
                         <>
-                          <Link
-                            class="link"
+                          <a
                             href={paths.genre(props.media.media_type, genre.id)}
                           >
                             {genre.name}
-                          </Link>
+                          </a>
                           {i < arr.length - 1 ? ", " : ""}
                         </>
                       )

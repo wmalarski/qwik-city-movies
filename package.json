@@ -34,10 +34,10 @@
     "@netlify/vite-plugin-netlify-edge": "1.1.1",
     "@types/eslint": "8.4.10",
     "@types/node": "latest",
-    "@typescript-eslint/eslint-plugin": "5.42.0",
-    "@typescript-eslint/parser": "5.42.0",
+    "@typescript-eslint/eslint-plugin": "5.42.1",
+    "@typescript-eslint/parser": "5.42.1",
     "autoprefixer": "10.4.13",
-    "eslint": "8.26.0",
+    "eslint": "8.27.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-node": "^0.3.6",
     "eslint-import-resolver-typescript": "^3.5.2",
@@ -55,12 +55,12 @@
     "tailwindcss": "^3.2.2",
     "ts-prune": "^0.10.3",
     "typescript": "4.8.4",
-    "vite": "3.2.2",
+    "vite": "3.2.3",
     "vite-tsconfig-paths": "3.5.2"
   },
   "dependencies": {
     "clsx": "^1.2.1",
-    "daisyui": "^2.38.0",
+    "daisyui": "^2.38.1",
     "zod": "^3.19.1"
   }
 }

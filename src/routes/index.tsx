@@ -1,5 +1,5 @@
 import { component$, Resource } from "@builder.io/qwik";
-import { Link, useEndpoint, type DocumentHead } from "@builder.io/qwik-city";
+import { useEndpoint, type DocumentHead } from "@builder.io/qwik-city";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
 import { TvHero } from "~/modules/TvHero/TvHero";
@@ -45,14 +45,14 @@ export default component$(() => {
       onResolved={(data) => (
         <div class="flex flex-col gap-4">
           {data.featuredTv ? (
-            <Link href={paths.media("tv", data.featuredTv.id)}>
+            <a href={paths.media("tv", data.featuredTv.id)}>
               <TvHero media={data.featuredTv} />
-            </Link>
+            </a>
           ) : null}
           {data.featuredMovie ? (
-            <Link href={paths.media("movie", data.featuredMovie.id)}>
+            <a href={paths.media("movie", data.featuredMovie.id)}>
               <MovieHero media={data.featuredMovie} />
-            </Link>
+            </a>
           ) : null}
           <MediaCarousel
             collection={data.movies?.results || []}
