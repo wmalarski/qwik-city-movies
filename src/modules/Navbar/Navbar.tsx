@@ -3,8 +3,8 @@ import { paths } from "~/utils/paths";
 
 export const Navbar = component$(() => {
   return (
-    <nav class="h-screen bg-black px-4 py-8">
-      <ul class="flex flex-col gap-8">
+    <nav class="bg-black px-6 py-8 text-black md:h-screen">
+      <ul class="flex justify-around gap-10 md:flex-col md:justify-start">
         <li class="hover:opacity-80">
           <a href={paths.index}>
             <img

@@ -1,5 +1,5 @@
 import { component$ } from "@builder.io/qwik";
-import { getProfile } from "~/services/images";
+import { getProfile, getProfileSet } from "~/services/images";
 import type { PersonMedia } from "~/services/types";
 import { paths } from "~/utils/paths";
 
@@ -9,17 +9,20 @@ type Props = {
 
 export const PersonCarouselItem = component$((props: Props) => {
   return (
-    <a href={paths.media("person", props.media.id)}>
-      <div class="transition-scale scale-95 border-4 border-base-300 duration-300 ease-in-out hover:scale-100">
-        <picture class="h-full w-full">
+    <a href={paths.media("person", props.media.id)} class="w-48">
+      <div class="transition-scale scale-95 duration-300 ease-in-out hover:scale-100">
+        <picture>
           <img
             alt={props.media.name}
-            class="h-60 w-full max-w-full object-cover"
-            src={getProfile(props.media, "w185")}
+            class="max-w-full border-4 border-base-300 object-cover "
+            src={getProfile(props.media, "w45")}
+            srcSet={getProfileSet(props.media)}
+            width={185}
+            height={270}
           />
         </picture>
       </div>
-      <h2>{props.media.name}</h2>
+      <span>{props.media.name}</span>
     </a>
   );
 });

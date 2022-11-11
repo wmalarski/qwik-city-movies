@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { ExternalLinks } from "~/modules/ExternalLinks/ExternalLinks";
-import { getPoster } from "~/services/images";
+import { getPoster, getPosterSet } from "~/services/images";
 import type { MovieMediaDetails, TvMediaDetails } from "~/services/types";
 import {
   formatCurrency,
@@ -32,8 +32,9 @@ export const MovieInfoCard = component$((props: Props) => {
             <picture>
               <img
                 alt="Poster"
-                class="h-full w-full max-w-full object-cover"
-                src={getPoster(props.media, "w342")}
+                class="h-full w-80 max-w-full object-cover"
+                src={getPoster(props.media, "92")}
+                srcSet={getPosterSet(props.media, "342")}
               />
             </picture>
           </div>

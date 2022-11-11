@@ -5,34 +5,51 @@ const imageBase = "https://image.tmdb.org/t/p";
 type BackdropSizes = "w300" | "w780" | "w1280" | "original";
 
 export const getBackdrop = (media: ProductionMedia, size: BackdropSizes) => {
-  if ("backdrop_path" in media) {
-    return `${imageBase}/${size}${media.backdrop_path}`;
-  }
+  return `${imageBase}/${size}${media.backdrop_path}`;
 };
 
-type PosterSizes =
-  | "w92"
-  | "w154"
-  | "w185"
-  | "w342"
-  | "w500"
-  | "w780"
-  | "original";
+export const getBackdropSet = (media: ProductionMedia) => {
+  const sizes = ["w300", "w780"] as const;
+  return sizes
+    .map((size) => `${getBackdrop(media, size)} ${size.slice(1)}w`)
+    .join(", ");
+};
+
+type PosterSizes = "92" | "154" | "185" | "342" | "500" | "780";
 
 export const getPoster = (media: ProductionMedia, size: PosterSizes) => {
-  if ("poster_path" in media) {
-    return `${imageBase}/${size}${media.poster_path}`;
-  }
+  return `${imageBase}/w${size}${media.poster_path}`;
+};
+
+export const getPosterSet = (media: ProductionMedia, maxSize: PosterSizes) => {
+  const sizes = ["92", "154", "185", "342", "500", "780"] as const;
+  return sizes
+    .filter((size) => +size <= +maxSize)
+    .map((size) => `${getPoster(media, size)} ${size}w`)
+    .join(", ");
 };
 
 export const getImage = (image: Image, size: PosterSizes) => {
-  return `${imageBase}/${size}${image.file_path}`;
+  return `${imageBase}/w${size}${image.file_path}`;
+};
+
+export const getImageSet = (image: Image, maxSize: PosterSizes) => {
+  const sizes = ["92", "154", "185", "342", "500", "780"] as const;
+  return sizes
+    .filter((size) => +size <= +maxSize)
+    .map((size) => `${getImage(image, size as PosterSizes)} ${size}w`)
+    .join(", ");
 };
 
 type ProfileSizes = "w45" | "w185" | "h632" | "original";
 
 export const getProfile = (media: PersonMedia, size: ProfileSizes) => {
-  if ("profile_path" in media) {
-    return `${imageBase}/${size}${media.profile_path}`;
-  }
+  return `${imageBase}/${size}${media.profile_path}`;
+};
+
+export const getProfileSet = (media: PersonMedia) => {
+  const sizes = ["w45", "w185"] as const;
+  return sizes
+    .map((size) => `${getProfile(media, size)} ${size.slice(1)}w`)
+    .join(", ");
 };

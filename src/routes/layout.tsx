@@ -14,7 +14,7 @@ export default component$(() => {
   useContextProvider(ContainerContext, containerRef);
 
   return (
-    <div class="flex h-screen w-screen flex-row">
+    <div class="flex h-screen w-screen flex-col-reverse md:flex-row">
       <Navbar />
       <div
         ref={(e) => (containerRef.value = e)}

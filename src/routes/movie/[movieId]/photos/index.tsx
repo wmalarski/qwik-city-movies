@@ -1,6 +1,6 @@
 import { component$, Resource, useContext } from "@builder.io/qwik";
 import { DocumentHead } from "@builder.io/qwik-city";
-import { getImage } from "~/services/images";
+import { getImage, getImageSet } from "~/services/images";
 import { MovieResourceContext } from "../context";
 
 export default component$(() => {
@@ -23,7 +23,8 @@ export default component$(() => {
             {data.images?.backdrops?.map((backdrop) => (
               <img
                 alt={`${data.title} backdrop`}
-                src={getImage(backdrop, "w500")}
+                src={getImage(backdrop, "92")}
+                srcSet={getImageSet(backdrop, "500")}
                 style={{ "aspect-ratio": backdrop.aspect_ratio }}
                 class="h-full max-h-full w-full object-cover"
               />
@@ -40,7 +41,8 @@ export default component$(() => {
             {data.images?.posters?.map((poster) => (
               <img
                 alt={`${data.title} poster`}
-                src={getImage(poster, "w342")}
+                src={getImage(poster, "92")}
+                srcSet={getImageSet(poster, "342")}
                 class="h-full max-h-full w-full object-cover"
                 style={{ "aspect-ratio": poster.aspect_ratio }}
               />

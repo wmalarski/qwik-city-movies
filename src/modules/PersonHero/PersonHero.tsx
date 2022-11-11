@@ -1,5 +1,5 @@
 import { component$ } from "@builder.io/qwik";
-import { getProfile } from "~/services/images";
+import { getProfile, getProfileSet } from "~/services/images";
 import type { PersonMediaDetails } from "~/services/types";
 import { formatDate } from "~/utils/format";
 import { ExternalLinks } from "../ExternalLinks/ExternalLinks";
@@ -31,7 +31,8 @@ export const PersonHero = component$((props: Props) => {
                 <img
                   alt={props.person.name}
                   class="w-80"
-                  src={getProfile(props.person, "w185")}
+                  src={getProfile(props.person, "w45")}
+                  srcSet={getProfileSet(props.person)}
                 />
               </picture>
             </div>
