@@ -4,6 +4,7 @@ import { z } from "zod";
 import { MovieInfoCard } from "~/modules/MovieInfoCard/MovieInfoCard";
 import { PersonCarousel } from "~/modules/PersonCarousel/PersonCarousel";
 import { TvHero } from "~/modules/TvHero/TvHero";
+import { getTvShow } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
 
 export const getContent = loader$(async (event) => {
@@ -15,11 +16,9 @@ export const getContent = loader$(async (event) => {
     throw event.redirect(302, paths.notFound);
   }
 
-  const { getTvShow } = await import("~/services/tmdb");
-
   try {
-    const movie = await getTvShow({ id: parseResult.data.tvId });
-    return movie;
+    const tvShow = await getTvShow({ id: parseResult.data.tvId });
+    return tvShow;
   } catch {
     throw event.redirect(302, paths.notFound);
   }

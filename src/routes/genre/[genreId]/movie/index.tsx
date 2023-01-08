@@ -3,17 +3,18 @@ import { DocumentHead, loader$ } from "@builder.io/qwik-city";
 import { z } from "zod";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { ContainerContext } from "~/routes/context";
+import { getMediaByGenre } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
 import { paths } from "~/utils/paths";
 
-export const getMovies = loader$(async (event) => {
+export const getContent = loader$((event) => {
   const parseResult = z
     .object({
       genreId: z.coerce.number().min(0).step(1),
       page: z.coerce.number().min(1).step(1),
     })
     .safeParse({
-      genreId: event.params.genreId,
+      ...event.params,
       page: event.url.searchParams.get("page") || 1,
     });
 
@@ -21,15 +22,11 @@ export const getMovies = loader$(async (event) => {
     throw event.redirect(302, paths.notFound);
   }
 
-  const { getMediaByGenre } = await import("~/services/tmdb");
-
-  const movies = await getMediaByGenre({
+  return getMediaByGenre({
     genre: parseResult.data.genreId,
     media: "movie",
     page: parseResult.data.page,
   });
-
-  return movies;
 });
 
 export default component$(() => {
@@ -37,7 +34,7 @@ export default component$(() => {
 
   const container = useContext(ContainerContext);
 
-  const movies = getMovies.use();
+  const movies = getContent.use();
 
   // const fetcher$ = $(async (page: number): Promise<typeof onGet> => {
   //   const params = new URLSearchParams({ page: String(page) });
@@ -73,6 +70,6 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = (event) => {
-  const { genre } = event.getData(getMovies);
+  const { genre } = event.getData(getContent);
   return genre ? { title: `${genre.name} Tv Shows - Qwik City Movies` } : {};
 };

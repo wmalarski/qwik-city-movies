@@ -1,6 +1,7 @@
 import { component$, Resource, useContext, useStore } from "@builder.io/qwik";
 import { loader$, useLocation, type DocumentHead } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
+import { search } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
 import { ContainerContext } from "../context";
 
@@ -11,7 +12,6 @@ export const getContent = loader$(async (event) => {
     return null;
   }
 
-  const { search } = await import("~/services/tmdb");
   const result = await search({ page: 1, query });
 
   return { query, result };

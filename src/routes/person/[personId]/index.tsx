@@ -3,6 +3,7 @@ import { DocumentHead, loader$ } from "@builder.io/qwik-city";
 import { z } from "zod";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { PersonHero } from "~/modules/PersonHero/PersonHero";
+import { getPerson } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
 
 export const getContent = loader$(async (event) => {
@@ -14,11 +15,9 @@ export const getContent = loader$(async (event) => {
     throw event.redirect(302, paths.notFound);
   }
 
-  const { getPerson } = await import("~/services/tmdb");
-
   try {
-    const movie = await getPerson({ id: parseResult.data.personId });
-    return movie;
+    const person = await getPerson({ id: parseResult.data.personId });
+    return person;
   } catch {
     throw event.redirect(302, paths.notFound);
   }

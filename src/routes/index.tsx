@@ -3,19 +3,18 @@ import { loader$, type DocumentHead } from "@builder.io/qwik-city";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
 import { TvHero } from "~/modules/TvHero/TvHero";
+import {
+  getMovie,
+  getRandomMedia,
+  getTrendingMovie,
+  getTrendingTv,
+  getTvShow,
+} from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
 export const getContent = loader$(async (event) => {
-  const {
-    getTrendingTv,
-    getTrendingMovie,
-    getRandomMedia,
-    getMovie,
-    getTvShow,
-  } = await import("~/services/tmdb");
-
   try {
     const [movies, tv] = await Promise.all([
       getTrendingMovie({ page: 1 }),

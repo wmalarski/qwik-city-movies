@@ -3,6 +3,7 @@ import { DocumentHead, loader$, useLocation } from "@builder.io/qwik-city";
 import { z } from "zod";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { ContainerContext } from "~/routes/context";
+import { getTrendingTv, getTvShows } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
@@ -10,16 +11,14 @@ import { paths } from "~/utils/paths";
 export const getContent = loader$(async (event) => {
   const parseResult = z
     .object({ name: z.string().min(1) })
-    .safeParse({ ...event.params });
+    .safeParse(event.params);
 
   if (!parseResult.success) {
     throw event.redirect(302, paths.notFound);
   }
 
-  const { getTvShows, getTrendingTv } = await import("~/services/tmdb");
-  const name = parseResult.data.name;
-
   try {
+    const name = parseResult.data.name;
     const movies =
       name === "trending"
         ? await getTrendingTv({ page: 1 })

@@ -8,6 +8,7 @@ import { loader$, useLocation } from "@builder.io/qwik-city";
 import clsx from "clsx";
 import { z } from "zod";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
+import { getMovie } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
 import { MovieResourceContext } from "./context";
 
@@ -19,8 +20,6 @@ export const getContent = loader$(async (event) => {
   if (!parseResult.success) {
     throw event.redirect(302, paths.notFound);
   }
-
-  const { getMovie } = await import("~/services/tmdb");
 
   try {
     const movie = await getMovie({ id: parseResult.data.movieId });

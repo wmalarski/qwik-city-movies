@@ -2,14 +2,11 @@ import { component$, Resource } from "@builder.io/qwik";
 import { loader$, type DocumentHead } from "@builder.io/qwik-city";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
+import { getMovie, getMovies, getRandomMedia } from "~/services/tmdb";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
 export const getContent = loader$(async () => {
-  const { getMovies, getRandomMedia, getMovie } = await import(
-    "~/services/tmdb"
-  );
-
   const [popular, topRated, nowPlaying] = await Promise.all([
     getMovies({ page: 1, query: "popular" }),
     getMovies({ page: 1, query: "top_rated" }),
