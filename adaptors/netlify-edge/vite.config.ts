@@ -13,7 +13,7 @@ export default extendConfig(baseConfig, () => {
     },
     plugins: [
       netifyEdgeAdaptor({
-        staticGenerate: true,
+        // staticGenerate: true,
       }),
     ],
   };

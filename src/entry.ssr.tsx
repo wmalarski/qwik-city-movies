@@ -19,14 +19,8 @@ export default function (opts: RenderToStreamOptions) {
     manifest,
     ...opts,
     containerAttributes: {
-      lang: "en",
-    },
-    prefetchStrategy: {
-      implementation: {
-        linkInsert: null,
-        prefetchEvent: "always",
-        workerFetchInsert: null,
-      },
+      lang: "en-us",
+      ...opts.containerAttributes,
     },
   });
 }

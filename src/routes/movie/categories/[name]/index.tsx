@@ -5,12 +5,7 @@ import {
   useContext,
   useStore,
 } from "@builder.io/qwik";
-import {
-  DocumentHead,
-  RequestEvent,
-  useEndpoint,
-  useLocation,
-} from "@builder.io/qwik-city";
+import { DocumentHead, loader$, useLocation } from "@builder.io/qwik-city";
 import { z } from "zod";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { ContainerContext } from "~/routes/context";
@@ -18,13 +13,13 @@ import type { inferPromise, ProductionMedia } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const onGet = async (event: RequestEvent) => {
+export const getContent = loader$(async (event) => {
   const parseResult = z
     .object({ name: z.string().min(1) })
     .safeParse({ ...event.params });
 
   if (!parseResult.success) {
-    throw event.response.redirect(paths.notFound);
+    throw event.redirect(302, paths.notFound);
   }
 
   const { getMovies, getTrendingMovie } = await import("~/services/tmdb");
@@ -37,9 +32,9 @@ export const onGet = async (event: RequestEvent) => {
         : await getMovies({ page: 1, query: name });
     return movies;
   } catch {
-    throw event.response.redirect(paths.notFound);
+    throw event.redirect(302, paths.notFound);
   }
-};
+});
 
 export default component$(() => {
   const location = useLocation();
@@ -47,7 +42,7 @@ export default component$(() => {
   const container = useContext(ContainerContext);
 
   const fetcher$ = $(
-    async (page: number): Promise<inferPromise<typeof onGet>> => {
+    async (page: number): Promise<inferPromise<typeof getContent>> => {
       const params = new URLSearchParams({ page: String(page) });
       const url = `${location.href}/api?${params}`;
       const response = await fetch(url);
@@ -55,7 +50,7 @@ export default component$(() => {
     }
   );
 
-  const resource = useEndpoint<inferPromise<typeof onGet>>();
+  const resource = getContent.use();
 
   const store = useStore({
     currentPage: 1,

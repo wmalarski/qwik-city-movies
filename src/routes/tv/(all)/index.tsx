@@ -1,12 +1,11 @@
 import { component$, Resource } from "@builder.io/qwik";
-import { useEndpoint, type DocumentHead } from "@builder.io/qwik-city";
+import { loader$, type DocumentHead } from "@builder.io/qwik-city";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { TvHero } from "~/modules/TvHero/TvHero";
-import type { inferPromise } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const onGet = async () => {
+export const getContent = loader$(async () => {
   const { getTvShows, getTvShow, getRandomMedia } = await import(
     "~/services/tmdb"
   );
@@ -25,10 +24,10 @@ export const onGet = async () => {
   const featured = await getTvShow({ id: random.id });
 
   return { airingToday, featured, onTheAir, popular, topRated };
-};
+});
 
 export default component$(() => {
-  const resource = useEndpoint<inferPromise<typeof onGet>>();
+  const resource = getContent.use();
 
   return (
     <Resource

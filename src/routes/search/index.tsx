@@ -5,17 +5,12 @@ import {
   useContext,
   useStore,
 } from "@builder.io/qwik";
-import {
-  RequestEvent,
-  useEndpoint,
-  useLocation,
-  type DocumentHead,
-} from "@builder.io/qwik-city";
+import { loader$, useLocation, type DocumentHead } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import type { inferPromise, ProductionMedia } from "~/services/types";
 import { ContainerContext } from "../context";
 
-export const onGet = async (event: RequestEvent) => {
+export const getContent = loader$(async (event) => {
   const query = event.url.searchParams.get("query");
 
   if (!query) {
@@ -26,7 +21,7 @@ export const onGet = async (event: RequestEvent) => {
   const result = await search({ page: 1, query });
 
   return { query, result };
-};
+});
 
 export default component$(() => {
   const location = useLocation();
@@ -34,7 +29,7 @@ export default component$(() => {
   const container = useContext(ContainerContext);
 
   const fetcher$ = $(
-    async (page: number): Promise<inferPromise<typeof onGet>> => {
+    async (page: number): Promise<inferPromise<typeof getContent>> => {
       const currentUrl = new URL(location.href);
       const params = new URLSearchParams({
         page: String(page),
@@ -46,7 +41,7 @@ export default component$(() => {
     }
   );
 
-  const resource = useEndpoint<inferPromise<typeof onGet>>();
+  const resource = getContent.use();
 
   const store = useStore({
     currentPage: 1,
