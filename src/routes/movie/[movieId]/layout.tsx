@@ -13,8 +13,8 @@ import { MovieResourceContext } from "./context";
 
 export const getContent = loader$(async (event) => {
   const parseResult = z
-    .object({ movieId: z.number().min(0).step(1) })
-    .safeParse({ movieId: +event.params.movieId });
+    .object({ movieId: z.coerce.number().min(0).step(1) })
+    .safeParse(event.params);
 
   if (!parseResult.success) {
     throw event.redirect(302, paths.notFound);

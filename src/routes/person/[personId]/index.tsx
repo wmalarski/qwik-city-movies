@@ -7,8 +7,8 @@ import { paths } from "~/utils/paths";
 
 export const getContent = loader$(async (event) => {
   const parseResult = z
-    .object({ personId: z.number().min(0).step(1) })
-    .safeParse({ personId: +event.params.personId });
+    .object({ personId: z.coerce.number().min(0).step(1) })
+    .safeParse(event.params);
 
   if (!parseResult.success) {
     throw event.redirect(302, paths.notFound);
