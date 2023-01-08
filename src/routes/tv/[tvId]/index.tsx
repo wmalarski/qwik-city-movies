@@ -1,33 +1,31 @@
 import { component$, Resource } from "@builder.io/qwik";
-import { DocumentHead, RequestEvent, useEndpoint } from "@builder.io/qwik-city";
+import { DocumentHead, loader$ } from "@builder.io/qwik-city";
 import { z } from "zod";
 import { MovieInfoCard } from "~/modules/MovieInfoCard/MovieInfoCard";
 import { PersonCarousel } from "~/modules/PersonCarousel/PersonCarousel";
 import { TvHero } from "~/modules/TvHero/TvHero";
-import type { inferPromise } from "~/services/types";
+import { getTvShow } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
 
-export const onGet = async (event: RequestEvent) => {
+export const getContent = loader$(async (event) => {
   const parseResult = z
-    .object({ tvId: z.number().min(0).step(1) })
-    .safeParse({ tvId: +event.params.tvId });
+    .object({ tvId: z.coerce.number().min(0).step(1) })
+    .safeParse(event.params);
 
   if (!parseResult.success) {
-    throw event.response.redirect(paths.notFound);
+    throw event.redirect(302, paths.notFound);
   }
-
-  const { getTvShow } = await import("~/services/tmdb");
 
   try {
-    const movie = await getTvShow({ id: parseResult.data.tvId });
-    return movie;
+    const tvShow = await getTvShow({ id: parseResult.data.tvId });
+    return tvShow;
   } catch {
-    throw event.response.redirect(paths.notFound);
+    throw event.redirect(302, paths.notFound);
   }
-};
+});
 
 export default component$(() => {
-  const resource = useEndpoint<inferPromise<typeof onGet>>();
+  const resource = getContent.use();
 
   return (
     <Resource

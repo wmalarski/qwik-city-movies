@@ -1,41 +1,44 @@
 import { component$, Resource } from "@builder.io/qwik";
-import { useEndpoint, type DocumentHead } from "@builder.io/qwik-city";
+import { loader$, type DocumentHead } from "@builder.io/qwik-city";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
 import { TvHero } from "~/modules/TvHero/TvHero";
-import type { inferPromise, ProductionMedia } from "~/services/types";
+import {
+  getMovie,
+  getRandomMedia,
+  getTrendingMovie,
+  getTrendingTv,
+  getTvShow,
+} from "~/services/tmdb";
+import type { ProductionMedia } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const onGet = async () => {
-  const {
-    getTrendingTv,
-    getTrendingMovie,
-    getRandomMedia,
-    getMovie,
-    getTvShow,
-  } = await import("~/services/tmdb");
+export const getContent = loader$(async (event) => {
+  try {
+    const [movies, tv] = await Promise.all([
+      getTrendingMovie({ page: 1 }),
+      getTrendingTv({ page: 1 }),
+    ]);
 
-  const [movies, tv] = await Promise.all([
-    getTrendingMovie({ page: 1 }),
-    getTrendingTv({ page: 1 }),
-  ]);
+    const random = getRandomMedia<ProductionMedia>({
+      collections: [movies, tv],
+    });
 
-  const random = getRandomMedia<ProductionMedia>({
-    collections: [movies, tv],
-  });
+    const featuredTv =
+      random.media_type === "tv" ? await getTvShow({ id: random.id }) : null;
 
-  const featuredTv =
-    random.media_type === "tv" ? await getTvShow({ id: random.id }) : null;
+    const featuredMovie =
+      random.media_type === "movie" ? await getMovie({ id: random.id }) : null;
 
-  const featuredMovie =
-    random.media_type === "movie" ? await getMovie({ id: random.id }) : null;
-
-  return { featuredMovie, featuredTv, movies, tv };
-};
+    return { featuredMovie, featuredTv, movies, tv };
+  } catch {
+    throw event.redirect(302, paths.notFound);
+  }
+});
 
 export default component$(() => {
-  const resource = useEndpoint<inferPromise<typeof onGet>>();
+  const resource = getContent.use();
 
   return (
     <Resource
@@ -71,5 +74,11 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
+  meta: [
+    {
+      content: "Qwik City Movies - real app example using Qwik-City",
+      name: "description",
+    },
+  ],
   title: "Qwik City Movies",
 };

@@ -1,52 +1,56 @@
+import { component$, Resource, useContext, useStore } from "@builder.io/qwik";
 import {
-  $,
-  component$,
-  Resource,
-  useContext,
-  useStore,
-} from "@builder.io/qwik";
-import {
-  RequestEvent,
-  useEndpoint,
+  action$,
+  loader$,
   useLocation,
   type DocumentHead,
 } from "@builder.io/qwik-city";
+import { z } from "zod";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
-import type { inferPromise, ProductionMedia } from "~/services/types";
+import { search } from "~/services/tmdb";
+import type { ProductionMedia } from "~/services/types";
+import { paths } from "~/utils/paths";
 import { ContainerContext } from "../context";
 
-export const onGet = async (event: RequestEvent) => {
+export const getAction = action$(async (form, event) => {
+  const parseResult = z
+    .object({ page: z.coerce.number().min(1).step(1) })
+    .safeParse({ page: form.get("page") || 1 });
+
+  if (!parseResult.success) {
+    throw event.redirect(302, paths.notFound);
+  }
+
   const query = event.url.searchParams.get("query");
 
   if (!query) {
     return null;
   }
 
-  const { search } = await import("~/services/tmdb");
   const result = await search({ page: 1, query });
 
-  return { query, result };
-};
+  return { query, ...result };
+});
+
+export const getContent = loader$(async (event) => {
+  const query = event.url.searchParams.get("query");
+
+  if (!query) {
+    return null;
+  }
+
+  const result = await search({ page: 1, query });
+
+  return { query, ...result };
+});
 
 export default component$(() => {
   const location = useLocation();
 
   const container = useContext(ContainerContext);
 
-  const fetcher$ = $(
-    async (page: number): Promise<inferPromise<typeof onGet>> => {
-      const currentUrl = new URL(location.href);
-      const params = new URLSearchParams({
-        page: String(page),
-        query: currentUrl.searchParams.get("query") || "",
-      });
-      const url = `${currentUrl.origin}${currentUrl.pathname}/api?${params}`;
-      const response = await fetch(url);
-      return response.json();
-    }
-  );
-
-  const resource = useEndpoint<inferPromise<typeof onGet>>();
+  const resource = getContent.use();
+  const action = getAction.use();
 
   const store = useStore({
     currentPage: 1,
@@ -68,7 +72,7 @@ export default component$(() => {
           name="query"
           id="query"
           aria-label="query"
-          value={location.query.query}
+          value={location.query.get("query") || ""}
         />
         <button class="btn" type="submit">
           Search
@@ -86,16 +90,15 @@ export default component$(() => {
           <>
             {data ? (
               <MediaGrid
-                collection={[...(data.result.results || []), ...store.results]}
+                collection={[...(data.results || []), ...store.results]}
                 currentPage={store.currentPage}
-                pageCount={data.result?.total_pages || 1}
+                pageCount={data.total_pages || 1}
                 parentContainer={container.value}
                 onMore$={async () => {
-                  const newResult = await fetcher$(store.currentPage + 1);
-                  const newMedia = newResult?.result.results || [];
-                  store.currentPage =
-                    newResult?.result.page || store.currentPage;
-                  store.results = [...store.results, ...newMedia];
+                  await action.execute({ page: `${store.currentPage + 1}` });
+                  const newMedia = action.value?.results || [];
+                  store.results.push(...newMedia);
+                  store.currentPage += 1;
                 }}
               />
             ) : (

@@ -1,16 +1,12 @@
 import { component$, Resource } from "@builder.io/qwik";
-import { useEndpoint, type DocumentHead } from "@builder.io/qwik-city";
+import { loader$, type DocumentHead } from "@builder.io/qwik-city";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
-import type { inferPromise } from "~/services/types";
+import { getMovie, getMovies, getRandomMedia } from "~/services/tmdb";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const onGet = async () => {
-  const { getMovies, getRandomMedia, getMovie } = await import(
-    "~/services/tmdb"
-  );
-
+export const getContent = loader$(async () => {
   const [popular, topRated, nowPlaying] = await Promise.all([
     getMovies({ page: 1, query: "popular" }),
     getMovies({ page: 1, query: "top_rated" }),
@@ -24,10 +20,10 @@ export const onGet = async () => {
   const featured = await getMovie({ id: random.id });
 
   return { featured, nowPlaying, popular, topRated };
-};
+});
 
 export default component$(() => {
-  const resource = useEndpoint<inferPromise<typeof onGet>>();
+  const resource = getContent.use();
 
   return (
     <Resource
