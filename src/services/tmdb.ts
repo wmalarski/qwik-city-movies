@@ -2,6 +2,7 @@ import { serverEnv } from "~/env/server";
 import type {
   Collection,
   Genre,
+  MediaDetails,
   MediaType,
   MovieMedia,
   MovieMediaDetails,
@@ -154,10 +155,10 @@ export const getMediaByGenre = async ({
   genre,
   page,
 }: GetMediaByGenre) => {
-  const result = await fetchTMDB<Collection<TvMedia | MovieMedia>>(
+  const result = await fetchTMDB<Collection<ProductionMedia>>(
     `discover/${media}`,
     {
-      append_to_response: "genre",
+      append_to_response: "genres",
       page: String(page),
       with_genres: String(genre),
     }
@@ -166,7 +167,12 @@ export const getMediaByGenre = async ({
     ...item,
     media_type: media,
   })) as (TvMedia | MovieMedia)[];
-  return { ...result, results };
+
+  const firstId = results[0].id;
+  const first = await fetchTMDB<MediaDetails>(`${media}/${firstId}`);
+  const found = first.genres?.find((entry) => entry.id === genre);
+
+  return { ...result, genre: found, results };
 };
 
 type GetGenreList = {

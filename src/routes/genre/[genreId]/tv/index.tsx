@@ -6,30 +6,6 @@ import { ContainerContext } from "~/routes/context";
 import type { ProductionMedia } from "~/services/types";
 import { paths } from "~/utils/paths";
 
-export const getGenre = loader$(async (event) => {
-  const parseResult = z.coerce
-    .number()
-    .min(0)
-    .step(1)
-    .safeParse(event.params.genreId);
-
-  if (!parseResult.success) {
-    throw event.redirect(302, paths.notFound);
-  }
-
-  const { getGenreList } = await import("~/services/tmdb");
-
-  const genres = await getGenreList({ media: "tv" });
-
-  const genre = genres.find((genre) => genre.id === parseResult.data);
-
-  if (!genre) {
-    throw event.redirect(302, paths.notFound);
-  }
-
-  return genre;
-});
-
 export const getTvShows = loader$(async (event) => {
   const parseResult = z
     .object({
@@ -37,8 +13,8 @@ export const getTvShows = loader$(async (event) => {
       page: z.coerce.number().min(1).step(1),
     })
     .safeParse({
-      genreId: event.params.genreId,
-      page: event.url.searchParams.get("page"),
+      ...event.params,
+      page: event.url.searchParams.get("page") || 1,
     });
 
   if (!parseResult.success) {
@@ -58,8 +34,6 @@ export const getTvShows = loader$(async (event) => {
 
 export default component$(() => {
   // const location = useLocation();
-
-  const genre = getGenre.use();
 
   const container = useContext(ContainerContext);
 
@@ -81,7 +55,9 @@ export default component$(() => {
 
   return (
     <div style="flex flex-col gap-4">
-      <h1 class="px-8 pt-4 text-4xl">{`Tv Show Genre: ${genre?.value.name}`}</h1>
+      <h1 class="px-8 pt-4 text-4xl">{`Tv Show Genre: ${
+        tvShows?.value.genre?.name || "Not defined"
+      }`}</h1>
       <MediaGrid
         collection={[...(tvShows.value.results || []), ...store.results]}
         currentPage={store.currentPage}
@@ -99,8 +75,6 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = (event) => {
-  const genre = event.getData(getGenre);
-  return {
-    title: `${genre} Tv Shows - Qwik City Movies`,
-  };
+  const { genre } = event.getData(getTvShows);
+  return genre ? { title: `${genre.name} Tv Shows - Qwik City Movies` } : {};
 };
