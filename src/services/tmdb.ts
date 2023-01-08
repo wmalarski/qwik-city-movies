@@ -1,4 +1,3 @@
-import { serverEnv } from "~/env/server";
 import type {
   Collection,
   Genre,
@@ -20,7 +19,7 @@ const fetchTMDB = async <T = unknown>(
 ): Promise<T> => {
   const params = new URLSearchParams({
     ...search,
-    api_key: serverEnv.VITE_TMDB_API_KEY,
+    api_key: import.meta.env.VITE_TMDB_API_KEY,
   });
   const url = `${baseURL}/${path}?${params}`;
   const response = await fetch(url);
