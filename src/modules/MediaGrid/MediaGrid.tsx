@@ -48,7 +48,7 @@ export const MediaGrid = component$((props: Props) => {
         class="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-4 p-8"
       >
         {props.collection?.map((media) => (
-          <MediaCard media={media} />
+          <MediaCard key={media.id} media={media} />
         ))}
       </div>
     </section>

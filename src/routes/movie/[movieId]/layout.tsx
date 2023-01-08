@@ -23,6 +23,7 @@ export const getContent = loader$(async (event) => {
 
   try {
     const movie = await getMovie({ id: parseResult.data.movieId });
+
     return movie;
   } catch {
     throw event.redirect(302, paths.notFound);
