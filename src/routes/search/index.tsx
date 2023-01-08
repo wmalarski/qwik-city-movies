@@ -1,13 +1,7 @@
-import {
-  $,
-  component$,
-  Resource,
-  useContext,
-  useStore,
-} from "@builder.io/qwik";
+import { component$, Resource, useContext, useStore } from "@builder.io/qwik";
 import { loader$, useLocation, type DocumentHead } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
-import type { inferPromise, ProductionMedia } from "~/services/types";
+import type { ProductionMedia } from "~/services/types";
 import { ContainerContext } from "../context";
 
 export const getContent = loader$(async (event) => {
@@ -28,18 +22,16 @@ export default component$(() => {
 
   const container = useContext(ContainerContext);
 
-  const fetcher$ = $(
-    async (page: number): Promise<inferPromise<typeof getContent>> => {
-      const currentUrl = new URL(location.href);
-      const params = new URLSearchParams({
-        page: String(page),
-        query: currentUrl.searchParams.get("query") || "",
-      });
-      const url = `${currentUrl.origin}${currentUrl.pathname}/api?${params}`;
-      const response = await fetch(url);
-      return response.json();
-    }
-  );
+  // const fetcher$ = $(async (page: number): Promise<typeof getContent> => {
+  //   const currentUrl = new URL(location.href);
+  //   const params = new URLSearchParams({
+  //     page: String(page),
+  //     query: currentUrl.searchParams.get("query") || "",
+  //   });
+  //   const url = `${currentUrl.origin}${currentUrl.pathname}/api?${params}`;
+  //   const response = await fetch(url);
+  //   return response.json();
+  // });
 
   const resource = getContent.use();
 
@@ -63,7 +55,7 @@ export default component$(() => {
           name="query"
           id="query"
           aria-label="query"
-          value={location.query.query}
+          value={location.query.get("query") || ""}
         />
         <button class="btn" type="submit">
           Search
@@ -86,11 +78,11 @@ export default component$(() => {
                 pageCount={data.result?.total_pages || 1}
                 parentContainer={container.value}
                 onMore$={async () => {
-                  const newResult = await fetcher$(store.currentPage + 1);
-                  const newMedia = newResult?.result.results || [];
-                  store.currentPage =
-                    newResult?.result.page || store.currentPage;
-                  store.results = [...store.results, ...newMedia];
+                  // const newResult = await fetcher$(store.currentPage + 1);
+                  // const newMedia = newResult?.result.results || [];
+                  // store.currentPage =
+                  //   newResult?.result.page || store.currentPage;
+                  // store.results = [...store.results, ...newMedia];
                 }}
               />
             ) : (

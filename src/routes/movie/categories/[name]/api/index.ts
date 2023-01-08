@@ -9,7 +9,7 @@ export const onGet = async (event: RequestEvent) => {
     .safeParse({ ...event.params, page: +rawPage });
 
   if (!parseResult.success) {
-    throw event.response.redirect(paths.notFound);
+    throw event.redirect(302, paths.notFound);
   }
 
   const { getMovies, getTrendingMovie } = await import("~/services/tmdb");
@@ -22,6 +22,6 @@ export const onGet = async (event: RequestEvent) => {
         : await getMovies({ page, query: name });
     return movies;
   } catch {
-    throw event.response.redirect(paths.notFound);
+    throw event.redirect(302, paths.notFound);
   }
 };

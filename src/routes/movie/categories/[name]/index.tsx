@@ -1,15 +1,9 @@
-import {
-  $,
-  component$,
-  Resource,
-  useContext,
-  useStore,
-} from "@builder.io/qwik";
+import { component$, Resource, useContext, useStore } from "@builder.io/qwik";
 import { DocumentHead, loader$, useLocation } from "@builder.io/qwik-city";
 import { z } from "zod";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { ContainerContext } from "~/routes/context";
-import type { inferPromise, ProductionMedia } from "~/services/types";
+import type { ProductionMedia } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
@@ -41,14 +35,12 @@ export default component$(() => {
 
   const container = useContext(ContainerContext);
 
-  const fetcher$ = $(
-    async (page: number): Promise<inferPromise<typeof getContent>> => {
-      const params = new URLSearchParams({ page: String(page) });
-      const url = `${location.href}/api?${params}`;
-      const response = await fetch(url);
-      return response.json();
-    }
-  );
+  // const fetcher$ = $(async (page: number): Promise<typeof getContent> => {
+  //   const params = new URLSearchParams({ page: String(page) });
+  //   const url = `${location.href}/api?${params}`;
+  //   const response = await fetch(url);
+  //   return response.json();
+  // });
 
   const resource = getContent.use();
 
@@ -78,10 +70,10 @@ export default component$(() => {
               pageCount={data.total_pages || 1}
               parentContainer={container.value}
               onMore$={async () => {
-                const newResult = await fetcher$(store.currentPage + 1);
-                const newMedia = newResult.results || [];
-                store.currentPage = newResult.page || store.currentPage;
-                store.results = [...store.results, ...newMedia];
+                // const newResult = await fetcher$(store.currentPage + 1);
+                // const newMedia = newResult.results || [];
+                // store.currentPage = newResult.page || store.currentPage;
+                // store.results = [...store.results, ...newMedia];
               }}
             />
           )}

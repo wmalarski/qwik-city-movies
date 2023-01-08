@@ -12,21 +12,16 @@ export const onGet = async (event: RequestEvent) => {
     .safeParse({ genreId: +event.params.genreId, page: +rawPage });
 
   if (!parseResult.success) {
-    throw event.response.redirect(paths.notFound);
+    throw event.redirect(302, paths.notFound);
   }
 
-  const { getMediaByGenre, getGenreList } = await import("~/services/tmdb");
+  const { getMediaByGenre } = await import("~/services/tmdb");
 
-  const [tvShows, genres] = await Promise.all([
-    getMediaByGenre({
-      genre: parseResult.data.genreId,
-      media: "tv",
-      page: parseResult.data.page,
-    }),
-    getGenreList({ media: "tv" }),
-  ]);
+  const tvShows = await getMediaByGenre({
+    genre: parseResult.data.genreId,
+    media: "tv",
+    page: parseResult.data.page,
+  });
 
-  const genre = genres.find((genre) => genre.id === parseResult.data.genreId);
-
-  return { genre, tvShows };
+  return tvShows;
 };
