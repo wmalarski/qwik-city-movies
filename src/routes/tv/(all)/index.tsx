@@ -1,4 +1,4 @@
-import { component$, Resource } from "@builder.io/qwik";
+import { component$ } from "@builder.io/qwik";
 import { loader$, type DocumentHead } from "@builder.io/qwik-city";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { TvHero } from "~/modules/TvHero/TvHero";
@@ -27,38 +27,31 @@ export default component$(() => {
   const resource = getContent.use();
 
   return (
-    <Resource
-      value={resource}
-      onPending={() => <div class="h-screen" />}
-      onRejected={() => <div>Rejected</div>}
-      onResolved={(data) => (
-        <div class="flex flex-col gap-4">
-          <a href={paths.media("tv", data.featured?.id)}>
-            <TvHero media={data.featured} />
-          </a>
-          <MediaCarousel
-            collection={data.popular?.results || []}
-            title={getListItem({ query: "popular", type: "tv" })}
-            viewAllHref={paths.tvCategory("popular")}
-          />
-          <MediaCarousel
-            collection={data.topRated?.results || []}
-            title={getListItem({ query: "top_rated", type: "tv" })}
-            viewAllHref={paths.tvCategory("top_rated")}
-          />
-          <MediaCarousel
-            collection={data.onTheAir?.results || []}
-            title={getListItem({ query: "on_the_air", type: "tv" })}
-            viewAllHref={paths.tvCategory("on_the_air")}
-          />
-          <MediaCarousel
-            collection={data.airingToday?.results || []}
-            title={getListItem({ query: "airing_today", type: "tv" })}
-            viewAllHref={paths.tvCategory("airing_today")}
-          />
-        </div>
-      )}
-    />
+    <div class="flex flex-col gap-4">
+      <a href={paths.media("tv", resource.value.featured?.id)}>
+        <TvHero media={resource.value.featured} />
+      </a>
+      <MediaCarousel
+        collection={resource.value.popular?.results || []}
+        title={getListItem({ query: "popular", type: "tv" })}
+        viewAllHref={paths.tvCategory("popular")}
+      />
+      <MediaCarousel
+        collection={resource.value.topRated?.results || []}
+        title={getListItem({ query: "top_rated", type: "tv" })}
+        viewAllHref={paths.tvCategory("top_rated")}
+      />
+      <MediaCarousel
+        collection={resource.value.onTheAir?.results || []}
+        title={getListItem({ query: "on_the_air", type: "tv" })}
+        viewAllHref={paths.tvCategory("on_the_air")}
+      />
+      <MediaCarousel
+        collection={resource.value.airingToday?.results || []}
+        title={getListItem({ query: "airing_today", type: "tv" })}
+        viewAllHref={paths.tvCategory("airing_today")}
+      />
+    </div>
   );
 });
 

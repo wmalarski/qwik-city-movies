@@ -1,9 +1,4 @@
-import {
-  component$,
-  Resource,
-  Slot,
-  useContextProvider,
-} from "@builder.io/qwik";
+import { component$, Slot, useContextProvider } from "@builder.io/qwik";
 import { loader$, useLocation } from "@builder.io/qwik-city";
 import clsx from "clsx";
 import { z } from "zod";
@@ -42,12 +37,7 @@ export default component$(() => {
 
   return (
     <div class="flex flex-col gap-4">
-      <Resource
-        value={resource}
-        onPending={() => <div class="h-80" />}
-        onRejected={() => <div>Rejected</div>}
-        onResolved={(data) => <MovieHero media={data} />}
-      />
+      <MovieHero media={resource.value} />
       <div class="flex flex-row items-center justify-center gap-4">
         <a
           href={overviewHref}

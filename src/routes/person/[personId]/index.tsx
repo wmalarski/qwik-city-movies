@@ -1,4 +1,4 @@
-import { component$, Resource } from "@builder.io/qwik";
+import { component$ } from "@builder.io/qwik";
 import { DocumentHead, loader$ } from "@builder.io/qwik-city";
 import { z } from "zod";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
@@ -27,24 +27,17 @@ export default component$(() => {
   const resource = getContent.use();
 
   return (
-    <Resource
-      value={resource}
-      onPending={() => <div class="h-screen" />}
-      onRejected={() => <div>Rejected</div>}
-      onResolved={(data) => (
-        <div style="flex flex-col">
-          <PersonHero person={data} />
-          <MediaGrid
-            collection={[
-              ...(data.combined_credits?.cast || []),
-              ...(data.combined_credits?.crew || []),
-            ]}
-            currentPage={1}
-            pageCount={1}
-          />
-        </div>
-      )}
-    />
+    <div style="flex flex-col">
+      <PersonHero person={resource.value} />
+      <MediaGrid
+        collection={[
+          ...(resource.value.combined_credits?.cast || []),
+          ...(resource.value.combined_credits?.crew || []),
+        ]}
+        currentPage={1}
+        pageCount={1}
+      />
+    </div>
   );
 });
 

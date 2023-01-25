@@ -1,4 +1,4 @@
-import { component$, Resource } from "@builder.io/qwik";
+import { component$ } from "@builder.io/qwik";
 import { loader$, type DocumentHead } from "@builder.io/qwik-city";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
@@ -41,35 +41,28 @@ export default component$(() => {
   const resource = getContent.use();
 
   return (
-    <Resource
-      value={resource}
-      onPending={() => <div class="h-screen" />}
-      onRejected={() => <div>Rejected</div>}
-      onResolved={(data) => (
-        <div class="flex flex-col gap-4">
-          {data.featuredTv ? (
-            <a href={paths.media("tv", data.featuredTv.id)}>
-              <TvHero media={data.featuredTv} />
-            </a>
-          ) : null}
-          {data.featuredMovie ? (
-            <a href={paths.media("movie", data.featuredMovie.id)}>
-              <MovieHero media={data.featuredMovie} />
-            </a>
-          ) : null}
-          <MediaCarousel
-            collection={data.movies?.results || []}
-            title={getListItem({ query: "trending", type: "movie" })}
-            viewAllHref={paths.movieCategory("trending")}
-          />
-          <MediaCarousel
-            collection={data.tv?.results || []}
-            title={getListItem({ query: "trending", type: "tv" })}
-            viewAllHref={paths.tvCategory("trending")}
-          />
-        </div>
-      )}
-    />
+    <div class="flex flex-col gap-4">
+      {resource.value.featuredTv ? (
+        <a href={paths.media("tv", resource.value.featuredTv.id)}>
+          <TvHero media={resource.value.featuredTv} />
+        </a>
+      ) : null}
+      {resource.value.featuredMovie ? (
+        <a href={paths.media("movie", resource.value.featuredMovie.id)}>
+          <MovieHero media={resource.value.featuredMovie} />
+        </a>
+      ) : null}
+      <MediaCarousel
+        collection={resource.value.movies?.results || []}
+        title={getListItem({ query: "trending", type: "movie" })}
+        viewAllHref={paths.movieCategory("trending")}
+      />
+      <MediaCarousel
+        collection={resource.value.tv?.results || []}
+        title={getListItem({ query: "trending", type: "tv" })}
+        viewAllHref={paths.tvCategory("trending")}
+      />
+    </div>
   );
 });
 

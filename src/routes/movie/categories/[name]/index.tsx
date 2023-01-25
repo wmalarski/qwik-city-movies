@@ -1,4 +1,4 @@
-import { component$, Resource, useContext, useStore } from "@builder.io/qwik";
+import { component$, useContext, useStore } from "@builder.io/qwik";
 import {
   action$,
   DocumentHead,
@@ -80,28 +80,17 @@ export default component$(() => {
         {getListItem({ query: location.params.name, type: "movie" })}
       </h1>
       <div>
-        <Resource
-          value={resource}
-          onPending={() => <div class="h-screen" />}
-          onRejected={(e) => (
-            <div>
-              Rejected <pre>{JSON.stringify(e, null, 2)}</pre>
-            </div>
-          )}
-          onResolved={(data) => (
-            <MediaGrid
-              collection={[...(data.results || []), ...store.results]}
-              currentPage={store.currentPage}
-              pageCount={data.total_pages || 1}
-              parentContainer={container.value}
-              onMore$={async () => {
-                await action.execute({ page: `${store.currentPage + 1}` });
-                const newMedia = action.value?.results || [];
-                store.results.push(...newMedia);
-                store.currentPage += 1;
-              }}
-            />
-          )}
+        <MediaGrid
+          collection={[...(resource.value.results || []), ...store.results]}
+          currentPage={store.currentPage}
+          pageCount={resource.value.total_pages || 1}
+          parentContainer={container.value}
+          onMore$={async () => {
+            await action.execute({ page: `${store.currentPage + 1}` });
+            const newMedia = action.value?.results || [];
+            store.results.push(...newMedia);
+            store.currentPage += 1;
+          }}
         />
       </div>
     </div>
