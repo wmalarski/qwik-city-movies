@@ -1,36 +1,9 @@
 import { component$, useContext, useStore } from "@builder.io/qwik";
-import {
-  action$,
-  loader$,
-  useLocation,
-  type DocumentHead,
-} from "@builder.io/qwik-city";
-import { z } from "zod";
+import { loader$, useLocation, type DocumentHead } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { search } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
-import { paths } from "~/utils/paths";
 import { ContainerContext } from "../context";
-
-export const getAction = action$(async (form, event) => {
-  const parseResult = z
-    .object({ page: z.coerce.number().min(1).step(1) })
-    .safeParse({ page: form.get("page") || 1 });
-
-  if (!parseResult.success) {
-    throw event.redirect(302, paths.notFound);
-  }
-
-  const query = event.url.searchParams.get("query");
-
-  if (!query) {
-    return null;
-  }
-
-  const result = await search({ page: 1, query });
-
-  return { query, ...result };
-});
 
 export const getContent = loader$(async (event) => {
   const query = event.url.searchParams.get("query");
@@ -50,7 +23,6 @@ export default component$(() => {
   const container = useContext(ContainerContext);
 
   const resource = getContent.use();
-  const action = getAction.use();
 
   const store = useStore({
     currentPage: 1,
@@ -86,8 +58,12 @@ export default component$(() => {
           pageCount={resource.value.total_pages || 1}
           parentContainer={container.value}
           onMore$={async () => {
-            await action.execute({ page: `${store.currentPage + 1}` });
-            const newMedia = action.value?.results || [];
+            const url = `${location.href}/api?${new URLSearchParams({
+              page: `${store.currentPage + 1}`,
+              query: location.params.query,
+            })}`;
+            const results = await (await fetch(url)).json();
+            const newMedia = results || [];
             store.results.push(...newMedia);
             store.currentPage += 1;
           }}
