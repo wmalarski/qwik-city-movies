@@ -15,12 +15,13 @@ export const onGet: RequestHandler = async (event) => {
   }
 
   try {
-    const name = event.params.name;
+    const query = event.params.name;
+    const page = parseResult.data.page;
 
     const movies =
-      name === "trending"
-        ? await getTrendingMovie({ page: 1 })
-        : await getMovies({ page: 1, query: name });
+      query === "trending"
+        ? await getTrendingMovie({ page })
+        : await getMovies({ page, query });
 
     event.json(200, movies);
   } catch {

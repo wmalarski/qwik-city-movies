@@ -31,10 +31,13 @@ export default component$(() => {
 
   const movies = getContent.use();
 
-  const store = useStore({
-    currentPage: 1,
-    results: [] as ProductionMedia[],
-  });
+  const store = useStore(
+    {
+      currentPage: 1,
+      results: [] as ProductionMedia[],
+    },
+    { deep: true }
+  );
 
   return (
     <div class="flex flex-col">
@@ -47,11 +50,11 @@ export default component$(() => {
         pageCount={movies.value.total_pages || 1}
         parentContainer={container.value}
         onMore$={async () => {
-          const url = `${location.href}/api?${new URLSearchParams({
+          const url = `${location.href}api?${new URLSearchParams({
             page: `${store.currentPage + 1}`,
           })}`;
-          const results = await (await fetch(url)).json();
-          const newMedia = results || [];
+          const json = await (await fetch(url)).json();
+          const newMedia = json.results || [];
           store.results.push(...newMedia);
           store.currentPage += 1;
         }}
