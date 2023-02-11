@@ -1,13 +1,13 @@
-import { component$, Slot, useContextProvider } from "@builder.io/qwik";
+import { component$, Slot } from "@builder.io/qwik";
 import { loader$, useLocation } from "@builder.io/qwik-city";
 import clsx from "clsx";
 import { z } from "zod";
+import { Footer } from "~/modules/Footer/Footer";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
 import { getMovie } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
-import { MovieResourceContext } from "./context";
 
-export const getContent = loader$(async (event) => {
+export const movieLoader = loader$(async (event) => {
   const parseResult = z
     .object({ movieId: z.coerce.number().min(0).step(1) })
     .safeParse(event.params);
@@ -28,16 +28,15 @@ export const getContent = loader$(async (event) => {
 export default component$(() => {
   const location = useLocation();
 
-  const resource = getContent.use();
-  useContextProvider(MovieResourceContext, resource);
+  const movie = movieLoader.use();
 
   const overviewHref = paths.media("movie", +location.params.movieId);
   const videoHref = paths.movieVideo(+location.params.movieId);
   const photosHref = paths.moviePhotos(+location.params.movieId);
 
   return (
-    <div class="flex flex-col gap-4">
-      <MovieHero media={resource.value} />
+    <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
+      <MovieHero media={movie.value} />
       <div class="flex flex-row items-center justify-center gap-4">
         <a
           href={overviewHref}
@@ -77,6 +76,7 @@ export default component$(() => {
         </a>
       </div>
       <Slot />
+      <Footer />
     </div>
   );
 });

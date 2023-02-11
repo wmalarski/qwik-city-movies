@@ -1,11 +1,11 @@
-import { component$, useContext } from "@builder.io/qwik";
+import { component$ } from "@builder.io/qwik";
 import { DocumentHead } from "@builder.io/qwik-city";
 import { MovieInfoCard } from "~/modules/MovieInfoCard/MovieInfoCard";
 import { PersonCarousel } from "~/modules/PersonCarousel/PersonCarousel";
-import { MovieResourceContext } from "../context";
+import { movieLoader } from "../layout";
 
 export default component$(() => {
-  const resource = useContext(MovieResourceContext);
+  const resource = movieLoader.use();
 
   return (
     <flex class="flex flex-col">

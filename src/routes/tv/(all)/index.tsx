@@ -1,12 +1,13 @@
 import { component$ } from "@builder.io/qwik";
 import { loader$, type DocumentHead } from "@builder.io/qwik-city";
+import { Footer } from "~/modules/Footer/Footer";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { TvHero } from "~/modules/TvHero/TvHero";
 import { getRandomMedia, getTvShow, getTvShows } from "~/services/tmdb";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const getContent = loader$(async () => {
+export const tvShowsLoader = loader$(async () => {
   const [popular, topRated, onTheAir, airingToday] = await Promise.all([
     getTvShows({ page: 1, query: "popular" }),
     getTvShows({ page: 1, query: "top_rated" }),
@@ -24,10 +25,10 @@ export const getContent = loader$(async () => {
 });
 
 export default component$(() => {
-  const resource = getContent.use();
+  const resource = tvShowsLoader.use();
 
   return (
-    <div class="flex flex-col gap-4">
+    <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
       <a href={paths.media("tv", resource.value.featured?.id)}>
         <TvHero media={resource.value.featured} />
       </a>
@@ -51,6 +52,7 @@ export default component$(() => {
         title={getListItem({ query: "airing_today", type: "tv" })}
         viewAllHref={paths.tvCategory("airing_today")}
       />
+      <Footer />
     </div>
   );
 });

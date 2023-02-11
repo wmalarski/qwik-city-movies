@@ -1,11 +1,10 @@
-import { component$, useContext, useStore } from "@builder.io/qwik";
+import { component$, useSignal, useStore } from "@builder.io/qwik";
 import { loader$, useLocation, type DocumentHead } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { search } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
-import { ContainerContext } from "../context";
 
-export const getContent = loader$(async (event) => {
+export const searchLoader = loader$(async (event) => {
   const query = event.url.searchParams.get("query");
 
   if (!query) {
@@ -20,9 +19,9 @@ export const getContent = loader$(async (event) => {
 export default component$(() => {
   const location = useLocation();
 
-  const container = useContext(ContainerContext);
+  const containerRef = useSignal<Element | null>(null);
 
-  const resource = getContent.use();
+  const resource = searchLoader.use();
 
   const store = useStore(
     {
@@ -33,7 +32,10 @@ export default component$(() => {
   );
 
   return (
-    <div class="flex flex-col">
+    <div
+      class="flex max-h-screen flex-col overflow-y-scroll"
+      ref={(e) => (containerRef.value = e)}
+    >
       <form class="flex flex-row justify-start gap-4 bg-base-300 p-4">
         <img
           src="/images/magnifier.svg"
@@ -59,7 +61,7 @@ export default component$(() => {
           collection={[...(resource.value.results || []), ...store.results]}
           currentPage={store.currentPage}
           pageCount={resource.value.total_pages || 1}
-          parentContainer={container.value}
+          parentContainer={containerRef.value}
           onMore$={async () => {
             const url = `${location.href}api?${new URLSearchParams({
               page: `${store.currentPage + 1}`,

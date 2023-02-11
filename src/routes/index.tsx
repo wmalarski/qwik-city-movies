@@ -1,5 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { loader$, type DocumentHead } from "@builder.io/qwik-city";
+import { Footer } from "~/modules/Footer/Footer";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
 import { TvHero } from "~/modules/TvHero/TvHero";
@@ -14,7 +15,7 @@ import type { ProductionMedia } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const getContent = loader$(async (event) => {
+export const contentLoader = loader$(async (event) => {
   try {
     const [movies, tv] = await Promise.all([
       getTrendingMovie({ page: 1 }),
@@ -38,10 +39,10 @@ export const getContent = loader$(async (event) => {
 });
 
 export default component$(() => {
-  const resource = getContent.use();
+  const resource = contentLoader.use();
 
   return (
-    <div class="flex flex-col gap-4">
+    <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
       {resource.value.featuredTv ? (
         <a href={paths.media("tv", resource.value.featuredTv.id)}>
           <TvHero media={resource.value.featuredTv} />
@@ -62,6 +63,7 @@ export default component$(() => {
         title={getListItem({ query: "trending", type: "tv" })}
         viewAllHref={paths.tvCategory("trending")}
       />
+      <Footer />
     </div>
   );
 });

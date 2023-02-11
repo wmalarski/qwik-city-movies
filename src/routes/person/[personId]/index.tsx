@@ -1,12 +1,13 @@
 import { component$ } from "@builder.io/qwik";
 import { DocumentHead, loader$ } from "@builder.io/qwik-city";
 import { z } from "zod";
+import { Footer } from "~/modules/Footer/Footer";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { PersonHero } from "~/modules/PersonHero/PersonHero";
 import { getPerson } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
 
-export const getContent = loader$(async (event) => {
+export const personLoader = loader$(async (event) => {
   const parseResult = z
     .object({ personId: z.coerce.number().min(0).step(1) })
     .safeParse(event.params);
@@ -24,10 +25,10 @@ export const getContent = loader$(async (event) => {
 });
 
 export default component$(() => {
-  const resource = getContent.use();
+  const resource = personLoader.use();
 
   return (
-    <div style="flex flex-col">
+    <div style="max-h-screen overflow-y-scroll flex flex-col">
       <PersonHero person={resource.value} />
       <MediaGrid
         collection={[
@@ -37,6 +38,7 @@ export default component$(() => {
         currentPage={1}
         pageCount={1}
       />
+      <Footer />
     </div>
   );
 });
