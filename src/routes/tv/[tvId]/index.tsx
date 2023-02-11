@@ -1,6 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { DocumentHead, loader$ } from "@builder.io/qwik-city";
 import { z } from "zod";
+import { Footer } from "~/modules/Footer/Footer";
 import { MovieInfoCard } from "~/modules/MovieInfoCard/MovieInfoCard";
 import { PersonCarousel } from "~/modules/PersonCarousel/PersonCarousel";
 import { TvHero } from "~/modules/TvHero/TvHero";
@@ -28,13 +29,14 @@ export default component$(() => {
   const resource = tvShowLoader.use();
 
   return (
-    <flex class="flex flex-col">
+    <flex class="flex max-h-screen flex-col overflow-y-scroll">
       <TvHero media={resource.value} />
       <MovieInfoCard media={resource.value} />
       <PersonCarousel
         collection={resource.value?.credits?.cast || []}
         title="Cast"
       />
+      <Footer />
     </flex>
   );
 });

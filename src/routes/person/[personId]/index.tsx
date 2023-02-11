@@ -1,6 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { DocumentHead, loader$ } from "@builder.io/qwik-city";
 import { z } from "zod";
+import { Footer } from "~/modules/Footer/Footer";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { PersonHero } from "~/modules/PersonHero/PersonHero";
 import { getPerson } from "~/services/tmdb";
@@ -27,7 +28,7 @@ export default component$(() => {
   const resource = personLoader.use();
 
   return (
-    <div style="flex flex-col">
+    <div style="max-h-screen overflow-y-scroll flex flex-col">
       <PersonHero person={resource.value} />
       <MediaGrid
         collection={[
@@ -37,6 +38,7 @@ export default component$(() => {
         currentPage={1}
         pageCount={1}
       />
+      <Footer />
     </div>
   );
 });

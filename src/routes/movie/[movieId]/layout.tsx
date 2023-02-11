@@ -2,6 +2,7 @@ import { component$, Slot } from "@builder.io/qwik";
 import { loader$, useLocation } from "@builder.io/qwik-city";
 import clsx from "clsx";
 import { z } from "zod";
+import { Footer } from "~/modules/Footer/Footer";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
 import { getMovie } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
@@ -34,7 +35,7 @@ export default component$(() => {
   const photosHref = paths.moviePhotos(+location.params.movieId);
 
   return (
-    <div class="flex flex-col gap-4">
+    <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
       <MovieHero media={movie.value} />
       <div class="flex flex-row items-center justify-center gap-4">
         <a
@@ -75,6 +76,7 @@ export default component$(() => {
         </a>
       </div>
       <Slot />
+      <Footer />
     </div>
   );
 });
