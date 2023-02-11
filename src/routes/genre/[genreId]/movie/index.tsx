@@ -8,7 +8,7 @@ import type { ProductionMedia } from "~/services/types";
 import { paths } from "~/utils/paths";
 import type { LoaderContent } from "~/utils/types";
 
-export const getContent = loader$((event) => {
+export const genreMoviesLoader = loader$((event) => {
   const parseResult = z
     .object({ genreId: z.coerce.number().min(0).step(1) })
     .safeParse(event.params);
@@ -29,7 +29,7 @@ export default component$(() => {
 
   const container = useContext(ContainerContext);
 
-  const movies = getContent.use();
+  const movies = genreMoviesLoader.use();
 
   const store = useStore(
     {
@@ -64,9 +64,9 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = (event) => {
-  const data = event.getData<Awaited<LoaderContent<typeof getContent>>>(
+  const data = event.getData<Awaited<LoaderContent<typeof genreMoviesLoader>>>(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    getContent as any
+    genreMoviesLoader as any
   );
   return data.genre
     ? { title: `${data.genre.name} Tv Shows - Qwik City Movies` }

@@ -8,7 +8,7 @@ import type { ProductionMedia } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const getContent = loader$(async (event) => {
+export const tvShowCategoryLoader = loader$(async (event) => {
   const parseResult = z
     .object({ name: z.string().min(1) })
     .safeParse(event.params);
@@ -34,7 +34,7 @@ export default component$(() => {
 
   const container = useContext(ContainerContext);
 
-  const resource = getContent.use();
+  const resource = tvShowCategoryLoader.use();
 
   const store = useStore(
     {

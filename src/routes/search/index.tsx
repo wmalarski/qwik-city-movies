@@ -5,7 +5,7 @@ import { search } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
 import { ContainerContext } from "../context";
 
-export const getContent = loader$(async (event) => {
+export const searchLoader = loader$(async (event) => {
   const query = event.url.searchParams.get("query");
 
   if (!query) {
@@ -22,7 +22,7 @@ export default component$(() => {
 
   const container = useContext(ContainerContext);
 
-  const resource = getContent.use();
+  const resource = searchLoader.use();
 
   const store = useStore(
     {

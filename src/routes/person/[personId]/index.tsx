@@ -6,7 +6,7 @@ import { PersonHero } from "~/modules/PersonHero/PersonHero";
 import { getPerson } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
 
-export const getContent = loader$(async (event) => {
+export const personLoader = loader$(async (event) => {
   const parseResult = z
     .object({ personId: z.coerce.number().min(0).step(1) })
     .safeParse(event.params);
@@ -24,7 +24,7 @@ export const getContent = loader$(async (event) => {
 });
 
 export default component$(() => {
-  const resource = getContent.use();
+  const resource = personLoader.use();
 
   return (
     <div style="flex flex-col">

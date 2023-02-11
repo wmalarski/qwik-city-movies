@@ -14,7 +14,7 @@ import type { ProductionMedia } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const getContent = loader$(async (event) => {
+export const contentLoader = loader$(async (event) => {
   try {
     const [movies, tv] = await Promise.all([
       getTrendingMovie({ page: 1 }),
@@ -38,7 +38,7 @@ export const getContent = loader$(async (event) => {
 });
 
 export default component$(() => {
-  const resource = getContent.use();
+  const resource = contentLoader.use();
 
   return (
     <div class="flex flex-col gap-4">

@@ -6,7 +6,7 @@ import { getMovie, getMovies, getRandomMedia } from "~/services/tmdb";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const getContent = loader$(async () => {
+export const allMoviesLoader = loader$(async () => {
   const [popular, topRated, nowPlaying] = await Promise.all([
     getMovies({ page: 1, query: "popular" }),
     getMovies({ page: 1, query: "top_rated" }),
@@ -23,7 +23,7 @@ export const getContent = loader$(async () => {
 });
 
 export default component$(() => {
-  const resource = getContent.use();
+  const resource = allMoviesLoader.use();
 
   return (
     <div class="flex flex-col gap-4">

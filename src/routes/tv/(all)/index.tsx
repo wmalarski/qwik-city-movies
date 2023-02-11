@@ -6,7 +6,7 @@ import { getRandomMedia, getTvShow, getTvShows } from "~/services/tmdb";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const getContent = loader$(async () => {
+export const tvShowsLoader = loader$(async () => {
   const [popular, topRated, onTheAir, airingToday] = await Promise.all([
     getTvShows({ page: 1, query: "popular" }),
     getTvShows({ page: 1, query: "top_rated" }),
@@ -24,7 +24,7 @@ export const getContent = loader$(async () => {
 });
 
 export default component$(() => {
-  const resource = getContent.use();
+  const resource = tvShowsLoader.use();
 
   return (
     <div class="flex flex-col gap-4">
