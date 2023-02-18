@@ -4,7 +4,7 @@ import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { search } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
 
-export const searchLoader = loader$(async (event) => {
+export const useSearchLoader = loader$(async (event) => {
   const query = event.url.searchParams.get("query");
 
   if (!query) {
@@ -21,7 +21,7 @@ export default component$(() => {
 
   const containerRef = useSignal<Element | null>(null);
 
-  const resource = searchLoader.use();
+  const resource = useSearchLoader();
 
   const store = useStore(
     {

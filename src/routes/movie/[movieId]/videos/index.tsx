@@ -1,9 +1,9 @@
 import { component$ } from "@builder.io/qwik";
 import { DocumentHead } from "@builder.io/qwik-city";
-import { movieLoader } from "../layout";
+import { useMovieLoader } from "../layout";
 
 export default component$(() => {
-  const resource = movieLoader.use();
+  const resource = useMovieLoader();
 
   return (
     <section class="grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-6 px-16 py-4">

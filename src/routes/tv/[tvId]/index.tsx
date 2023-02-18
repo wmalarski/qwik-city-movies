@@ -8,7 +8,7 @@ import { TvHero } from "~/modules/TvHero/TvHero";
 import { getTvShow } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
 
-export const tvShowLoader = loader$(async (event) => {
+export const useTvShowLoader = loader$(async (event) => {
   const parseResult = z
     .object({ tvId: z.coerce.number().min(0).step(1) })
     .safeParse(event.params);
@@ -26,7 +26,7 @@ export const tvShowLoader = loader$(async (event) => {
 });
 
 export default component$(() => {
-  const resource = tvShowLoader.use();
+  const resource = useTvShowLoader();
 
   return (
     <flex class="flex max-h-screen flex-col overflow-y-scroll">

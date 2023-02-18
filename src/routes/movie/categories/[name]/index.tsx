@@ -7,7 +7,7 @@ import type { ProductionMedia } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const categoryLoader = loader$(async (event) => {
+export const useCategoryLoader = loader$(async (event) => {
   const parseResult = z
     .object({ name: z.string().min(1) })
     .safeParse(event.params);
@@ -33,7 +33,7 @@ export default component$(() => {
 
   const containerRef = useSignal<Element | null>(null);
 
-  const resource = categoryLoader.use();
+  const resource = useCategoryLoader();
 
   const store = useStore(
     {
