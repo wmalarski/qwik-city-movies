@@ -7,7 +7,7 @@ import { MovieHero } from "~/modules/MovieHero/MovieHero";
 import { getMovie } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
 
-export const movieLoader = loader$(async (event) => {
+export const useMovieLoader = loader$(async (event) => {
   const parseResult = z
     .object({ movieId: z.coerce.number().min(0).step(1) })
     .safeParse(event.params);
@@ -28,7 +28,7 @@ export const movieLoader = loader$(async (event) => {
 export default component$(() => {
   const location = useLocation();
 
-  const movie = movieLoader.use();
+  const movie = useMovieLoader();
 
   const overviewHref = paths.media("movie", +location.params.movieId);
   const videoHref = paths.movieVideo(+location.params.movieId);

@@ -5,9 +5,8 @@ import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { getMediaByGenre } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
 import { paths } from "~/utils/paths";
-import { LoaderContent } from "~/utils/types";
 
-export const genreTvShowsLoader = loader$((event) => {
+export const useGenreTvShowsLoader = loader$((event) => {
   const parseResult = z
     .object({ genreId: z.coerce.number().min(0).step(1) })
     .safeParse(event.params);
@@ -28,7 +27,7 @@ export default component$(() => {
 
   const containerRef = useSignal<Element | null>(null);
 
-  const tvShows = genreTvShowsLoader.use();
+  const tvShows = useGenreTvShowsLoader();
 
   const store = useStore(
     {
@@ -66,10 +65,7 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = (event) => {
-  const data = event.getData<Awaited<LoaderContent<typeof genreTvShowsLoader>>>(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    genreTvShowsLoader as any
-  );
+  const data = event.resolveValue(useGenreTvShowsLoader);
   return data.genre
     ? { title: `${data.genre.name} Tv Shows - Qwik City Movies` }
     : {};
