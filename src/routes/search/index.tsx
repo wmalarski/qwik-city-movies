@@ -1,8 +1,15 @@
-import { component$, useSignal, useStore } from "@builder.io/qwik";
-import { loader$, useLocation, type DocumentHead } from "@builder.io/qwik-city";
+import { component$, useSignal, useStore, useTask$ } from "@builder.io/qwik";
+import {
+  loader$,
+  server$,
+  useLocation,
+  z,
+  type DocumentHead,
+} from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { search } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
+import { paths } from "~/utils/paths";
 
 export const useSearchLoader = loader$(async (event) => {
   const query = event.url.searchParams.get("query");
@@ -16,6 +23,23 @@ export const useSearchLoader = loader$(async (event) => {
   return { query, ...result };
 });
 
+export const getMore = server$(async (event, query: string, page: number) => {
+  const parseResult = z
+    .object({
+      page: z.coerce.number().min(1).int().default(1),
+      query: z.string().optional().default(""),
+    })
+    .safeParse({ page, query });
+
+  if (!parseResult.success) {
+    throw event.redirect(302, paths.notFound);
+  }
+
+  const result = await search(parseResult.data);
+
+  return { query: parseResult.data.query, ...result };
+});
+
 export default component$(() => {
   const location = useLocation();
 
@@ -23,13 +47,13 @@ export default component$(() => {
 
   const resource = useSearchLoader();
 
-  const store = useStore(
-    {
-      currentPage: 1,
-      results: [] as ProductionMedia[],
-    },
-    { deep: true }
-  );
+  const currentPage = useSignal(1);
+  const store = useStore<ProductionMedia[]>([]);
+
+  useTask$(() => {
+    const results = resource.value?.results || [];
+    store.push(...results);
+  });
 
   return (
     <div
@@ -49,7 +73,7 @@ export default component$(() => {
           name="query"
           id="query"
           aria-label="query"
-          value={location.query.get("query") || ""}
+          value={location.url.searchParams.get("query") || ""}
         />
         <button class="btn" type="submit">
           Search
@@ -58,19 +82,16 @@ export default component$(() => {
 
       {resource.value ? (
         <MediaGrid
-          collection={[...(resource.value.results || []), ...store.results]}
-          currentPage={store.currentPage}
+          collection={store}
+          currentPage={currentPage.value}
           pageCount={resource.value.total_pages || 1}
           parentContainer={containerRef.value}
           onMore$={async () => {
-            const url = `${location.href}api?${new URLSearchParams({
-              page: `${store.currentPage + 1}`,
-              query: location.params.query,
-            })}`;
-            const json = await (await fetch(url)).json();
-            const newMedia = json.results || [];
-            store.results.push(...newMedia);
-            store.currentPage += 1;
+            const query = location.url.searchParams.get("query") || "";
+            const data = await getMore(query, currentPage.value + 1);
+            const newMedia = data.results || [];
+            store.push(...newMedia);
+            currentPage.value += 1;
           }}
         />
       ) : (

@@ -44,7 +44,7 @@ export default component$(() => {
             "transition-text p-2 text-xl uppercase opacity-70 duration-100 ease-in-out hover:opacity-100",
             {
               "border-b-2 border-b-white opacity-100":
-                overviewHref === location.pathname,
+                overviewHref === location.url.pathname,
             }
           )}
         >
@@ -56,7 +56,7 @@ export default component$(() => {
             "transition-text p-2 text-xl uppercase opacity-70 duration-100 ease-in-out hover:opacity-100",
             {
               "border-b-2 border-b-white opacity-100":
-                videoHref === location.pathname,
+                videoHref === location.url.pathname,
             }
           )}
         >
@@ -68,7 +68,7 @@ export default component$(() => {
             "transition-text p-2 text-xl uppercase opacity-70 duration-100 ease-in-out hover:opacity-100",
             {
               "border-b-2 border-b-white opacity-100":
-                photosHref === location.pathname,
+                photosHref === location.url.pathname,
             }
           )}
         >
