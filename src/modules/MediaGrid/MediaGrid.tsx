@@ -1,4 +1,4 @@
-import { $, component$, PropFunction, useSignal } from "@builder.io/qwik";
+import { $, component$, QRL, useSignal } from "@builder.io/qwik";
 import type { ProductionMedia } from "~/services/types";
 import { MediaCard } from "../MediaCard/MediaCard";
 
@@ -6,7 +6,7 @@ type Props = {
   collection: ProductionMedia[];
   currentPage: number;
   pageCount: number;
-  onMore$?: PropFunction<() => void>;
+  onMore$?: QRL<() => void>;
   parentContainer?: Element | null;
 };
 

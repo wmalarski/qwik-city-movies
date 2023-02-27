@@ -1,5 +1,5 @@
-import { component$, useSignal, useStore } from "@builder.io/qwik";
-import { DocumentHead, loader$, useLocation } from "@builder.io/qwik-city";
+import { component$, useSignal, useStore, useTask$ } from "@builder.io/qwik";
+import { DocumentHead, loader$, server$ } from "@builder.io/qwik-city";
 import { z } from "zod";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { getMediaByGenre } from "~/services/tmdb";
@@ -22,20 +22,37 @@ export const useGenreMovies = loader$((event) => {
   });
 });
 
-export default component$(() => {
-  const location = useLocation();
+export const getMore = server$((event, page: number) => {
+  const parseResult = z
+    .object({
+      genreId: z.coerce.number().min(0).step(1),
+      page: z.coerce.number().int().min(1).default(1),
+    })
+    .safeParse({ genreId: event.params.genreId, page });
 
+  if (!parseResult.success) {
+    throw event.redirect(302, paths.notFound);
+  }
+
+  return getMediaByGenre({
+    genre: parseResult.data.genreId,
+    media: "movie",
+    page: parseResult.data.page,
+  });
+});
+
+export default component$(() => {
   const containerRef = useSignal<Element | null>(null);
 
   const movies = useGenreMovies();
 
-  const store = useStore(
-    {
-      currentPage: 1,
-      results: [] as ProductionMedia[],
-    },
-    { deep: true }
-  );
+  const currentPage = useSignal(1);
+  const store = useStore<ProductionMedia[]>([]);
+
+  useTask$(() => {
+    const results = movies.value.results || [];
+    store.push(...results);
+  });
 
   return (
     <div
@@ -46,18 +63,15 @@ export default component$(() => {
         movies?.value.genre?.name || "Not defined"
       }`}</h1>
       <MediaGrid
-        collection={[...movies.value.results, ...store.results]}
-        currentPage={store.currentPage}
+        collection={store}
+        currentPage={currentPage.value}
         pageCount={movies.value.total_pages || 1}
         parentContainer={containerRef.value}
         onMore$={async () => {
-          const url = `${location.href}api?${new URLSearchParams({
-            page: `${store.currentPage + 1}`,
-          })}`;
-          const json = await (await fetch(url)).json();
-          const newMedia = json.results || [];
-          store.results.push(...newMedia);
-          store.currentPage += 1;
+          const data = await getMore(currentPage.value + 1);
+          const newMedia = data.results || [];
+          store.push(...newMedia);
+          currentPage.value += 1;
         }}
       />
     </div>
