@@ -1,13 +1,12 @@
 import { component$ } from "@builder.io/qwik";
-import { DocumentHead, loader$ } from "@builder.io/qwik-city";
-import { z } from "zod";
+import { DocumentHead, routeLoader$, z } from "@builder.io/qwik-city";
 import { Footer } from "~/modules/Footer/Footer";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { PersonHero } from "~/modules/PersonHero/PersonHero";
 import { getPerson } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
 
-export const usePersonLoader = loader$(async (event) => {
+export const usePersonLoader = routeLoader$(async (event) => {
   const parseResult = z
     .object({ personId: z.coerce.number().min(0).step(1) })
     .safeParse(event.params);

@@ -1,5 +1,5 @@
 import { component$ } from "@builder.io/qwik";
-import { loader$, type DocumentHead } from "@builder.io/qwik-city";
+import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 import { Footer } from "~/modules/Footer/Footer";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { TvHero } from "~/modules/TvHero/TvHero";
@@ -7,7 +7,7 @@ import { getRandomMedia, getTvShow, getTvShows } from "~/services/tmdb";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const useTvShowsLoader = loader$(async () => {
+export const useTvShowsLoader = routeLoader$(async () => {
   const [popular, topRated, onTheAir, airingToday] = await Promise.all([
     getTvShows({ page: 1, query: "popular" }),
     getTvShows({ page: 1, query: "top_rated" }),

@@ -1,5 +1,5 @@
 import { component$ } from "@builder.io/qwik";
-import { loader$, type DocumentHead } from "@builder.io/qwik-city";
+import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 import { Footer } from "~/modules/Footer/Footer";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
@@ -7,7 +7,7 @@ import { getMovie, getMovies, getRandomMedia } from "~/services/tmdb";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const useAllMoviesLoader = loader$(async () => {
+export const useAllMoviesLoader = routeLoader$(async () => {
   const [popular, topRated, nowPlaying] = await Promise.all([
     getMovies({ page: 1, query: "popular" }),
     getMovies({ page: 1, query: "top_rated" }),

@@ -1,5 +1,5 @@
 import { component$ } from "@builder.io/qwik";
-import { loader$, type DocumentHead } from "@builder.io/qwik-city";
+import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 import { Footer } from "~/modules/Footer/Footer";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
@@ -15,7 +15,7 @@ import type { ProductionMedia } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const useContentLoader = loader$(async (event) => {
+export const useContentLoader = routeLoader$(async (event) => {
   try {
     const [movies, tv] = await Promise.all([
       getTrendingMovie({ page: 1 }),
