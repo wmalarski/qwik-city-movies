@@ -1,13 +1,12 @@
 import { component$, Slot } from "@builder.io/qwik";
-import { loader$, useLocation } from "@builder.io/qwik-city";
+import { routeLoader$, useLocation, z } from "@builder.io/qwik-city";
 import clsx from "clsx";
-import { z } from "zod";
 import { Footer } from "~/modules/Footer/Footer";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
 import { getMovie } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
 
-export const useMovieLoader = loader$(async (event) => {
+export const useMovieLoader = routeLoader$(async (event) => {
   const parseResult = z
     .object({ movieId: z.coerce.number().min(0).step(1) })
     .safeParse(event.params);

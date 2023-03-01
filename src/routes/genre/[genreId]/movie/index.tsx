@@ -1,12 +1,17 @@
 import { component$, useSignal, useStore, useTask$ } from "@builder.io/qwik";
-import { DocumentHead, loader$, server$ } from "@builder.io/qwik-city";
-import { z } from "zod";
+import {
+  DocumentHead,
+  routeLoader$,
+  server$,
+  useLocation,
+  z,
+} from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { getMediaByGenre } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
 import { paths } from "~/utils/paths";
 
-export const useGenreMovies = loader$((event) => {
+export const useGenreMovies = routeLoader$((event) => {
   const parseResult = z
     .object({ genreId: z.coerce.number().min(0).step(1) })
     .safeParse(event.params);
@@ -22,26 +27,24 @@ export const useGenreMovies = loader$((event) => {
   });
 });
 
-export const getMore = server$((event, page: number) => {
+export const getMore = server$((page: number, genreId: string) => {
   const parseResult = z
     .object({
       genreId: z.coerce.number().min(0).step(1),
       page: z.coerce.number().int().min(1).default(1),
     })
-    .safeParse({ genreId: event.params.genreId, page });
-
-  if (!parseResult.success) {
-    throw event.redirect(302, paths.notFound);
-  }
+    .parse({ genreId, page });
 
   return getMediaByGenre({
-    genre: parseResult.data.genreId,
+    genre: parseResult.genreId,
     media: "movie",
-    page: parseResult.data.page,
+    page: parseResult.page,
   });
 });
 
 export default component$(() => {
+  const location = useLocation();
+
   const containerRef = useSignal<Element | null>(null);
 
   const movies = useGenreMovies();
@@ -68,7 +71,10 @@ export default component$(() => {
         pageCount={movies.value.total_pages || 1}
         parentContainer={containerRef.value}
         onMore$={async () => {
-          const data = await getMore(currentPage.value + 1);
+          const data = await getMore(
+            currentPage.value + 1,
+            location.params.genreId
+          );
           const newMedia = data.results || [];
           store.push(...newMedia);
           currentPage.value += 1;

@@ -1,6 +1,5 @@
 import { component$ } from "@builder.io/qwik";
-import { DocumentHead, loader$ } from "@builder.io/qwik-city";
-import { z } from "zod";
+import { DocumentHead, routeLoader$, z } from "@builder.io/qwik-city";
 import { Footer } from "~/modules/Footer/Footer";
 import { MovieInfoCard } from "~/modules/MovieInfoCard/MovieInfoCard";
 import { PersonCarousel } from "~/modules/PersonCarousel/PersonCarousel";
@@ -8,7 +7,7 @@ import { TvHero } from "~/modules/TvHero/TvHero";
 import { getTvShow } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
 
-export const useTvShowLoader = loader$(async (event) => {
+export const useTvShowLoader = routeLoader$(async (event) => {
   const parseResult = z
     .object({ tvId: z.coerce.number().min(0).step(1) })
     .safeParse(event.params);

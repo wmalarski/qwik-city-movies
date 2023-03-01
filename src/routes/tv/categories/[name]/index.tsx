@@ -1,18 +1,18 @@
 import { component$, useSignal, useStore, useTask$ } from "@builder.io/qwik";
 import {
   DocumentHead,
-  loader$,
+  routeLoader$,
   server$,
   useLocation,
+  z,
 } from "@builder.io/qwik-city";
-import { z } from "zod";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { getTrendingTv, getTvShows } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const useTvShowCategoryLoader = loader$(async (event) => {
+export const useTvShowCategoryLoader = routeLoader$(async (event) => {
   const parseResult = z
     .object({ name: z.string().min(1) })
     .safeParse(event.params);
@@ -33,29 +33,20 @@ export const useTvShowCategoryLoader = loader$(async (event) => {
   }
 });
 
-export const getMore = server$(async (event, page: number) => {
+export const getMore = server$(async (page: number, query: string) => {
   const parseResult = z
     .object({
-      name: z.string().min(1),
       page: z.coerce.number().int().min(1).default(1),
+      query: z.string().min(1),
     })
-    .safeParse({ name: event.params.name, page });
+    .parse({ page, query });
 
-  if (!parseResult.success) {
-    throw event.redirect(302, paths.notFound);
-  }
+  const movies =
+    query === "trending"
+      ? await getTrendingTv({ page: parseResult.page })
+      : await getTvShows(parseResult);
 
-  try {
-    const name = parseResult.data.name;
-    const page = parseResult.data.page;
-    const movies =
-      name === "trending"
-        ? await getTrendingTv({ page })
-        : await getTvShows({ page, query: name });
-    return movies;
-  } catch {
-    throw event.redirect(302, paths.notFound);
-  }
+  return movies;
 });
 
 export default component$(() => {
@@ -88,7 +79,10 @@ export default component$(() => {
           pageCount={tvShowCategory.value.total_pages || 1}
           parentContainer={containerRef.value}
           onMore$={async () => {
-            const data = await getMore(currentPage.value + 1);
+            const data = await getMore(
+              currentPage.value + 1,
+              location.params.name
+            );
             const newMedia = data.results || [];
             store.push(...newMedia);
             currentPage.value += 1;

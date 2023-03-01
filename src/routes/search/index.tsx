@@ -1,6 +1,6 @@
 import { component$, useSignal, useStore, useTask$ } from "@builder.io/qwik";
 import {
-  loader$,
+  routeLoader$,
   server$,
   useLocation,
   z,
@@ -9,9 +9,8 @@ import {
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { search } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
-import { paths } from "~/utils/paths";
 
-export const useSearchLoader = loader$(async (event) => {
+export const useSearchLoader = routeLoader$(async (event) => {
   const query = event.url.searchParams.get("query");
 
   if (!query) {
@@ -23,21 +22,17 @@ export const useSearchLoader = loader$(async (event) => {
   return { query, ...result };
 });
 
-export const getMore = server$(async (event, query: string, page: number) => {
+export const getMore = server$(async (page: number, query: string) => {
   const parseResult = z
     .object({
       page: z.coerce.number().min(1).int().default(1),
       query: z.string().optional().default(""),
     })
-    .safeParse({ page, query });
+    .parse({ page, query });
 
-  if (!parseResult.success) {
-    throw event.redirect(302, paths.notFound);
-  }
+  const result = await search(parseResult);
 
-  const result = await search(parseResult.data);
-
-  return { query: parseResult.data.query, ...result };
+  return { query: parseResult.query, ...result };
 });
 
 export default component$(() => {
@@ -88,7 +83,7 @@ export default component$(() => {
           parentContainer={containerRef.value}
           onMore$={async () => {
             const query = location.url.searchParams.get("query") || "";
-            const data = await getMore(query, currentPage.value + 1);
+            const data = await getMore(currentPage.value + 1, query);
             const newMedia = data.results || [];
             store.push(...newMedia);
             currentPage.value += 1;
