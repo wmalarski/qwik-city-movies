@@ -1,4 +1,4 @@
-import { component$, useSignal, useStore, useTask$ } from "@builder.io/qwik";
+import { component$, useSignal } from "@builder.io/qwik";
 import {
   DocumentHead,
   routeLoader$,
@@ -33,16 +33,16 @@ export const useCategoryLoader = routeLoader$(async (event) => {
   }
 });
 
-export const getMore = server$(async (page: number, query: string) => {
+export const getMore = server$(async function (page: number) {
   const parseResult = z
     .object({
       page: z.coerce.number().int().min(1).default(1),
       query: z.string().min(1),
     })
-    .parse({ page, query });
+    .parse({ page, query: this.params.name });
 
   const movies =
-    query === "trending"
+    parseResult.query === "trending"
       ? await getTrendingMovie({ page: parseResult.page })
       : await getMovies(parseResult);
 
@@ -57,12 +57,7 @@ export default component$(() => {
   const resource = useCategoryLoader();
 
   const currentPage = useSignal(1);
-  const store = useStore<ProductionMedia[]>([]);
-
-  useTask$(() => {
-    const results = resource.value.results || [];
-    store.push(...results);
-  });
+  const collection = useSignal<ProductionMedia[]>(resource.value.results || []);
 
   return (
     <div
@@ -74,17 +69,14 @@ export default component$(() => {
       </h1>
       <div>
         <MediaGrid
-          collection={store}
+          collection={collection.value}
           currentPage={currentPage.value}
           pageCount={resource.value.total_pages || 1}
           parentContainer={containerRef.value}
           onMore$={async () => {
-            const data = await getMore(
-              currentPage.value + 1,
-              location.params.name
-            );
+            const data = await getMore(currentPage.value + 1);
             const newMedia = data.results || [];
-            store.push(...newMedia);
+            collection.value = [...collection.value, ...newMedia];
             currentPage.value += 1;
           }}
         />

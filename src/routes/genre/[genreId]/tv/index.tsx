@@ -1,11 +1,5 @@
-import { component$, useSignal, useStore, useTask$ } from "@builder.io/qwik";
-import {
-  DocumentHead,
-  routeLoader$,
-  server$,
-  useLocation,
-  z,
-} from "@builder.io/qwik-city";
+import { component$, useSignal } from "@builder.io/qwik";
+import { DocumentHead, routeLoader$, server$, z } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { getMediaByGenre } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
@@ -27,13 +21,13 @@ export const useGenreTvShowsLoader = routeLoader$((event) => {
   });
 });
 
-export const getMore = server$((page: number, genreId: string) => {
+export const getMore = server$(function (page: number) {
   const parseResult = z
     .object({
       genreId: z.coerce.number().min(0).step(1),
       page: z.coerce.number().int().min(1).default(1),
     })
-    .parse({ genreId, page });
+    .parse({ genreId: this.params.genreId, page });
 
   return getMediaByGenre({
     genre: parseResult.genreId,
@@ -43,19 +37,12 @@ export const getMore = server$((page: number, genreId: string) => {
 });
 
 export default component$(() => {
-  const location = useLocation();
-
   const containerRef = useSignal<Element | null>(null);
 
   const tvShows = useGenreTvShowsLoader();
 
   const currentPage = useSignal(1);
-  const store = useStore<ProductionMedia[]>([]);
-
-  useTask$(() => {
-    const results = tvShows.value.results || [];
-    store.push(...results);
-  });
+  const collection = useSignal<ProductionMedia[]>(tvShows.value.results);
 
   return (
     <div
@@ -66,17 +53,14 @@ export default component$(() => {
         tvShows?.value?.genre?.name || "Not defined"
       }`}</h1>
       <MediaGrid
-        collection={store}
+        collection={collection.value}
         currentPage={currentPage.value}
         pageCount={tvShows.value?.total_pages || 1}
         parentContainer={containerRef.value}
         onMore$={async () => {
-          const data = await getMore(
-            currentPage.value + 1,
-            location.params.genreId
-          );
+          const data = await getMore(currentPage.value + 1);
           const newMedia = data.results || [];
-          store.push(...newMedia);
+          collection.value = [...collection.value, ...newMedia];
           currentPage.value += 1;
         }}
       />
