@@ -54,17 +54,17 @@ export default component$(() => {
     >
       <form class="flex flex-row justify-start gap-4 bg-base-300 p-4">
         <img
-          src="/images/magnifier.svg"
-          width={24}
-          height={24}
           alt="search"
           aria-label="Search"
+          height={24}
+          src="/images/magnifier.svg"
+          width={24}
         />
         <input
-          class="input"
-          name="query"
-          id="query"
           aria-label="query"
+          class="input"
+          id="query"
+          name="query"
           value={location.url.searchParams.get("query") || ""}
         />
         <button class="btn" type="submit">

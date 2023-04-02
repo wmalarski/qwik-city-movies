@@ -5,8 +5,8 @@ import { MediaCard } from "../MediaCard/MediaCard";
 type Props = {
   collection: ProductionMedia[];
   currentPage: number;
-  pageCount: number;
   onMore$?: QRL<() => void>;
+  pageCount: number;
   parentContainer?: Element | null;
 };
 

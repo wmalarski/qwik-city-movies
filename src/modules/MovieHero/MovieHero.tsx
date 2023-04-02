@@ -11,7 +11,7 @@ export const MovieHero = component$((props: Props) => {
   return (
     <section class="bg-black">
       <div class="relative aspect-square md:aspect-[3/2] lg:aspect-[25/9]">
-        <div class="absolute top-0 bottom-0 right-0 lg:left-1/3">
+        <div class="absolute bottom-0 right-0 top-0 lg:left-1/3">
           <picture>
             <img
               alt={props.media.title || props.media.original_title}
