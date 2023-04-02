@@ -47,7 +47,9 @@ export const PersonHero = component$((props: Props) => {
                   .split("\n")
                   .filter((section) => section !== "")
                   .map((section) => (
-                    <p class="mt-4">{section}</p>
+                    <p key={section} class="mt-4">
+                      {section}
+                    </p>
                   ))}
               </div>
             ) : null}

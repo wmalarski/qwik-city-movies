@@ -2,8 +2,8 @@ import { component$ } from "@builder.io/qwik";
 import type { MediaType } from "~/services/types";
 
 type Props = {
-  media?: MediaType;
   links: Record<string, string | undefined>;
+  media?: MediaType;
 };
 
 export const ExternalLinks = component$((props: Props) => {
@@ -12,17 +12,17 @@ export const ExternalLinks = component$((props: Props) => {
       {props.links.twitter_id ? (
         <li>
           <a
-            href={`https://twitter.com/${props.links.twitter_id}`}
-            target="_blank"
             aria-label="Twitter account"
+            href={`https://twitter.com/${props.links.twitter_id}`}
             rel="noopener"
+            target="_blank"
           >
             <img
-              src="/images/twitter.svg"
-              width={20}
-              height={20}
               alt="twitter"
               class="scale-95 transition duration-300 ease-in-out hover:scale-110"
+              height={20}
+              src="/images/twitter.svg"
+              width={20}
             />
           </a>
         </li>
@@ -30,17 +30,17 @@ export const ExternalLinks = component$((props: Props) => {
       {props.links.facebook_id ? (
         <li>
           <a
-            href={`https://facebook.com/${props.links.facebook_id}`}
-            target="_blank"
             aria-label="Facebook account"
+            href={`https://facebook.com/${props.links.facebook_id}`}
             rel="noopener"
+            target="_blank"
           >
             <img
-              src="/images/facebook.svg"
-              width={20}
-              height={20}
               alt="facebook"
               class="scale-95 transition duration-300 ease-in-out hover:scale-110"
+              height={20}
+              src="/images/facebook.svg"
+              width={20}
             />
           </a>
         </li>
@@ -48,17 +48,17 @@ export const ExternalLinks = component$((props: Props) => {
       {props.links.instagram_id ? (
         <li>
           <a
-            href={`https://instagram.com/${props.links.instagram_id}`}
-            target="_blank"
             aria-label="Instagram account"
+            href={`https://instagram.com/${props.links.instagram_id}`}
             rel="noopener"
+            target="_blank"
           >
             <img
-              src="/images/instagram.svg"
-              width={20}
-              height={20}
               alt="instagram"
               class="scale-95 transition duration-300 ease-in-out hover:scale-110"
+              height={20}
+              src="/images/instagram.svg"
+              width={20}
             />
           </a>
         </li>
@@ -66,19 +66,19 @@ export const ExternalLinks = component$((props: Props) => {
       {props.links.imdb_id ? (
         <li>
           <a
+            aria-label="IMDb account"
             href={`https://www.imdb.com/${
               props.media === "person" ? "name" : "title"
             }/${props.links.imdb_id}`}
-            target="_blank"
-            aria-label="IMDb account"
             rel="noopener"
+            target="_blank"
           >
             <img
-              src="/images/imdb.svg"
-              width={20}
-              height={20}
               alt="imdb"
               class="scale-95 transition duration-300 ease-in-out hover:scale-110"
+              height={20}
+              src="/images/imdb.svg"
+              width={20}
             />
           </a>
         </li>
@@ -86,17 +86,17 @@ export const ExternalLinks = component$((props: Props) => {
       {props.links.homepage ? (
         <li>
           <a
-            href={props.links.homepage}
-            target="_blank"
             aria-label="Homepage"
+            href={props.links.homepage}
             rel="noopener"
+            target="_blank"
           >
             <img
-              src="/images/link.svg"
-              width={20}
-              height={20}
               alt="homepage"
               class="scale-95 transition duration-300 ease-in-out hover:scale-110"
+              height={20}
+              src="/images/link.svg"
+              width={20}
             />
           </a>
         </li>

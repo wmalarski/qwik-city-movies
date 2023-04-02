@@ -15,10 +15,10 @@ export const PersonCarouselItem = component$((props: Props) => {
           <img
             alt={props.media.name}
             class="max-w-full border-4 border-base-300 object-cover "
+            height={270}
             src={getProfile(props.media, "w45")}
             srcSet={getProfileSet(props.media)}
             width={185}
-            height={270}
           />
         </picture>
       </div>

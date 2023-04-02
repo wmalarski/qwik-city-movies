@@ -18,10 +18,11 @@ export default component$(() => {
         {resource.value.images?.backdrops?.map((backdrop) => (
           <img
             alt={`${resource.value.title} backdrop`}
+            class="h-full max-h-full w-full object-cover"
+            key={backdrop.file_path}
             src={getImage(backdrop, "92")}
             srcSet={getImageSet(backdrop, "500")}
             style={{ "aspect-ratio": backdrop.aspect_ratio }}
-            class="h-full max-h-full w-full object-cover"
           />
         ))}
       </div>
@@ -36,9 +37,10 @@ export default component$(() => {
         {resource.value.images?.posters?.map((poster) => (
           <img
             alt={`${resource.value.title} poster`}
+            class="h-full max-h-full w-full object-cover"
+            key={poster.file_path}
             src={getImage(poster, "92")}
             srcSet={getImageSet(poster, "342")}
-            class="h-full max-h-full w-full object-cover"
             style={{ "aspect-ratio": poster.aspect_ratio }}
           />
         ))}

@@ -11,14 +11,15 @@ export default component$(() => {
         <a
           class="aspect-video"
           href={`https://www.youtube.com/watch?v=${video.key}`}
+          key={video.id}
           target="_none"
         >
           <img
             alt={video.name}
-            src={`https://movies-proxy.vercel.app/ipx/f_webp,s_400x600/youtube/vi/${video.key}/maxresdefault.jpg`}
             class="h-full max-h-full w-full object-cover"
-            width={400}
             height={600}
+            src={`https://movies-proxy.vercel.app/ipx/f_webp,s_400x600/youtube/vi/${video.key}/maxresdefault.jpg`}
+            width={400}
           />
           <div class="mt-2 flex flex-col gap-2">
             <span>{video.name}</span>

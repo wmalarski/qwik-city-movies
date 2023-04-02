@@ -8,11 +8,11 @@ export const Footer = component$(() => {
         <span class="text-sm opacity-80">Made with</span>
         <a href="https://qwik.builder.io/" class="rounded-md bg-white p-1">
           <img
-            src="/images/qwik.svg"
-            width={100}
-            height={20}
             alt="Qwik"
             aria-label="Qwik"
+            height={20}
+            src="/images/qwik.svg"
+            width={100}
           />
         </a>
       </div>
@@ -32,11 +32,11 @@ export const Footer = component$(() => {
       <div class="text-sm opacity-80">
         <a href="https://github.com/wmalarski/qwik-city-movies">
           <img
-            src="/images/git-hub.svg"
-            width={24}
-            height={24}
             alt="GitHub repository"
             aria-label="GitHub repository"
+            height={24}
+            src="/images/git-hub.svg"
+            width={24}
           />
         </a>
       </div>
