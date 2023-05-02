@@ -16,11 +16,6 @@ type Props = {
 };
 
 export const PersonHero = component$((props: Props) => {
-  const links = {
-    ...props.person.external_ids,
-    homepage: props.person.homepage,
-  };
-
   return (
     <section class="flex justify-center p-6">
       <div class="flex max-w-5xl flex-row items-center gap-8">
@@ -100,7 +95,13 @@ export const PersonHero = component$((props: Props) => {
           </div>
 
           <div>
-            <ExternalLinks media="person" links={links} />
+            <ExternalLinks
+              media="person"
+              links={{
+                ...props.person.external_ids,
+                homepage: props.person.homepage,
+              }}
+            />
           </div>
         </div>
       </div>
