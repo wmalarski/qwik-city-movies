@@ -23,8 +23,8 @@
     "qwik": "qwik"
   },
   "devDependencies": {
-    "@builder.io/qwik": "0.107.0",
-    "@builder.io/qwik-city": "0.107.0",
+    "@builder.io/qwik": "1.0.0",
+    "@builder.io/qwik-city": "1.0.0",
     "@types/eslint": "8.37.0",
     "@types/node": "^18.16.3",
     "@types/node-fetch": "latest",
@@ -39,7 +39,7 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-qwik": "0.107.0",
+    "eslint-plugin-qwik": "1.0.0",
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "eslint-plugin-tailwindcss": "^3.11.0",
     "node-fetch": "3.3.1",
