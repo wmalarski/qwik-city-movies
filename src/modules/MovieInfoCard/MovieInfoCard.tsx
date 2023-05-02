@@ -1,4 +1,4 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useComputed$ } from "@builder.io/qwik";
 import { ExternalLinks } from "~/modules/ExternalLinks/ExternalLinks";
 import { getPoster, getPosterSet } from "~/services/images";
 import type { MovieMediaDetails, TvMediaDetails } from "~/services/types";
@@ -15,14 +15,13 @@ type Props = {
 };
 
 export const MovieInfoCard = component$((props: Props) => {
-  const directors = props.media.credits?.crew?.filter(
-    (person) => person.job === "Director"
-  );
-
-  const links = {
-    ...props.media.external_ids,
-    homepage: props.media.homepage,
-  };
+  const directors = useComputed$(() => {
+    return (
+      props.media.credits?.crew?.filter(
+        (person) => person.job === "Director"
+      ) || []
+    );
+  });
 
   return (
     <section class="flex justify-center p-6">
@@ -60,14 +59,14 @@ export const MovieInfoCard = component$((props: Props) => {
                 <div>{formatRuntime(props.media.runtime)}</div>
               </>
             ) : null}
-            {directors && directors.length > 0 ? (
+            {directors.value && directors.value.length > 0 ? (
               <>
                 <div>Director</div>
                 <div>
-                  {directors.map((person, i) => (
+                  {directors.value.map((person, i) => (
                     <>
                       <a href={paths.person(person.id)}>{person.name}</a>
-                      {i < directors.length - 1 ? ", " : ""}
+                      {i < directors.value?.length - 1 ? ", " : ""}
                     </>
                   ))}
                 </div>
@@ -129,7 +128,13 @@ export const MovieInfoCard = component$((props: Props) => {
             ) : null}
           </div>
           <div>
-            {<ExternalLinks links={links} media={props.media.media_type} />}
+            <ExternalLinks
+              links={{
+                ...props.media.external_ids,
+                homepage: props.media.homepage,
+              }}
+              media={props.media.media_type}
+            />
           </div>
         </div>
       </div>
