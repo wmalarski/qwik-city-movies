@@ -1,13 +1,13 @@
 import { component$ } from "@builder.io/qwik";
 import { Stars } from "~/components/Stars/Stars";
 import { getBackdrop, getBackdropSet } from "~/services/images";
-import type { MovieMedia } from "~/services/types";
+import { MovieDetails } from "~/services/types3";
 
-type Props = {
-  media: MovieMedia;
+type MovieHeroProps = {
+  media: MovieDetails;
 };
 
-export const MovieHero = component$((props: Props) => {
+export const MovieHero = component$((props: MovieHeroProps) => {
   return (
     <section class="bg-black">
       <div class="relative aspect-square md:aspect-[3/2] lg:aspect-[25/9]">

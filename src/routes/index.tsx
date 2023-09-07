@@ -26,7 +26,7 @@ export const useContentLoader = routeLoader$(async (event) => {
     ]);
 
     const random = getRandomMedia<ProductionMedia>({
-      collections: [movies, tv],
+      collections: [tv],
     });
 
     const featuredTv =
@@ -50,6 +50,7 @@ export default component$(() => {
 
   return (
     <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
+      <pre>{JSON.stringify(resource.value.featuredTv, null, 2)}</pre>
       {resource.value.featuredTv ? (
         <a href={paths.media("tv", resource.value.featuredTv.id)}>
           <TvHero media={resource.value.featuredTv} />

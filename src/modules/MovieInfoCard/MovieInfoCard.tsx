@@ -1,7 +1,7 @@
 import { component$, useComputed$ } from "@builder.io/qwik";
 import { ExternalLinks } from "~/modules/ExternalLinks/ExternalLinks";
 import { getPoster, getPosterSet } from "~/services/images";
-import type { MovieMediaDetails, TvMediaDetails } from "~/services/types";
+import { MovieExtraDetails, TvExtraDetails } from "~/services/types3";
 import {
   formatCurrency,
   formatDate,
@@ -11,7 +11,7 @@ import {
 import { paths } from "~/utils/paths";
 
 type Props = {
-  media: MovieMediaDetails | TvMediaDetails;
+  media: MovieExtraDetails | TvExtraDetails;
 };
 
 export const MovieInfoCard = component$((props: Props) => {
@@ -53,7 +53,7 @@ export const MovieInfoCard = component$((props: Props) => {
                 <div>{formatDate(props.media.release_date)}</div>
               </>
             ) : null}
-            {props.media.runtime ? (
+            {props.media.media_type === "movie" && props.media.runtime ? (
               <>
                 <div>Runtime</div>
                 <div>{formatRuntime(props.media.runtime)}</div>
@@ -72,13 +72,13 @@ export const MovieInfoCard = component$((props: Props) => {
                 </div>
               </>
             ) : null}
-            {props.media.budget ? (
+            {props.media.media_type === "movie" && props.media.budget ? (
               <>
                 <div>Budget</div>
                 <div>{formatCurrency(props.media.budget)}</div>
               </>
             ) : null}
-            {props.media.revenue ? (
+            {props.media.media_type === "movie" && props.media.revenue ? (
               <>
                 <div>Revenue</div>
                 <div>{formatCurrency(props.media.revenue)}</div>

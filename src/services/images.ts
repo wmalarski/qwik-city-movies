@@ -1,14 +1,18 @@
-import type { Image, PersonMedia, ProductionMedia } from "./types";
+import type { PersonMedia } from "./types";
+import { Image, MovieDetails, TvDetails } from "./types3";
 
 const imageBase = "https://image.tmdb.org/t/p";
 
 type BackdropSizes = "w300" | "w780" | "w1280" | "original";
 
-export const getBackdrop = (media: ProductionMedia, size: BackdropSizes) => {
+export const getBackdrop = (
+  media: MovieDetails | TvDetails,
+  size: BackdropSizes,
+) => {
   return `${imageBase}/${size}${media.backdrop_path}`;
 };
 
-export const getBackdropSet = (media: ProductionMedia) => {
+export const getBackdropSet = (media: MovieDetails | TvDetails) => {
   const sizes = ["w300", "w780"] as const;
   return sizes
     .map((size) => `${getBackdrop(media, size)} ${size.slice(1)}w`)
@@ -17,11 +21,17 @@ export const getBackdropSet = (media: ProductionMedia) => {
 
 type PosterSizes = "92" | "154" | "185" | "342" | "500" | "780";
 
-export const getPoster = (media: ProductionMedia, size: PosterSizes) => {
+export const getPoster = (
+  media: MovieDetails | TvDetails,
+  size: PosterSizes,
+) => {
   return `${imageBase}/w${size}${media.poster_path}`;
 };
 
-export const getPosterSet = (media: ProductionMedia, maxSize: PosterSizes) => {
+export const getPosterSet = (
+  media: MovieDetails | TvDetails,
+  maxSize: PosterSizes,
+) => {
   const sizes = ["92", "154", "185", "342", "500", "780"] as const;
   return sizes
     .filter((size) => +size <= +maxSize)

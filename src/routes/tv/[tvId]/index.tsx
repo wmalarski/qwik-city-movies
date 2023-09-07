@@ -4,7 +4,7 @@ import { Footer } from "~/modules/Footer/Footer";
 import { MovieInfoCard } from "~/modules/MovieInfoCard/MovieInfoCard";
 import { PersonCarousel } from "~/modules/PersonCarousel/PersonCarousel";
 import { TvHero } from "~/modules/TvHero/TvHero";
-import { getTMDBContext, getTvShow } from "~/services/tmdb";
+import { getTMDBContext, getTvShowWithExtra } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
 
 export const useTvShowLoader = routeLoader$(async (event) => {
@@ -19,7 +19,10 @@ export const useTvShowLoader = routeLoader$(async (event) => {
   const context = getTMDBContext(event);
 
   try {
-    const tvShow = await getTvShow({ context, id: parseResult.data.tvId });
+    const tvShow = await getTvShowWithExtra({
+      context,
+      id: parseResult.data.tvId,
+    });
     return tvShow;
   } catch {
     throw event.redirect(302, paths.notFound);

@@ -2,16 +2,19 @@ import { RequestEventBase } from "@builder.io/qwik-city";
 import { buildSearchParams } from "~/utils/searchParams";
 import type {
   Collection,
-  Genre,
-  MediaDetails,
   MediaType,
   MovieMedia,
-  MovieMediaDetails,
   PersonMediaDetails,
   ProductionMedia,
   TvMedia,
-  TvMediaDetails,
 } from "./types";
+import {
+  Genre,
+  MovieDetails,
+  MovieExtraDetails,
+  TvDetails,
+  TvExtraDetails,
+} from "./types3";
 
 export const getTMDBContext = (event: RequestEventBase) => {
   return {
@@ -47,7 +50,7 @@ const fetchTMDB = async <T = unknown>({
     throw new Error(response.statusText);
   }
 
-  return response.json() as T;
+  return response.json();
 };
 
 type GetTrendingTvArgs = {
@@ -82,7 +85,16 @@ type GetMovieArgs = {
 };
 
 export const getMovie = async ({ context, id }: GetMovieArgs) => {
-  const result = await fetchTMDB<MovieMediaDetails>({
+  const result = await fetchTMDB<MovieDetails>({
+    context,
+    path: `movie/${id}`,
+    query: { include_image_language: "en" },
+  });
+  return { ...result, media_type: "movie" as const };
+};
+
+export const getMovieWithExtra = async ({ context, id }: GetMovieArgs) => {
+  const result = await fetchTMDB<MovieExtraDetails>({
     context,
     path: `movie/${id}`,
     query: {
@@ -118,7 +130,16 @@ type GetTvShowArgs = {
 };
 
 export const getTvShow = async ({ context, id }: GetTvShowArgs) => {
-  const result = await fetchTMDB<TvMediaDetails>({
+  const result = await fetchTMDB<TvDetails>({
+    context,
+    path: `tv/${id}`,
+    query: { include_image_language: "en" },
+  });
+  return { ...result, media_type: "tv" as const };
+};
+
+export const getTvShowWithExtra = async ({ context, id }: GetTvShowArgs) => {
+  const result = await fetchTMDB<TvExtraDetails>({
     context,
     path: `tv/${id}`,
     query: {
@@ -215,7 +236,7 @@ export const getMediaByGenre = async ({
 
   const firstId = results[0].id;
 
-  const first = await fetchTMDB<MediaDetails>({
+  const first = await fetchTMDB<MovieDetails | TvDetails>({
     context,
     path: `${media}/${firstId}`,
   });
