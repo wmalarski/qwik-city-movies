@@ -32,7 +32,7 @@ export const MovieInfoCard = component$((props: Props) => {
               {/* eslint-disable-next-line qwik/jsx-img */}
               <img
                 alt="Poster"
-                class="h-full w-80 max-w-full object-cover"
+                class="h-full w-80 max-w-full object-cover text-black"
                 src={getPoster(props.media, "92")}
                 srcSet={getPosterSet(props.media, "342")}
               />

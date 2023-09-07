@@ -30,7 +30,6 @@ export default component$(() => {
 
   return (
     <div style="max-h-screen overflow-y-scroll flex flex-col">
-      <pre>{JSON.stringify(resource.value, null, 2)}</pre>
       <PersonHero person={resource.value} />
       <PersonGrid
         collection={[

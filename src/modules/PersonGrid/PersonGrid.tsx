@@ -4,7 +4,7 @@ import { Cast, Person } from "~/services/types";
 import { paths } from "~/utils/paths";
 
 type PersonCarouselItemProps = {
-  media: Person;
+  media: Person | Cast;
 };
 
 export const PersonCarouselItem = component$(
@@ -15,7 +15,7 @@ export const PersonCarouselItem = component$(
           <picture>
             <img
               alt={props.media.name}
-              class="max-w-full border-4 border-base-300 object-cover "
+              class="max-w-full border-4 border-base-300 object-cover text-black"
               height={270}
               src={getProfile(props.media, "w45")}
               srcSet={getProfileSet(props.media)}

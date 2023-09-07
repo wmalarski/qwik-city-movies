@@ -16,7 +16,7 @@ export const MovieHero = component$((props: MovieHeroProps) => {
             {/* eslint-disable-next-line qwik/jsx-img */}
             <img
               alt={props.media.title || props.media.original_title}
-              class="h-full w-full max-w-full object-cover"
+              class="h-full w-full max-w-full object-cover text-black"
               src={getBackdrop(props.media, "w300")}
               srcSet={getBackdropSet(props.media)}
             />

@@ -18,7 +18,7 @@ export default component$(() => {
         {resource.value.images?.backdrops?.map((backdrop) => (
           <img
             alt={`${resource.value.title} backdrop`}
-            class="h-full max-h-full w-full object-cover"
+            class="h-full max-h-full w-full object-cover text-black"
             key={backdrop.file_path}
             src={getImage(backdrop, "92")}
             srcSet={getImageSet(backdrop, "500")}
@@ -39,7 +39,7 @@ export default component$(() => {
         {resource.value.images?.posters?.map((poster) => (
           <img
             alt={`${resource.value.title} poster`}
-            class="h-full max-h-full w-full object-cover"
+            class="h-full max-h-full w-full object-cover text-black"
             key={poster.file_path}
             src={getImage(poster, "92")}
             srcSet={getImageSet(poster, "342")}
