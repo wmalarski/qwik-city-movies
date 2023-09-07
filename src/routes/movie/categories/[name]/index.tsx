@@ -13,9 +13,9 @@ import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
 export const useCategoryLoader = routeLoader$(async (event) => {
-  const parseResult = z
+  const parseResult = await z
     .object({ name: z.string().min(1) })
-    .safeParse(event.params);
+    .safeParseAsync(event.params);
 
   if (!parseResult.success) {
     throw event.redirect(302, paths.notFound);
@@ -36,12 +36,12 @@ export const useCategoryLoader = routeLoader$(async (event) => {
 });
 
 export const getMore = server$(async function (page: number) {
-  const parseResult = z
+  const parseResult = await z
     .object({
       page: z.coerce.number().int().min(1).default(1),
       query: z.string().min(1),
     })
-    .parse({ page, query: this.params.name });
+    .parseAsync({ page, query: this.params.name });
 
   const context = getTMDBContext(this);
 

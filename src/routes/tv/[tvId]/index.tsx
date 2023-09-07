@@ -8,9 +8,9 @@ import { getTMDBContext, getTvShow } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
 
 export const useTvShowLoader = routeLoader$(async (event) => {
-  const parseResult = z
+  const parseResult = await z
     .object({ tvId: z.coerce.number().min(0).step(1) })
-    .safeParse(event.params);
+    .safeParseAsync(event.params);
 
   if (!parseResult.success) {
     throw event.redirect(302, paths.notFound);

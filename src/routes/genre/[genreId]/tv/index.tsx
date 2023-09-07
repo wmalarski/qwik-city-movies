@@ -5,10 +5,10 @@ import { getMediaByGenre, getTMDBContext } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
 import { paths } from "~/utils/paths";
 
-export const useGenreTvShowsLoader = routeLoader$((event) => {
-  const parseResult = z
+export const useGenreTvShowsLoader = routeLoader$(async (event) => {
+  const parseResult = await z
     .object({ genreId: z.coerce.number().min(0).int() })
-    .safeParse(event.params);
+    .safeParseAsync(event.params);
 
   if (!parseResult.success) {
     throw event.redirect(302, paths.notFound);
@@ -24,13 +24,13 @@ export const useGenreTvShowsLoader = routeLoader$((event) => {
   });
 });
 
-export const getMore = server$(function (page: number) {
-  const parseResult = z
+export const getMore = server$(async function (page: number) {
+  const parseResult = await z
     .object({
       genreId: z.coerce.number().min(0).step(1),
       page: z.coerce.number().int().min(1).default(1),
     })
-    .parse({ genreId: this.params.genreId, page });
+    .parseAsync({ genreId: this.params.genreId, page });
 
   const context = getTMDBContext(this);
 

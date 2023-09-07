@@ -26,12 +26,12 @@ export const useSearchLoader = routeLoader$(async (event) => {
 });
 
 export const getMore = server$(async function (page: number) {
-  const parseResult = z
+  const parseResult = await z
     .object({
       page: z.coerce.number().min(1).int().default(1),
       query: z.string().optional().default(""),
     })
-    .parse({ page, query: this.query.get("query") });
+    .parseAsync({ page, query: this.query.get("query") });
 
   const context = getTMDBContext(this);
 
