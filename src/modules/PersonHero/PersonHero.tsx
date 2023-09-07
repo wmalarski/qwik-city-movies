@@ -85,7 +85,7 @@ export const PersonHero = component$((props: Props) => {
                       age{" "}
                       {calculateAge(
                         props.person.birthday,
-                        props.person.deathday
+                        props.person.deathday,
                       )}
                     </span>
                   ) : null}

@@ -18,7 +18,7 @@ export const MovieInfoCard = component$((props: Props) => {
   const directors = useComputed$(() => {
     return (
       props.media.credits?.crew?.filter(
-        (person) => person.job === "Director"
+        (person) => person.job === "Director",
       ) || []
     );
   });
@@ -99,7 +99,7 @@ export const MovieInfoCard = component$((props: Props) => {
                           </a>
                           {i < arr.length - 1 ? ", " : ""}
                         </>
-                      )
+                      ),
                   )}
                 </div>
               </>

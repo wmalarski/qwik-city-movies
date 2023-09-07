@@ -6,6 +6,7 @@ import {
   z,
   type DocumentHead,
 } from "@builder.io/qwik-city";
+import ImgMagnifier from "~/media/magnifier.svg?jsx";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { search } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
@@ -44,7 +45,7 @@ export default component$(() => {
 
   const currentPage = useSignal(1);
   const collection = useSignal<ProductionMedia[]>(
-    resource.value?.results || []
+    resource.value?.results || [],
   );
 
   return (
@@ -53,13 +54,7 @@ export default component$(() => {
       ref={(e) => (containerRef.value = e)}
     >
       <form class="flex flex-row justify-start gap-4 bg-base-300 p-4">
-        <img
-          alt="search"
-          aria-label="Search"
-          height={24}
-          src="/images/magnifier.svg"
-          width={24}
-        />
+        <ImgMagnifier alt="search" aria-label="Search" class="w-6 h-6" />
         <input
           aria-label="query"
           class="input"

@@ -44,7 +44,7 @@ export default component$(() => {
             {
               "border-b-2 border-b-white opacity-100":
                 overviewHref === location.url.pathname,
-            }
+            },
           )}
         >
           Overview
@@ -56,7 +56,7 @@ export default component$(() => {
             {
               "border-b-2 border-b-white opacity-100":
                 videoHref === location.url.pathname,
-            }
+            },
           )}
         >
           Videos
@@ -68,7 +68,7 @@ export default component$(() => {
             {
               "border-b-2 border-b-white opacity-100":
                 photosHref === location.url.pathname,
-            }
+            },
           )}
         >
           Photos

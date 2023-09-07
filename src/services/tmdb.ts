@@ -15,7 +15,7 @@ const baseURL = "https://api.themoviedb.org/3";
 
 const fetchTMDB = async <T = unknown>(
   path: string,
-  search: Record<string, string> = {}
+  search: Record<string, string> = {},
 ): Promise<T> => {
   const params = new URLSearchParams({
     ...search,
@@ -160,7 +160,7 @@ export const getMediaByGenre = async ({
       append_to_response: "genres",
       page: String(page),
       with_genres: String(genre),
-    }
+    },
   );
   const results = result.results?.map((item) => ({
     ...item,

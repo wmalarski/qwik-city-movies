@@ -58,7 +58,7 @@ export default component$(() => {
 
   const currentPage = useSignal(1);
   const collection = useSignal<ProductionMedia[]>(
-    tvShowCategory.value.results || []
+    tvShowCategory.value.results || [],
   );
 
   return (

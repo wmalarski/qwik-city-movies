@@ -1,4 +1,6 @@
 import { component$ } from "@builder.io/qwik";
+import ImgGitHub from "~/media/git-hub.svg?jsx";
+import ImgQwik from "~/media/qwik.svg?jsx";
 
 export const Footer = component$(() => {
   return (
@@ -7,13 +9,7 @@ export const Footer = component$(() => {
       <div class="flex flex-row items-center gap-2">
         <span class="text-sm opacity-80">Made with</span>
         <a href="https://qwik.builder.io/" class="rounded-md bg-white p-1">
-          <img
-            alt="Qwik"
-            aria-label="Qwik"
-            height={20}
-            src="/images/qwik.svg"
-            width={100}
-          />
+          <ImgQwik alt="Qwik" aria-label="Qwik" class="h-5 w-25" />
         </a>
       </div>
       <div class="flex flex-row items-center gap-2">
@@ -31,12 +27,10 @@ export const Footer = component$(() => {
       </div>
       <div class="text-sm opacity-80">
         <a href="https://github.com/wmalarski/qwik-city-movies">
-          <img
+          <ImgGitHub
             alt="GitHub repository"
             aria-label="GitHub repository"
-            height={24}
-            src="/images/git-hub.svg"
-            width={24}
+            class="w-6 h-6"
           />
         </a>
       </div>
