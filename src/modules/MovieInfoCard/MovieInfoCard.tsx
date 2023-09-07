@@ -29,6 +29,7 @@ export const MovieInfoCard = component$((props: Props) => {
         <div class="hidden flex-grow md:flex">
           <div class="min-w-max">
             <picture>
+              {/* eslint-disable-next-line qwik/jsx-img */}
               <img
                 alt="Poster"
                 class="h-full w-80 max-w-full object-cover"

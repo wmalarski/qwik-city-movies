@@ -6,11 +6,9 @@ import {
   MediaBase,
   MediaDetails,
   MovieBase,
-  MovieDetails,
   MovieExtraDetails,
   PersonDetails,
   TvBase,
-  TvDetails,
   TvExtraDetails,
 } from "./types";
 
@@ -83,20 +81,11 @@ type GetMovieArgs = {
 };
 
 export const getMovie = async ({ context, id }: GetMovieArgs) => {
-  const result = await fetchTMDB<MovieDetails>({
-    context,
-    path: `movie/${id}`,
-    query: { include_image_language: "en" },
-  });
-  return { ...result, media_type: "movie" as const };
-};
-
-export const getMovieWithExtra = async ({ context, id }: GetMovieArgs) => {
   const result = await fetchTMDB<MovieExtraDetails>({
     context,
     path: `movie/${id}`,
     query: {
-      append_to_response: "videos,credits,images,external_ids,release_dates",
+      append_to_response: "videos,credits,images,external_ids",
       include_image_language: "en",
     },
   });
@@ -128,20 +117,11 @@ type GetTvShowArgs = {
 };
 
 export const getTvShow = async ({ context, id }: GetTvShowArgs) => {
-  const result = await fetchTMDB<TvDetails>({
-    context,
-    path: `tv/${id}`,
-    query: { include_image_language: "en" },
-  });
-  return { ...result, media_type: "tv" as const };
-};
-
-export const getTvShowWithExtra = async ({ context, id }: GetTvShowArgs) => {
   const result = await fetchTMDB<TvExtraDetails>({
     context,
     path: `tv/${id}`,
     query: {
-      append_to_response: "videos,credits,images,external_ids,content_ratings",
+      append_to_response: "credits,external_ids",
       include_image_language: "en",
     },
   });
@@ -177,7 +157,7 @@ export const getPerson = async ({ context, id }: GetPersonArgs) => {
     context,
     path: `person/${id}`,
     query: {
-      append_to_response: "images,combined_credits,external_ids",
+      append_to_response: "combined_credits,external_ids",
       include_image_language: "en",
     },
   });

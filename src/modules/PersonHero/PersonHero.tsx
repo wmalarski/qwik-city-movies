@@ -23,6 +23,7 @@ export const PersonHero = component$((props: Props) => {
           {props.person.profile_path ? (
             <div class="min-w-max">
               <picture>
+                {/* eslint-disable-next-line qwik/jsx-img */}
                 <img
                   alt={props.person.name}
                   class="w-80"

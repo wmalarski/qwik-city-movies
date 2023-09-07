@@ -12,6 +12,7 @@ export const TvHero = component$((props: TvHeroProps) => {
       <div class="relative aspect-square md:aspect-[3/2] lg:aspect-[25/9]">
         <div class="absolute bottom-0 right-0 top-0 lg:left-1/3">
           <picture>
+            {/* eslint-disable-next-line qwik/jsx-img */}
             <img
               alt={props.media.name || props.media.original_name}
               class="h-full w-full max-w-full object-cover"

@@ -120,15 +120,6 @@ export type ReleaseDate = {
   type: number;
 };
 
-export type ReleaseDateResults = {
-  iso_3166_1: string;
-  release_dates: ReleaseDate[];
-};
-
-export type ReleaseDates = {
-  results: ReleaseDateResults[];
-};
-
 export type CreatedBy = {
   id: number;
   credit_id: string;
@@ -279,11 +270,9 @@ export type MovieExtraDetails = MovieDetails & {
   credits: Credits;
   images: Images;
   external_ids: ExternalIds;
-  release_dates: ReleaseDates;
 };
 
 export type TvExtraDetails = TvDetails & {
-  videos: Videos;
   credits: Credits;
   images: Images;
   external_ids: ExternalIds;
@@ -307,7 +296,6 @@ export type PersonDetails = {
   place_of_birth: string;
   popularity: number;
   profile_path: string;
-  images: PersonImages;
   combined_credits: Credits;
   external_ids: ExternalIds;
   media_type: "person";

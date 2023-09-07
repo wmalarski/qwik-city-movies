@@ -3,12 +3,7 @@ import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 import { Footer } from "~/modules/Footer/Footer";
 import { MediaCarousel } from "~/modules/MediaGrid/MediaGrid";
 import { TvHero } from "~/modules/TvHero/TvHero";
-import {
-  getRandomMedia,
-  getTMDBContext,
-  getTvShow,
-  getTvShows,
-} from "~/services/tmdb";
+import { getRandomMedia, getTMDBContext, getTvShows } from "~/services/tmdb";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
@@ -26,9 +21,7 @@ export const useTvShowsLoader = routeLoader$(async (event) => {
     collections: [popular, topRated, onTheAir, airingToday],
   });
 
-  const featured = await getTvShow({ context, id: random.id });
-
-  return { airingToday, featured, onTheAir, popular, topRated };
+  return { airingToday, onTheAir, popular, random, topRated };
 });
 
 export default component$(() => {
@@ -36,8 +29,8 @@ export default component$(() => {
 
   return (
     <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
-      <a href={paths.media("tv", resource.value.featured?.id)}>
-        <TvHero media={resource.value.featured} />
+      <a href={paths.media("tv", resource.value.random?.id)}>
+        <TvHero media={resource.value.random} />
       </a>
       <MediaCarousel
         collection={resource.value.popular?.results || []}

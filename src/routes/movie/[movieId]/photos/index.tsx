@@ -23,6 +23,8 @@ export default component$(() => {
             src={getImage(backdrop, "92")}
             srcSet={getImageSet(backdrop, "500")}
             style={{ "aspect-ratio": backdrop.aspect_ratio }}
+            width={backdrop.width}
+            height={backdrop.height}
           />
         ))}
       </div>
@@ -42,6 +44,8 @@ export default component$(() => {
             src={getImage(poster, "92")}
             srcSet={getImageSet(poster, "342")}
             style={{ "aspect-ratio": poster.aspect_ratio }}
+            width={poster.width}
+            height={poster.height}
           />
         ))}
       </div>
