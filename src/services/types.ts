@@ -281,6 +281,11 @@ export type TvExtraDetails = TvDetails & {
 
 export type MediaExtraDetails = MovieExtraDetails | TvExtraDetails;
 
+export type PersonCredits = {
+  cast: MediaBase[];
+  crew: MediaBase[];
+};
+
 export type PersonDetails = {
   adult: boolean;
   also_known_as: string[];
@@ -296,9 +301,7 @@ export type PersonDetails = {
   place_of_birth: string;
   popularity: number;
   profile_path: string;
-  combined_credits: Credits;
+  combined_credits: PersonCredits;
   external_ids: ExternalIds;
   media_type: "person";
 };
-
-export type Person = Cast | Crew | PersonDetails;

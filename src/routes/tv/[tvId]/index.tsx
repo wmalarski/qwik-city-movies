@@ -2,7 +2,7 @@ import { component$ } from "@builder.io/qwik";
 import { DocumentHead, routeLoader$, z } from "@builder.io/qwik-city";
 import { Footer } from "~/modules/Footer/Footer";
 import { MovieInfoCard } from "~/modules/MovieInfoCard/MovieInfoCard";
-import { PersonCarousel } from "~/modules/PersonGrid/PersonGrid";
+import { PersonCarousel } from "~/modules/PersonCarousel/PersonCarousel";
 import { TvHero } from "~/modules/TvHero/TvHero";
 import { getTMDBContext, getTvShow } from "~/services/tmdb";
 import { paths } from "~/utils/paths";

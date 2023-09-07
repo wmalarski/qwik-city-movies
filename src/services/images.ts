@@ -1,4 +1,4 @@
-import { Image, MediaBase, Person } from "./types";
+import { Cast, Crew, Image, MediaBase, PersonDetails } from "./types";
 
 const imageBase = "https://image.tmdb.org/t/p";
 
@@ -61,14 +61,17 @@ export const getImageSet = (image: Image, maxSize: PosterSizes) => {
 
 type ProfileSizes = "w45" | "w185" | "h632" | "original";
 
-export const getProfile = (media: Person, size: ProfileSizes) => {
+export const getProfile = (
+  media: PersonDetails | Cast | Crew,
+  size: ProfileSizes,
+) => {
   if (!media.profile_path) {
     return;
   }
   return `${imageBase}/${size}${media.profile_path}`;
 };
 
-export const getProfileSet = (media: Person) => {
+export const getProfileSet = (media: PersonDetails | Cast | Crew) => {
   if (!media.profile_path) {
     return;
   }
