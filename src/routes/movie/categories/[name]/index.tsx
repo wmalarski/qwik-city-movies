@@ -8,7 +8,7 @@ import {
 } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { getMovies, getTMDBContext, getTrendingMovie } from "~/services/tmdb";
-import type { ProductionMedia } from "~/services/types";
+import { MediaBase } from "~/services/types3";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
@@ -61,7 +61,7 @@ export default component$(() => {
   const resource = useCategoryLoader();
 
   const currentPage = useSignal(1);
-  const collection = useSignal<ProductionMedia[]>(resource.value.results || []);
+  const collection = useSignal<MediaBase[]>(resource.value.results || []);
 
   return (
     <div

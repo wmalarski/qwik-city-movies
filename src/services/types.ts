@@ -1,4 +1,4 @@
-export type TvMedia = {
+type TvMedia = {
   backdrop_path?: string | null;
   first_air_date?: string[];
   genre_ids?: number[];
@@ -15,7 +15,7 @@ export type TvMedia = {
   vote_count?: number;
 };
 
-export type MovieMedia = {
+type MovieMedia = {
   adult?: boolean;
   backdrop_path?: string | null;
   genre_ids?: number[];
@@ -33,7 +33,7 @@ export type MovieMedia = {
   vote_count?: number;
 };
 
-export type ProductionMedia = TvMedia | MovieMedia;
+type ProductionMedia = TvMedia | MovieMedia;
 
 export type PersonMedia = {
   profile_path?: string;

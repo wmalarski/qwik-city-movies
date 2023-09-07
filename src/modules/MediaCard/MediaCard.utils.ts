@@ -1,6 +1,7 @@
-import type { MediaType, ProductionMedia } from "~/services/types";
+import type { MediaType } from "~/services/types";
+import { MediaBase } from "~/services/types3";
 
-export const getMediaType = (media: ProductionMedia): MediaType => {
+export const getMediaType = (media: MediaBase): MediaType => {
   if (media.media_type) {
     return media.media_type;
   }
@@ -14,7 +15,7 @@ export const getMediaType = (media: ProductionMedia): MediaType => {
   return "tv";
 };
 
-export const getHeading = (media: ProductionMedia): string | undefined => {
+export const getHeading = (media: MediaBase): string | undefined => {
   if ("title" in media) {
     return media.title;
   }

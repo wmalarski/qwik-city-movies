@@ -9,7 +9,7 @@ import {
 import ImgMagnifier from "~/media/magnifier.svg?jsx";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { getTMDBContext, search } from "~/services/tmdb";
-import type { ProductionMedia } from "~/services/types";
+import { MediaBase } from "~/services/types3";
 
 export const useSearchLoader = routeLoader$(async (event) => {
   const query = event.url.searchParams.get("query");
@@ -48,9 +48,7 @@ export default component$(() => {
   const resource = useSearchLoader();
 
   const currentPage = useSignal(1);
-  const collection = useSignal<ProductionMedia[]>(
-    resource.value?.results || [],
-  );
+  const collection = useSignal<MediaBase[]>(resource.value?.results || []);
 
   return (
     <div

@@ -12,7 +12,7 @@ import {
   getTrendingTv,
   getTvShow,
 } from "~/services/tmdb";
-import type { ProductionMedia } from "~/services/types";
+import { MovieBase, TvBase } from "~/services/types3";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
@@ -25,8 +25,8 @@ export const useContentLoader = routeLoader$(async (event) => {
       getTrendingTv({ context, page: 1 }),
     ]);
 
-    const random = getRandomMedia<ProductionMedia>({
-      collections: [tv],
+    const random = getRandomMedia<MovieBase | TvBase>({
+      collections: [tv, movies],
     });
 
     const featuredTv =
@@ -50,7 +50,6 @@ export default component$(() => {
 
   return (
     <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
-      <pre>{JSON.stringify(resource.value.featuredTv, null, 2)}</pre>
       {resource.value.featuredTv ? (
         <a href={paths.media("tv", resource.value.featuredTv.id)}>
           <TvHero media={resource.value.featuredTv} />

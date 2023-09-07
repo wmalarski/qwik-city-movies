@@ -1,9 +1,9 @@
 import { $, component$, QRL, useSignal } from "@builder.io/qwik";
-import type { ProductionMedia } from "~/services/types";
+import { MediaBase } from "~/services/types3";
 import { MediaCard } from "../MediaCard/MediaCard";
 
 type Props = {
-  collection: ProductionMedia[];
+  collection: MediaBase[];
   currentPage: number;
   onMore$?: QRL<() => void>;
   pageCount: number;

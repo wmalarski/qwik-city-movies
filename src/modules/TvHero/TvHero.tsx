@@ -1,9 +1,9 @@
 import { component$ } from "@builder.io/qwik";
 import { getBackdrop, getBackdropSet } from "~/services/images";
-import { TvDetails } from "~/services/types3";
+import { TvBase } from "~/services/types3";
 
 type TvHeroProps = {
-  media: TvDetails;
+  media: TvBase;
 };
 
 export const TvHero = component$((props: TvHeroProps) => {

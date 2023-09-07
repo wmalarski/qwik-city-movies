@@ -1,17 +1,14 @@
 import { RequestEventBase } from "@builder.io/qwik-city";
 import { buildSearchParams } from "~/utils/searchParams";
-import type {
-  Collection,
-  MediaType,
-  MovieMedia,
-  PersonMediaDetails,
-  ProductionMedia,
-  TvMedia,
-} from "./types";
+import type { Collection, MediaType, PersonMediaDetails } from "./types";
 import {
   Genre,
+  MediaBase,
+  MediaDetails,
+  MovieBase,
   MovieDetails,
   MovieExtraDetails,
+  TvBase,
   TvDetails,
   TvExtraDetails,
 } from "./types3";
@@ -59,7 +56,7 @@ type GetTrendingTvArgs = {
 };
 
 export const getTrendingTv = ({ context, page }: GetTrendingTvArgs) => {
-  return fetchTMDB<Collection<TvMedia>>({
+  return fetchTMDB<Collection<TvBase>>({
     context,
     path: "trending/tv/week",
     query: { page },
@@ -72,7 +69,7 @@ type GetTrendingMovieArgs = {
 };
 
 export const getTrendingMovie = ({ context, page }: GetTrendingMovieArgs) => {
-  return fetchTMDB<Collection<MovieMedia>>({
+  return fetchTMDB<Collection<MovieBase>>({
     context,
     path: "trending/movie/week",
     query: { page },
@@ -112,7 +109,7 @@ type GetMoviesArgs = {
 };
 
 export const getMovies = async ({ context, query, page }: GetMoviesArgs) => {
-  const result = await fetchTMDB<Collection<MovieMedia>>({
+  const result = await fetchTMDB<Collection<MovieBase>>({
     context,
     path: `movie/${query}`,
     query: { page },
@@ -157,7 +154,7 @@ type GetTvShowsArgs = {
 };
 
 export const getTvShows = async ({ context, query, page }: GetTvShowsArgs) => {
-  const result = await fetchTMDB<Collection<TvMedia>>({
+  const result = await fetchTMDB<Collection<TvBase>>({
     context,
     path: `tv/${query}`,
     query: { page },
@@ -193,7 +190,7 @@ type SearchArgs = {
 };
 
 export const search = ({ context, query, page }: SearchArgs) => {
-  return fetchTMDB<Collection<ProductionMedia>>({
+  return fetchTMDB<Collection<MediaDetails>>({
     context,
     path: "search/multi",
     query: { page, query },
@@ -223,7 +220,7 @@ export const getMediaByGenre = async ({
   genre,
   page,
 }: GetMediaByGenreArgs) => {
-  const result = await fetchTMDB<Collection<ProductionMedia>>({
+  const result = await fetchTMDB<Collection<MediaBase>>({
     context,
     path: `discover/${media}`,
     query: { append_to_response: "genres", page, with_genres: genre },
@@ -232,11 +229,11 @@ export const getMediaByGenre = async ({
   const results = result.results?.map((item) => ({
     ...item,
     media_type: media,
-  })) as (TvMedia | MovieMedia)[];
+  })) as MediaBase[];
 
   const firstId = results[0].id;
 
-  const first = await fetchTMDB<MovieDetails | TvDetails>({
+  const first = await fetchTMDB<MediaDetails>({
     context,
     path: `${media}/${firstId}`,
   });

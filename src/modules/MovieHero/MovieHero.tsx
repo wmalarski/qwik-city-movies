@@ -1,10 +1,10 @@
 import { component$ } from "@builder.io/qwik";
 import { Stars } from "~/components/Stars/Stars";
 import { getBackdrop, getBackdropSet } from "~/services/images";
-import { MovieDetails } from "~/services/types3";
+import { MovieBase } from "~/services/types3";
 
 type MovieHeroProps = {
-  media: MovieDetails;
+  media: MovieBase;
 };
 
 export const MovieHero = component$((props: MovieHeroProps) => {

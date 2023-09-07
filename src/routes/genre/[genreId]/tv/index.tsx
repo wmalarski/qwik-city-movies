@@ -2,7 +2,7 @@ import { component$, useSignal } from "@builder.io/qwik";
 import { DocumentHead, routeLoader$, server$, z } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { getMediaByGenre, getTMDBContext } from "~/services/tmdb";
-import type { ProductionMedia } from "~/services/types";
+import { MediaBase } from "~/services/types3";
 import { paths } from "~/utils/paths";
 
 export const useGenreTvShowsLoader = routeLoader$(async (event) => {
@@ -48,7 +48,7 @@ export default component$(() => {
   const tvShows = useGenreTvShowsLoader();
 
   const currentPage = useSignal(1);
-  const collection = useSignal<ProductionMedia[]>(tvShows.value.results);
+  const collection = useSignal<MediaBase[]>(tvShows.value.results);
 
   return (
     <div
@@ -58,6 +58,7 @@ export default component$(() => {
       <h1 class="px-8 pt-4 text-4xl">{`Tv Show Genre: ${
         tvShows?.value?.genre?.name || "Not defined"
       }`}</h1>
+      <pre>{JSON.stringify(tvShows.value, null, 2)}</pre>
       <MediaGrid
         collection={collection.value}
         currentPage={currentPage.value}

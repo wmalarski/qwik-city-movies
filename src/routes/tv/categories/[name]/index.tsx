@@ -8,7 +8,7 @@ import {
 } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { getTMDBContext, getTrendingTv, getTvShows } from "~/services/tmdb";
-import type { ProductionMedia } from "~/services/types";
+import { MediaBase } from "~/services/types3";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
@@ -61,9 +61,7 @@ export default component$(() => {
   const tvShowCategory = useTvShowCategoryLoader();
 
   const currentPage = useSignal(1);
-  const collection = useSignal<ProductionMedia[]>(
-    tvShowCategory.value.results || [],
-  );
+  const collection = useSignal<MediaBase[]>(tvShowCategory.value.results || []);
 
   return (
     <div

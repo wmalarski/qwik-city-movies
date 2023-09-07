@@ -1,12 +1,12 @@
 import { component$, useComputed$ } from "@builder.io/qwik";
 import { Stars } from "~/components/Stars/Stars";
 import { getPoster, getPosterSet } from "~/services/images";
-import type { ProductionMedia } from "~/services/types";
+import { MediaBase } from "~/services/types3";
 import { paths } from "~/utils/paths";
 import { getHeading, getMediaType } from "./MediaCard.utils";
 
 type Props = {
-  media: ProductionMedia;
+  media: MediaBase;
 };
 
 export const MediaCard = component$((props: Props) => {

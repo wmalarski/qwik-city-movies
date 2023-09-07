@@ -1,9 +1,9 @@
 import { component$ } from "@builder.io/qwik";
-import type { ProductionMedia } from "~/services/types";
+import { MediaBase } from "~/services/types3";
 import { MediaCard } from "../MediaCard/MediaCard";
 
 type Props = {
-  collection: ProductionMedia[];
+  collection: MediaBase[];
   title: string;
   viewAllHref: string;
 };
