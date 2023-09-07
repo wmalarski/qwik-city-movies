@@ -1,7 +1,7 @@
 import { component$, useComputed$ } from "@builder.io/qwik";
 import { ExternalLinks } from "~/modules/ExternalLinks/ExternalLinks";
 import { getPoster, getPosterSet } from "~/services/images";
-import { MovieExtraDetails, TvExtraDetails } from "~/services/types3";
+import { MovieExtraDetails, TvExtraDetails } from "~/services/types";
 import {
   formatCurrency,
   formatDate,
@@ -133,7 +133,6 @@ export const MovieInfoCard = component$((props: Props) => {
                 ...props.media.external_ids,
                 homepage: props.media.homepage,
               }}
-              media={props.media.media_type}
             />
           </div>
         </div>

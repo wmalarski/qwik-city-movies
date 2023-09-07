@@ -4,11 +4,10 @@ import ImgImdb from "~/media/imdb.svg?jsx";
 import ImgInstagram from "~/media/instagram.svg?jsx";
 import ImgLink from "~/media/link.svg?jsx";
 import ImgTwitter from "~/media/twitter.svg?jsx";
-import type { MediaType } from "~/services/types";
 
 type Props = {
   links: Record<string, string | undefined>;
-  media?: MediaType;
+  isPerson?: boolean;
 };
 
 export const ExternalLinks = component$((props: Props) => {
@@ -63,9 +62,9 @@ export const ExternalLinks = component$((props: Props) => {
         <li>
           <a
             aria-label="IMDb account"
-            href={`https://www.imdb.com/${
-              props.media === "person" ? "name" : "title"
-            }/${props.links.imdb_id}`}
+            href={`https://www.imdb.com/${props.isPerson ? "name" : "title"}/${
+              props.links.imdb_id
+            }`}
             rel="noopener"
             target="_blank"
           >

@@ -1,9 +1,11 @@
-import type { MediaType } from "~/services/types";
+import { MediaBase } from "~/services/types";
 
 export const paths = {
-  genre: (mediaType: MediaType, id: number) => `/genre/${id}/${mediaType}`,
+  genre: (mediaType: MediaBase["media_type"], id: number) =>
+    `/genre/${id}/${mediaType}`,
   index: "/",
-  media: (mediaType: MediaType, id: number) => `/${mediaType}/${id}`,
+  media: (mediaType: MediaBase["media_type"], id: number) =>
+    `/${mediaType}/${id}`,
   movieCategory: (category: string) => `/movie/categories/${category}`,
   moviePhotos: (id: number) => `/movie/${id}/photos`,
   movieVideo: (id: number) => `/movie/${id}/videos`,

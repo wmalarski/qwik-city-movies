@@ -1,7 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { DocumentHead, routeLoader$, z } from "@builder.io/qwik-city";
 import { Footer } from "~/modules/Footer/Footer";
-import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
+import { PersonGrid } from "~/modules/PersonGrid/PersonGrid";
 import { PersonHero } from "~/modules/PersonHero/PersonHero";
 import { getPerson, getTMDBContext } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
@@ -30,8 +30,9 @@ export default component$(() => {
 
   return (
     <div style="max-h-screen overflow-y-scroll flex flex-col">
+      <pre>{JSON.stringify(resource.value, null, 2)}</pre>
       <PersonHero person={resource.value} />
-      <MediaGrid
+      <PersonGrid
         collection={[
           ...(resource.value.combined_credits?.cast || []),
           ...(resource.value.combined_credits?.crew || []),

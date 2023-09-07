@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { getBackdrop, getBackdropSet } from "~/services/images";
-import { TvBase } from "~/services/types3";
+import { TvBase } from "~/services/types";
 
 type TvHeroProps = {
   media: TvBase;

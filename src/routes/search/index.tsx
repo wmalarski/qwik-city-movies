@@ -9,7 +9,7 @@ import {
 import ImgMagnifier from "~/media/magnifier.svg?jsx";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { getTMDBContext, search } from "~/services/tmdb";
-import { MediaBase } from "~/services/types3";
+import { MediaBase } from "~/services/types";
 
 export const useSearchLoader = routeLoader$(async (event) => {
   const query = event.url.searchParams.get("query");

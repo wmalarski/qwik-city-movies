@@ -8,7 +8,7 @@ import {
 } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { getTMDBContext, getTrendingTv, getTvShows } from "~/services/tmdb";
-import { MediaBase } from "~/services/types3";
+import { MediaBase } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 

@@ -1,17 +1,18 @@
 import { RequestEventBase } from "@builder.io/qwik-city";
 import { buildSearchParams } from "~/utils/searchParams";
-import type { Collection, MediaType, PersonMediaDetails } from "./types";
 import {
+  Collection,
   Genre,
   MediaBase,
   MediaDetails,
   MovieBase,
   MovieDetails,
   MovieExtraDetails,
+  PersonDetails,
   TvBase,
   TvDetails,
   TvExtraDetails,
-} from "./types3";
+} from "./types";
 
 export const getTMDBContext = (event: RequestEventBase) => {
   return {
@@ -172,7 +173,7 @@ type GetPersonArgs = {
 };
 
 export const getPerson = async ({ context, id }: GetPersonArgs) => {
-  const result = await fetchTMDB<PersonMediaDetails>({
+  const result = await fetchTMDB<PersonDetails>({
     context,
     path: `person/${id}`,
     query: {
@@ -209,7 +210,7 @@ export const getRandomMedia = <T>({ collections }: GetRandomMediaArgs<T>) => {
 
 type GetMediaByGenreArgs = {
   context: TMDBContext;
-  media: MediaType;
+  media: MediaBase["media_type"];
   genre: number;
   page: number;
 };
@@ -245,7 +246,7 @@ export const getMediaByGenre = async ({
 
 type GetGenreListArgs = {
   context: TMDBContext;
-  media: MediaType;
+  media: MediaBase["media_type"];
 };
 
 export const getGenreList = async ({ context, media }: GetGenreListArgs) => {

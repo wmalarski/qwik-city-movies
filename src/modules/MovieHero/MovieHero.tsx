@@ -1,7 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { Stars } from "~/components/Stars/Stars";
 import { getBackdrop, getBackdropSet } from "~/services/images";
-import { MovieBase } from "~/services/types3";
+import { MovieBase } from "~/services/types";
 
 type MovieHeroProps = {
   media: MovieBase;

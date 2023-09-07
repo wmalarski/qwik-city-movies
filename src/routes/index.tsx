@@ -1,7 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 import { Footer } from "~/modules/Footer/Footer";
-import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
+import { MediaCarousel } from "~/modules/MediaGrid/MediaGrid";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
 import { TvHero } from "~/modules/TvHero/TvHero";
 import {
@@ -12,7 +12,7 @@ import {
   getTrendingTv,
   getTvShow,
 } from "~/services/tmdb";
-import { MovieBase, TvBase } from "~/services/types3";
+import { MovieBase, TvBase } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 

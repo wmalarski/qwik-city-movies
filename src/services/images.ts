@@ -1,5 +1,4 @@
-import type { PersonMedia } from "./types";
-import { Image, MediaBase } from "./types3";
+import { Image, MediaBase, Person } from "./types";
 
 const imageBase = "https://image.tmdb.org/t/p";
 
@@ -44,11 +43,11 @@ export const getImageSet = (image: Image, maxSize: PosterSizes) => {
 
 type ProfileSizes = "w45" | "w185" | "h632" | "original";
 
-export const getProfile = (media: PersonMedia, size: ProfileSizes) => {
+export const getProfile = (media: Person, size: ProfileSizes) => {
   return `${imageBase}/${size}${media.profile_path}`;
 };
 
-export const getProfileSet = (media: PersonMedia) => {
+export const getProfileSet = (media: Person) => {
   const sizes = ["w45", "w185"] as const;
   return sizes
     .map((size) => `${getProfile(media, size)} ${size.slice(1)}w`)

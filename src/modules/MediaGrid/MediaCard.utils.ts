@@ -1,16 +1,12 @@
-import type { MediaType } from "~/services/types";
-import { MediaBase } from "~/services/types3";
+import { MediaBase } from "~/services/types";
 
-export const getMediaType = (media: MediaBase): MediaType => {
+export const getMediaType = (media: MediaBase): MediaBase["media_type"] => {
   if (media.media_type) {
     return media.media_type;
   }
 
   if ("title" in media) {
     return "movie";
-  }
-  if ("profile_path" in media) {
-    return "person";
   }
   return "tv";
 };
