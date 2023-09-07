@@ -7,6 +7,7 @@ import { TvHero } from "~/modules/TvHero/TvHero";
 import {
   getMovie,
   getRandomMedia,
+  getTMDBContext,
   getTrendingMovie,
   getTrendingTv,
   getTvShow,
@@ -16,10 +17,12 @@ import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
 export const useContentLoader = routeLoader$(async (event) => {
+  const context = getTMDBContext(event);
+
   try {
     const [movies, tv] = await Promise.all([
-      getTrendingMovie({ page: 1 }),
-      getTrendingTv({ page: 1 }),
+      getTrendingMovie({ context, page: 1 }),
+      getTrendingTv({ context, page: 1 }),
     ]);
 
     const random = getRandomMedia<ProductionMedia>({
@@ -27,10 +30,14 @@ export const useContentLoader = routeLoader$(async (event) => {
     });
 
     const featuredTv =
-      random.media_type === "tv" ? await getTvShow({ id: random.id }) : null;
+      random.media_type === "tv"
+        ? await getTvShow({ context, id: random.id })
+        : null;
 
     const featuredMovie =
-      random.media_type === "movie" ? await getMovie({ id: random.id }) : null;
+      random.media_type === "movie"
+        ? await getMovie({ context, id: random.id })
+        : null;
 
     return { featuredMovie, featuredTv, movies, tv };
   } catch {

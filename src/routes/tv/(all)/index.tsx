@@ -3,23 +3,30 @@ import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 import { Footer } from "~/modules/Footer/Footer";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { TvHero } from "~/modules/TvHero/TvHero";
-import { getRandomMedia, getTvShow, getTvShows } from "~/services/tmdb";
+import {
+  getRandomMedia,
+  getTMDBContext,
+  getTvShow,
+  getTvShows,
+} from "~/services/tmdb";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const useTvShowsLoader = routeLoader$(async () => {
+export const useTvShowsLoader = routeLoader$(async (event) => {
+  const context = getTMDBContext(event);
+
   const [popular, topRated, onTheAir, airingToday] = await Promise.all([
-    getTvShows({ page: 1, query: "popular" }),
-    getTvShows({ page: 1, query: "top_rated" }),
-    getTvShows({ page: 1, query: "on_the_air" }),
-    getTvShows({ page: 1, query: "airing_today" }),
+    getTvShows({ context, page: 1, query: "popular" }),
+    getTvShows({ context, page: 1, query: "top_rated" }),
+    getTvShows({ context, page: 1, query: "on_the_air" }),
+    getTvShows({ context, page: 1, query: "airing_today" }),
   ]);
 
   const random = getRandomMedia({
     collections: [popular, topRated, onTheAir, airingToday],
   });
 
-  const featured = await getTvShow({ id: random.id });
+  const featured = await getTvShow({ context, id: random.id });
 
   return { airingToday, featured, onTheAir, popular, topRated };
 });

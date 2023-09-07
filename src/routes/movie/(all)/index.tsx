@@ -3,22 +3,29 @@ import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 import { Footer } from "~/modules/Footer/Footer";
 import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
-import { getMovie, getMovies, getRandomMedia } from "~/services/tmdb";
+import {
+  getMovie,
+  getMovies,
+  getRandomMedia,
+  getTMDBContext,
+} from "~/services/tmdb";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const useAllMoviesLoader = routeLoader$(async () => {
+export const useAllMoviesLoader = routeLoader$(async (event) => {
+  const context = getTMDBContext(event);
+
   const [popular, topRated, nowPlaying] = await Promise.all([
-    getMovies({ page: 1, query: "popular" }),
-    getMovies({ page: 1, query: "top_rated" }),
-    getMovies({ page: 1, query: "now_playing" }),
+    getMovies({ context, page: 1, query: "popular" }),
+    getMovies({ context, page: 1, query: "top_rated" }),
+    getMovies({ context, page: 1, query: "now_playing" }),
   ]);
 
   const random = getRandomMedia({
     collections: [popular, topRated, nowPlaying],
   });
 
-  const featured = await getMovie({ id: random.id });
+  const featured = await getMovie({ context, id: random.id });
 
   return { featured, nowPlaying, popular, topRated };
 });

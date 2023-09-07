@@ -7,7 +7,7 @@ import {
   z,
 } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
-import { getMovies, getTrendingMovie } from "~/services/tmdb";
+import { getMovies, getTMDBContext, getTrendingMovie } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
@@ -21,12 +21,14 @@ export const useCategoryLoader = routeLoader$(async (event) => {
     throw event.redirect(302, paths.notFound);
   }
 
+  const context = getTMDBContext(event);
+
   try {
     const name = parseResult.data.name;
     const movies =
       name === "trending"
-        ? await getTrendingMovie({ page: 1 })
-        : await getMovies({ page: 1, query: name });
+        ? await getTrendingMovie({ context, page: 1 })
+        : await getMovies({ context, page: 1, query: name });
     return movies;
   } catch {
     throw event.redirect(302, paths.notFound);
@@ -41,10 +43,12 @@ export const getMore = server$(async function (page: number) {
     })
     .parse({ page, query: this.params.name });
 
+  const context = getTMDBContext(this);
+
   const movies =
     parseResult.query === "trending"
-      ? await getTrendingMovie({ page: parseResult.page })
-      : await getMovies(parseResult);
+      ? await getTrendingMovie({ context, page: parseResult.page })
+      : await getMovies({ context, ...parseResult });
 
   return movies;
 });

@@ -1,7 +1,7 @@
 import { component$, useSignal } from "@builder.io/qwik";
 import { DocumentHead, routeLoader$, server$, z } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
-import { getMediaByGenre } from "~/services/tmdb";
+import { getMediaByGenre, getTMDBContext } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
 import { paths } from "~/utils/paths";
 
@@ -14,7 +14,10 @@ export const useGenreTvShowsLoader = routeLoader$((event) => {
     throw event.redirect(302, paths.notFound);
   }
 
+  const context = getTMDBContext(event);
+
   return getMediaByGenre({
+    context,
     genre: parseResult.data.genreId,
     media: "tv",
     page: 1,
@@ -29,7 +32,10 @@ export const getMore = server$(function (page: number) {
     })
     .parse({ genreId: this.params.genreId, page });
 
+  const context = getTMDBContext(this);
+
   return getMediaByGenre({
+    context,
     genre: parseResult.genreId,
     media: "tv",
     page: parseResult.page,

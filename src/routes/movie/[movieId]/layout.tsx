@@ -3,7 +3,7 @@ import { routeLoader$, useLocation, z } from "@builder.io/qwik-city";
 import clsx from "clsx";
 import { Footer } from "~/modules/Footer/Footer";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
-import { getMovie } from "~/services/tmdb";
+import { getMovie, getTMDBContext } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
 
 export const useMovieLoader = routeLoader$(async (event) => {
@@ -15,8 +15,10 @@ export const useMovieLoader = routeLoader$(async (event) => {
     throw event.redirect(302, paths.notFound);
   }
 
+  const context = getTMDBContext(event);
+
   try {
-    const movie = await getMovie({ id: parseResult.data.movieId });
+    const movie = await getMovie({ context, id: parseResult.data.movieId });
 
     return movie;
   } catch {

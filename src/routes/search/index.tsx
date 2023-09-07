@@ -8,7 +8,7 @@ import {
 } from "@builder.io/qwik-city";
 import ImgMagnifier from "~/media/magnifier.svg?jsx";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
-import { search } from "~/services/tmdb";
+import { getTMDBContext, search } from "~/services/tmdb";
 import type { ProductionMedia } from "~/services/types";
 
 export const useSearchLoader = routeLoader$(async (event) => {
@@ -18,7 +18,9 @@ export const useSearchLoader = routeLoader$(async (event) => {
     return null;
   }
 
-  const result = await search({ page: 1, query });
+  const context = getTMDBContext(event);
+
+  const result = await search({ context, page: 1, query });
 
   return { query, ...result };
 });
@@ -31,7 +33,9 @@ export const getMore = server$(async function (page: number) {
     })
     .parse({ page, query: this.query.get("query") });
 
-  const result = await search(parseResult);
+  const context = getTMDBContext(this);
+
+  const result = await search({ context, ...parseResult });
 
   return { query: parseResult.query, ...result };
 });
