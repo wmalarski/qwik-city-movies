@@ -1,7 +1,7 @@
 import { component$, useComputed$ } from "@builder.io/qwik";
 import { ExternalLinks } from "~/modules/ExternalLinks/ExternalLinks";
 import { getPoster, getPosterSet } from "~/services/images";
-import type { MovieMediaDetails, TvMediaDetails } from "~/services/types";
+import { MovieExtraDetails, TvExtraDetails } from "~/services/types";
 import {
   formatCurrency,
   formatDate,
@@ -11,14 +11,14 @@ import {
 import { paths } from "~/utils/paths";
 
 type Props = {
-  media: MovieMediaDetails | TvMediaDetails;
+  media: MovieExtraDetails | TvExtraDetails;
 };
 
 export const MovieInfoCard = component$((props: Props) => {
   const directors = useComputed$(() => {
     return (
       props.media.credits?.crew?.filter(
-        (person) => person.job === "Director"
+        (person) => person.job === "Director",
       ) || []
     );
   });
@@ -29,9 +29,10 @@ export const MovieInfoCard = component$((props: Props) => {
         <div class="hidden flex-grow md:flex">
           <div class="min-w-max">
             <picture>
+              {/* eslint-disable-next-line qwik/jsx-img */}
               <img
                 alt="Poster"
-                class="h-full w-80 max-w-full object-cover"
+                class="h-full w-80 max-w-full object-cover text-black"
                 src={getPoster(props.media, "92")}
                 srcSet={getPosterSet(props.media, "342")}
               />
@@ -53,7 +54,7 @@ export const MovieInfoCard = component$((props: Props) => {
                 <div>{formatDate(props.media.release_date)}</div>
               </>
             ) : null}
-            {props.media.runtime ? (
+            {props.media.media_type === "movie" && props.media.runtime ? (
               <>
                 <div>Runtime</div>
                 <div>{formatRuntime(props.media.runtime)}</div>
@@ -72,13 +73,13 @@ export const MovieInfoCard = component$((props: Props) => {
                 </div>
               </>
             ) : null}
-            {props.media.budget ? (
+            {props.media.media_type === "movie" && props.media.budget ? (
               <>
                 <div>Budget</div>
                 <div>{formatCurrency(props.media.budget)}</div>
               </>
             ) : null}
-            {props.media.revenue ? (
+            {props.media.media_type === "movie" && props.media.revenue ? (
               <>
                 <div>Revenue</div>
                 <div>{formatCurrency(props.media.revenue)}</div>
@@ -99,7 +100,7 @@ export const MovieInfoCard = component$((props: Props) => {
                           </a>
                           {i < arr.length - 1 ? ", " : ""}
                         </>
-                      )
+                      ),
                   )}
                 </div>
               </>
@@ -133,7 +134,6 @@ export const MovieInfoCard = component$((props: Props) => {
                 ...props.media.external_ids,
                 homepage: props.media.homepage,
               }}
-              media={props.media.media_type}
             />
           </div>
         </div>

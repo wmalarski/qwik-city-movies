@@ -1,38 +1,33 @@
 import { component$ } from "@builder.io/qwik";
 import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 import { Footer } from "~/modules/Footer/Footer";
-import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
+import { MediaCarousel } from "~/modules/MediaGrid/MediaGrid";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
 import { TvHero } from "~/modules/TvHero/TvHero";
 import {
-  getMovie,
   getRandomMedia,
+  getTMDBContext,
   getTrendingMovie,
   getTrendingTv,
-  getTvShow,
 } from "~/services/tmdb";
-import type { ProductionMedia } from "~/services/types";
+import { MovieBase, TvBase } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
 export const useContentLoader = routeLoader$(async (event) => {
+  const context = getTMDBContext(event);
+
   try {
     const [movies, tv] = await Promise.all([
-      getTrendingMovie({ page: 1 }),
-      getTrendingTv({ page: 1 }),
+      getTrendingMovie({ context, page: 1 }),
+      getTrendingTv({ context, page: 1 }),
     ]);
 
-    const random = getRandomMedia<ProductionMedia>({
-      collections: [movies, tv],
+    const random = getRandomMedia<MovieBase | TvBase>({
+      collections: [tv, movies],
     });
 
-    const featuredTv =
-      random.media_type === "tv" ? await getTvShow({ id: random.id }) : null;
-
-    const featuredMovie =
-      random.media_type === "movie" ? await getMovie({ id: random.id }) : null;
-
-    return { featuredMovie, featuredTv, movies, tv };
+    return { movies, random, tv };
   } catch {
     throw event.redirect(302, paths.notFound);
   }
@@ -43,14 +38,14 @@ export default component$(() => {
 
   return (
     <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
-      {resource.value.featuredTv ? (
-        <a href={paths.media("tv", resource.value.featuredTv.id)}>
-          <TvHero media={resource.value.featuredTv} />
+      {resource.value.random.media_type === "tv" ? (
+        <a href={paths.media("tv", resource.value.random.id)}>
+          <TvHero media={resource.value.random} />
         </a>
       ) : null}
-      {resource.value.featuredMovie ? (
-        <a href={paths.media("movie", resource.value.featuredMovie.id)}>
-          <MovieHero media={resource.value.featuredMovie} />
+      {resource.value.random.media_type === "movie" ? (
+        <a href={paths.media("movie", resource.value.random.id)}>
+          <MovieHero media={resource.value.random} />
         </a>
       ) : null}
       <MediaCarousel

@@ -1,38 +1,40 @@
 import { component$ } from "@builder.io/qwik";
 import { getProfile, getProfileSet } from "~/services/images";
-import type { PersonMedia } from "~/services/types";
+import { Cast, Crew } from "~/services/types";
 import { paths } from "~/utils/paths";
 
 type PersonCarouselItemProps = {
-  media: PersonMedia;
+  media: Cast | Crew;
 };
 
-const PersonCarouselItem = component$((props: PersonCarouselItemProps) => {
-  return (
-    <a href={paths.media("person", props.media.id)} class="w-48">
-      <div class="transition-scale scale-95 duration-300 ease-in-out hover:scale-100">
-        <picture>
-          <img
-            alt={props.media.name}
-            class="max-w-full border-4 border-base-300 object-cover "
-            height={270}
-            src={getProfile(props.media, "w45")}
-            srcSet={getProfileSet(props.media)}
-            width={185}
-          />
-        </picture>
-      </div>
-      <span>{props.media.name}</span>
-    </a>
-  );
-});
+export const PersonCarouselItem = component$(
+  (props: PersonCarouselItemProps) => {
+    return (
+      <a href={paths.person(props.media.id)} class="w-48">
+        <div class="transition-scale scale-95 duration-300 ease-in-out hover:scale-100">
+          <picture>
+            <img
+              alt={props.media.name}
+              class="max-w-full border-4 border-base-300 object-cover "
+              height={270}
+              src={getProfile(props.media, "w45")}
+              srcSet={getProfileSet(props.media)}
+              width={185}
+            />
+          </picture>
+        </div>
+        <span>{props.media.name}</span>
+      </a>
+    );
+  },
+);
 
-type Props = {
-  collection: PersonMedia[];
+type PersonCarouselProps = {
+  collection: (Cast | Crew)[];
   title: string;
 };
 
-export const PersonCarousel = component$((props: Props) => {
+export const PersonCarousel = component$((props: PersonCarouselProps) => {
   return (
     <section>
       <div class="flex flex-row items-center px-12 py-2">

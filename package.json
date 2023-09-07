@@ -2,7 +2,7 @@
   "name": "qwik-city-movies",
   "description": "Qwik City Movies",
   "engines": {
-    "node": ">=15.0.0"
+    "node": ">=18.0.0"
   },
   "private": true,
   "license": "MIT",
@@ -23,38 +23,38 @@
     "qwik": "qwik"
   },
   "devDependencies": {
-    "@builder.io/qwik": "1.1.4",
-    "@builder.io/qwik-city": "1.1.4",
-    "@types/eslint": "8.40.0",
+    "@builder.io/qwik": "1.2.10",
+    "@builder.io/qwik-city": "1.2.10",
+    "@types/eslint": "8.44.2",
     "@types/node": "^20.2.5",
     "@types/node-fetch": "latest",
-    "@typescript-eslint/eslint-plugin": "5.59.8",
-    "@typescript-eslint/parser": "5.59.8",
-    "autoprefixer": "10.4.14",
-    "eslint": "8.41.0",
-    "eslint-config-prettier": "^8.8.0",
+    "@typescript-eslint/eslint-plugin": "6.6.0",
+    "@typescript-eslint/parser": "6.6.0",
+    "autoprefixer": "10.4.15",
+    "eslint": "8.48.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-node": "^0.3.7",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-qwik": "1.1.4",
+    "eslint-plugin-qwik": "1.2.10",
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "eslint-plugin-tailwindcss": "^3.12.1",
-    "node-fetch": "3.3.1",
+    "node-fetch": "3.3.2",
     "postcss": "^8.4.24",
-    "prettier": "2.8.8",
-    "prettier-plugin-tailwindcss": "^0.3.0",
+    "prettier": "3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.4",
     "tailwindcss": "^3.3.2",
     "ts-prune": "^0.10.3",
-    "typescript": "5.0.4",
-    "undici": "5.22.1",
-    "vite": "4.3.9",
+    "typescript": "5.2.2",
+    "undici": "5.23.0",
+    "vite": "4.4.9",
     "vite-tsconfig-paths": "4.2.0"
   },
   "dependencies": {
-    "clsx": "^1.2.1",
-    "daisyui": "^2.52.0"
+    "clsx": "^2.0.0",
+    "daisyui": "^3.6.5"
   }
 }

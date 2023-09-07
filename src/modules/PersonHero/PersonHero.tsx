@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { getProfile, getProfileSet } from "~/services/images";
-import type { PersonMediaDetails } from "~/services/types";
+import { PersonDetails } from "~/services/types";
 import { formatDate } from "~/utils/format";
 import { ExternalLinks } from "../ExternalLinks/ExternalLinks";
 
@@ -12,7 +12,7 @@ export const calculateAge = (birthday: string, deathday?: string) => {
 };
 
 type Props = {
-  person: PersonMediaDetails;
+  person: PersonDetails;
 };
 
 export const PersonHero = component$((props: Props) => {
@@ -23,9 +23,10 @@ export const PersonHero = component$((props: Props) => {
           {props.person.profile_path ? (
             <div class="min-w-max">
               <picture>
+                {/* eslint-disable-next-line qwik/jsx-img */}
                 <img
                   alt={props.person.name}
-                  class="w-80"
+                  class="w-80 text-black"
                   src={getProfile(props.person, "w45")}
                   srcSet={getProfileSet(props.person)}
                 />
@@ -85,7 +86,7 @@ export const PersonHero = component$((props: Props) => {
                       age{" "}
                       {calculateAge(
                         props.person.birthday,
-                        props.person.deathday
+                        props.person.deathday,
                       )}
                     </span>
                   ) : null}
@@ -96,7 +97,7 @@ export const PersonHero = component$((props: Props) => {
 
           <div>
             <ExternalLinks
-              media="person"
+              isPerson
               links={{
                 ...props.person.external_ids,
                 homepage: props.person.homepage,

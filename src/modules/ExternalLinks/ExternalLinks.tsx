@@ -1,9 +1,13 @@
 import { component$ } from "@builder.io/qwik";
-import type { MediaType } from "~/services/types";
+import ImgFacebook from "~/media/facebook.svg?jsx";
+import ImgImdb from "~/media/imdb.svg?jsx";
+import ImgInstagram from "~/media/instagram.svg?jsx";
+import ImgLink from "~/media/link.svg?jsx";
+import ImgTwitter from "~/media/twitter.svg?jsx";
 
 type Props = {
   links: Record<string, string | undefined>;
-  media?: MediaType;
+  isPerson?: boolean;
 };
 
 export const ExternalLinks = component$((props: Props) => {
@@ -17,12 +21,9 @@ export const ExternalLinks = component$((props: Props) => {
             rel="noopener"
             target="_blank"
           >
-            <img
+            <ImgTwitter
               alt="twitter"
-              class="scale-95 transition duration-300 ease-in-out hover:scale-110"
-              height={20}
-              src="/images/twitter.svg"
-              width={20}
+              class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
             />
           </a>
         </li>
@@ -35,12 +36,9 @@ export const ExternalLinks = component$((props: Props) => {
             rel="noopener"
             target="_blank"
           >
-            <img
+            <ImgFacebook
               alt="facebook"
-              class="scale-95 transition duration-300 ease-in-out hover:scale-110"
-              height={20}
-              src="/images/facebook.svg"
-              width={20}
+              class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
             />
           </a>
         </li>
@@ -53,12 +51,9 @@ export const ExternalLinks = component$((props: Props) => {
             rel="noopener"
             target="_blank"
           >
-            <img
+            <ImgInstagram
               alt="instagram"
-              class="scale-95 transition duration-300 ease-in-out hover:scale-110"
-              height={20}
-              src="/images/instagram.svg"
-              width={20}
+              class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
             />
           </a>
         </li>
@@ -67,18 +62,15 @@ export const ExternalLinks = component$((props: Props) => {
         <li>
           <a
             aria-label="IMDb account"
-            href={`https://www.imdb.com/${
-              props.media === "person" ? "name" : "title"
-            }/${props.links.imdb_id}`}
+            href={`https://www.imdb.com/${props.isPerson ? "name" : "title"}/${
+              props.links.imdb_id
+            }`}
             rel="noopener"
             target="_blank"
           >
-            <img
+            <ImgImdb
               alt="imdb"
-              class="scale-95 transition duration-300 ease-in-out hover:scale-110"
-              height={20}
-              src="/images/imdb.svg"
-              width={20}
+              class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
             />
           </a>
         </li>
@@ -91,12 +83,9 @@ export const ExternalLinks = component$((props: Props) => {
             rel="noopener"
             target="_blank"
           >
-            <img
+            <ImgLink
               alt="homepage"
-              class="scale-95 transition duration-300 ease-in-out hover:scale-110"
-              height={20}
-              src="/images/link.svg"
-              width={20}
+              class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
             />
           </a>
         </li>

@@ -3,20 +3,22 @@ import { DocumentHead, routeLoader$, z } from "@builder.io/qwik-city";
 import { Footer } from "~/modules/Footer/Footer";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
 import { PersonHero } from "~/modules/PersonHero/PersonHero";
-import { getPerson } from "~/services/tmdb";
+import { getPerson, getTMDBContext } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
 
 export const usePersonLoader = routeLoader$(async (event) => {
-  const parseResult = z
+  const parseResult = await z
     .object({ personId: z.coerce.number().min(0).step(1) })
-    .safeParse(event.params);
+    .safeParseAsync(event.params);
 
   if (!parseResult.success) {
     throw event.redirect(302, paths.notFound);
   }
 
+  const context = getTMDBContext(event);
+
   try {
-    const person = await getPerson({ id: parseResult.data.personId });
+    const person = await getPerson({ context, id: parseResult.data.personId });
     return person;
   } catch {
     throw event.redirect(302, paths.notFound);

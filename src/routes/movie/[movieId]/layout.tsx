@@ -3,20 +3,25 @@ import { routeLoader$, useLocation, z } from "@builder.io/qwik-city";
 import clsx from "clsx";
 import { Footer } from "~/modules/Footer/Footer";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
-import { getMovie } from "~/services/tmdb";
+import { getMovie, getTMDBContext } from "~/services/tmdb";
 import { paths } from "~/utils/paths";
 
 export const useMovieLoader = routeLoader$(async (event) => {
-  const parseResult = z
+  const parseResult = await z
     .object({ movieId: z.coerce.number().min(0).step(1) })
-    .safeParse(event.params);
+    .safeParseAsync(event.params);
 
   if (!parseResult.success) {
     throw event.redirect(302, paths.notFound);
   }
 
+  const context = getTMDBContext(event);
+
   try {
-    const movie = await getMovie({ id: parseResult.data.movieId });
+    const movie = await getMovie({
+      context,
+      id: parseResult.data.movieId,
+    });
 
     return movie;
   } catch {
@@ -44,7 +49,7 @@ export default component$(() => {
             {
               "border-b-2 border-b-white opacity-100":
                 overviewHref === location.url.pathname,
-            }
+            },
           )}
         >
           Overview
@@ -56,7 +61,7 @@ export default component$(() => {
             {
               "border-b-2 border-b-white opacity-100":
                 videoHref === location.url.pathname,
-            }
+            },
           )}
         >
           Videos
@@ -68,7 +73,7 @@ export default component$(() => {
             {
               "border-b-2 border-b-white opacity-100":
                 photosHref === location.url.pathname,
-            }
+            },
           )}
         >
           Photos

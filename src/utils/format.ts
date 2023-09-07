@@ -1,9 +1,9 @@
-import type { MediaType } from "~/services/types";
+import { MediaBase } from "~/services/types";
 import { categories } from "./constants/categories";
 import { languages } from "./constants/languages";
 
 type GetListItem = {
-  type: MediaType;
+  type: MediaBase["media_type"];
   query: string;
 };
 

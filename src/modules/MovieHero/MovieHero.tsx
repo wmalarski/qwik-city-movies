@@ -1,21 +1,22 @@
 import { component$ } from "@builder.io/qwik";
 import { Stars } from "~/components/Stars/Stars";
 import { getBackdrop, getBackdropSet } from "~/services/images";
-import type { MovieMedia } from "~/services/types";
+import { MovieBase } from "~/services/types";
 
-type Props = {
-  media: MovieMedia;
+type MovieHeroProps = {
+  media: MovieBase;
 };
 
-export const MovieHero = component$((props: Props) => {
+export const MovieHero = component$((props: MovieHeroProps) => {
   return (
     <section class="bg-black">
       <div class="relative aspect-square md:aspect-[3/2] lg:aspect-[25/9]">
         <div class="absolute bottom-0 right-0 top-0 lg:left-1/3">
           <picture>
+            {/* eslint-disable-next-line qwik/jsx-img */}
             <img
               alt={props.media.title || props.media.original_title}
-              class="h-full w-full max-w-full object-cover"
+              class="h-full w-full max-w-full object-cover text-black"
               src={getBackdrop(props.media, "w300")}
               srcSet={getBackdropSet(props.media)}
             />

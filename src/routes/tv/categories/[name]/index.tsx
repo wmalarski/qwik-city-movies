@@ -7,26 +7,28 @@ import {
   z,
 } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
-import { getTrendingTv, getTvShows } from "~/services/tmdb";
-import type { ProductionMedia } from "~/services/types";
+import { getTMDBContext, getTrendingTv, getTvShows } from "~/services/tmdb";
+import { MediaBase } from "~/services/types";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
 export const useTvShowCategoryLoader = routeLoader$(async (event) => {
-  const parseResult = z
+  const parseResult = await z
     .object({ name: z.string().min(1) })
-    .safeParse(event.params);
+    .safeParseAsync(event.params);
 
   if (!parseResult.success) {
     throw event.redirect(302, paths.notFound);
   }
 
+  const context = getTMDBContext(event);
+
   try {
     const name = parseResult.data.name;
     const movies =
       name === "trending"
-        ? await getTrendingTv({ page: 1 })
-        : await getTvShows({ page: 1, query: name });
+        ? await getTrendingTv({ context, page: 1 })
+        : await getTvShows({ context, page: 1, query: name });
     return movies;
   } catch {
     throw event.redirect(302, paths.notFound);
@@ -34,17 +36,19 @@ export const useTvShowCategoryLoader = routeLoader$(async (event) => {
 });
 
 export const getMore = server$(async function (page: number) {
-  const parseResult = z
+  const parseResult = await z
     .object({
       page: z.coerce.number().int().min(1).default(1),
       query: z.string().min(1),
     })
-    .parse({ page, query: this.params.name });
+    .parseAsync({ page, query: this.params.name });
+
+  const context = getTMDBContext(this);
 
   const movies =
     parseResult.query === "trending"
-      ? await getTrendingTv({ page: parseResult.page })
-      : await getTvShows(parseResult);
+      ? await getTrendingTv({ context, page: parseResult.page })
+      : await getTvShows({ context, ...parseResult });
 
   return movies;
 });
@@ -57,9 +61,7 @@ export default component$(() => {
   const tvShowCategory = useTvShowCategoryLoader();
 
   const currentPage = useSignal(1);
-  const collection = useSignal<ProductionMedia[]>(
-    tvShowCategory.value.results || []
-  );
+  const collection = useSignal<MediaBase[]>(tvShowCategory.value.results || []);
 
   return (
     <div

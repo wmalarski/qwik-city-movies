@@ -1,26 +1,26 @@
 import { component$ } from "@builder.io/qwik";
 import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 import { Footer } from "~/modules/Footer/Footer";
-import { MediaCarousel } from "~/modules/MediaCarousel/MediaCarousel";
+import { MediaCarousel } from "~/modules/MediaGrid/MediaGrid";
 import { MovieHero } from "~/modules/MovieHero/MovieHero";
-import { getMovie, getMovies, getRandomMedia } from "~/services/tmdb";
+import { getMovies, getRandomMedia, getTMDBContext } from "~/services/tmdb";
 import { getListItem } from "~/utils/format";
 import { paths } from "~/utils/paths";
 
-export const useAllMoviesLoader = routeLoader$(async () => {
+export const useAllMoviesLoader = routeLoader$(async (event) => {
+  const context = getTMDBContext(event);
+
   const [popular, topRated, nowPlaying] = await Promise.all([
-    getMovies({ page: 1, query: "popular" }),
-    getMovies({ page: 1, query: "top_rated" }),
-    getMovies({ page: 1, query: "now_playing" }),
+    getMovies({ context, page: 1, query: "popular" }),
+    getMovies({ context, page: 1, query: "top_rated" }),
+    getMovies({ context, page: 1, query: "now_playing" }),
   ]);
 
   const random = getRandomMedia({
     collections: [popular, topRated, nowPlaying],
   });
 
-  const featured = await getMovie({ id: random.id });
-
-  return { featured, nowPlaying, popular, topRated };
+  return { nowPlaying, popular, random, topRated };
 });
 
 export default component$(() => {
@@ -28,9 +28,9 @@ export default component$(() => {
 
   return (
     <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
-      {resource.value.featured ? (
-        <a href={paths.media("movie", resource.value.featured?.id)}>
-          <MovieHero media={resource.value.featured} />
+      {resource.value.random ? (
+        <a href={paths.media("movie", resource.value.random.id)}>
+          <MovieHero media={resource.value.random} />
         </a>
       ) : null}
       <MediaCarousel

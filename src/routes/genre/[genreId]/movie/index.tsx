@@ -1,35 +1,41 @@
 import { component$, useSignal } from "@builder.io/qwik";
 import { DocumentHead, routeLoader$, server$, z } from "@builder.io/qwik-city";
 import { MediaGrid } from "~/modules/MediaGrid/MediaGrid";
-import { getMediaByGenre } from "~/services/tmdb";
-import type { ProductionMedia } from "~/services/types";
+import { getMediaByGenre, getTMDBContext } from "~/services/tmdb";
+import { MediaBase } from "~/services/types";
 import { paths } from "~/utils/paths";
 
-export const useGenreMovies = routeLoader$((event) => {
-  const parseResult = z
+export const useGenreMovies = routeLoader$(async (event) => {
+  const parseResult = await z
     .object({ genreId: z.coerce.number().min(0).step(1) })
-    .safeParse(event.params);
+    .safeParseAsync(event.params);
 
   if (!parseResult.success) {
     throw event.redirect(302, paths.notFound);
   }
 
+  const context = getTMDBContext(event);
+
   return getMediaByGenre({
+    context,
     genre: parseResult.data.genreId,
     media: "movie",
     page: 1,
   });
 });
 
-export const getMore = server$(function (page: number) {
-  const parseResult = z
+export const getMore = server$(async function (page: number) {
+  const parseResult = await z
     .object({
       genreId: z.coerce.number().min(0).step(1),
       page: z.coerce.number().int().min(1).default(1),
     })
-    .parse({ genreId: this.params.genreId, page });
+    .parseAsync({ genreId: this.params.genreId, page });
+
+  const context = getTMDBContext(this);
 
   return getMediaByGenre({
+    context,
     genre: parseResult.genreId,
     media: "movie",
     page: parseResult.page,
@@ -42,7 +48,7 @@ export default component$(() => {
   const movies = useGenreMovies();
 
   const currentPage = useSignal(1);
-  const collection = useSignal<ProductionMedia[]>(movies.value.results);
+  const collection = useSignal<MediaBase[]>(movies.value.results);
 
   return (
     <div

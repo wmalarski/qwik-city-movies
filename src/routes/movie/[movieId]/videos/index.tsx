@@ -16,7 +16,7 @@ export default component$(() => {
         >
           <img
             alt={video.name}
-            class="h-full max-h-full w-full object-cover"
+            class="h-full max-h-full w-full object-cover text-black"
             height={600}
             src={`https://movies-proxy.vercel.app/ipx/f_webp,s_400x600/youtube/vi/${video.key}/maxresdefault.jpg`}
             width={400}
