@@ -8,13 +8,13 @@ export default component$(() => {
   const resource = useMovieLoader();
 
   return (
-    <flex class="flex flex-col">
+    <div class="flex flex-col">
       <MovieInfoCard media={resource.value} />
       <PersonCarousel
         collection={resource.value.credits?.cast || []}
         title="Cast"
       />
-    </flex>
+    </div>
   );
 });
 

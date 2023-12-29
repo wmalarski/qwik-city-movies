@@ -29,7 +29,7 @@ export default component$(() => {
   const resource = usePersonLoader();
 
   return (
-    <div style="max-h-screen overflow-y-scroll flex flex-col">
+    <div class="max-h-screen overflow-y-scroll flex flex-col">
       <PersonHero person={resource.value} />
       <MediaGrid
         collection={[

@@ -33,7 +33,7 @@ export default component$(() => {
   const resource = useTvShowLoader();
 
   return (
-    <flex class="flex max-h-screen flex-col overflow-y-scroll">
+    <div class="flex max-h-screen flex-col overflow-y-scroll">
       <TvHero media={resource.value} />
       <MovieInfoCard media={resource.value} />
       <PersonCarousel
@@ -41,7 +41,7 @@ export default component$(() => {
         title="Cast"
       />
       <Footer />
-    </flex>
+    </div>
   );
 });
 

@@ -52,7 +52,7 @@ export default component$(() => {
 
   return (
     <div
-      style="max-h-screen overflow-y-scroll flex flex-col gap-4"
+      class="max-h-screen overflow-y-scroll flex flex-col gap-4"
       ref={(e) => (containerRef.value = e)}
     >
       <h1 class="px-8 pt-4 text-4xl">{`Tv Show Genre: ${
