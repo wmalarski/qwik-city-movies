@@ -56,7 +56,7 @@ export default component$(() => {
       ref={(e) => (containerRef.value = e)}
     >
       <form class="flex flex-row justify-start gap-4 bg-base-300 p-4">
-        <ImgMagnifier alt="search" aria-label="Search" class="w-6 h-6" />
+        <ImgMagnifier aria-label="Search" class="w-6 h-6" />
         <input
           aria-label="query"
           class="input"

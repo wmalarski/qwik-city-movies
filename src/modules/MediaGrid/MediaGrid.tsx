@@ -23,7 +23,7 @@ export const MediaCard = component$((props: MediaCardProps) => {
             class="max-w-full border-4 border-base-300 object-cover text-black"
             height={270}
             src={getPoster(props.media, "92")}
-            srcSet={getPosterSet(props.media, "185")}
+            srcset={getPosterSet(props.media, "185")}
             width={185}
           />
         </picture>

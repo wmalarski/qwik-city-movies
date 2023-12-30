@@ -28,7 +28,7 @@ export const PersonHero = component$((props: Props) => {
                   alt={props.person.name}
                   class="w-80 text-black"
                   src={getProfile(props.person, "w45")}
-                  srcSet={getProfileSet(props.person)}
+                  srcset={getProfileSet(props.person)}
                 />
               </picture>
             </div>

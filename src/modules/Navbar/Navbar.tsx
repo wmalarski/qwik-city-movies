@@ -12,22 +12,22 @@ export const Navbar = component$(() => {
       <ul class="flex justify-around gap-10 md:w-10 md:flex-col md:justify-start">
         <li class="hover:opacity-80">
           <a href={paths.index}>
-            <ImgHome alt="home" aria-label="Home" class="h-6 w-6" />
+            <ImgHome aria-label="Home" class="h-6 w-6" />
           </a>
         </li>
         <li class="hover:opacity-80">
           <a href={paths.movies}>
-            <ImgMovie alt="movie" aria-label="Movies" class="h-6 w-6" />
+            <ImgMovie aria-label="Movies" class="h-6 w-6" />
           </a>
         </li>
         <li class="hover:opacity-80">
           <a href={paths.tv}>
-            <ImgTv alt="tv" aria-label="TV" class="h-6 w-6" />
+            <ImgTv aria-label="TV" class="h-6 w-6" />
           </a>
         </li>
         <li class="hover:opacity-80">
           <a href={paths.search}>
-            <ImgMagnifier alt="search" aria-label="Search" class="h-6 w-6" />
+            <ImgMagnifier aria-label="Search" class="h-6 w-6" />
           </a>
         </li>
       </ul>

@@ -34,7 +34,7 @@ export const MovieInfoCard = component$((props: Props) => {
                 alt="Poster"
                 class="h-full w-80 max-w-full object-cover text-black"
                 src={getPoster(props.media, "92")}
-                srcSet={getPosterSet(props.media, "342")}
+                srcset={getPosterSet(props.media, "342")}
               />
             </picture>
           </div>

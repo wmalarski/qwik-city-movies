@@ -9,7 +9,7 @@ export const Footer = component$(() => {
       <div class="flex flex-row items-center gap-2">
         <span class="text-sm opacity-80">Made with</span>
         <a href="https://qwik.builder.io/" class="rounded-md bg-white p-1">
-          <ImgQwik alt="Qwik" aria-label="Qwik" class="h-5 w-25" />
+          <ImgQwik aria-label="Qwik" class="h-5 w-25" />
         </a>
       </div>
       <div class="flex flex-row items-center gap-2">
@@ -27,11 +27,7 @@ export const Footer = component$(() => {
       </div>
       <div class="text-sm opacity-80">
         <a href="https://github.com/wmalarski/qwik-city-movies">
-          <ImgGitHub
-            alt="GitHub repository"
-            aria-label="GitHub repository"
-            class="w-6 h-6"
-          />
+          <ImgGitHub aria-label="GitHub repository" class="w-6 h-6" />
         </a>
       </div>
     </footer>

@@ -17,7 +17,7 @@ export const TvHero = component$((props: TvHeroProps) => {
               alt={props.media.name || props.media.original_name}
               class="h-full w-full max-w-full object-cover text-black"
               src={getBackdrop(props.media, "w300")}
-              srcSet={getBackdropSet(props.media)}
+              srcset={getBackdropSet(props.media)}
             />
           </picture>
         </div>

@@ -21,10 +21,7 @@ export const ExternalLinks = component$((props: Props) => {
             rel="noopener"
             target="_blank"
           >
-            <ImgTwitter
-              alt="twitter"
-              class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
-            />
+            <ImgTwitter class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5" />
           </a>
         </li>
       ) : null}
@@ -36,10 +33,7 @@ export const ExternalLinks = component$((props: Props) => {
             rel="noopener"
             target="_blank"
           >
-            <ImgFacebook
-              alt="facebook"
-              class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
-            />
+            <ImgFacebook class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5" />
           </a>
         </li>
       ) : null}
@@ -51,10 +45,7 @@ export const ExternalLinks = component$((props: Props) => {
             rel="noopener"
             target="_blank"
           >
-            <ImgInstagram
-              alt="instagram"
-              class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
-            />
+            <ImgInstagram class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5" />
           </a>
         </li>
       ) : null}
@@ -68,10 +59,7 @@ export const ExternalLinks = component$((props: Props) => {
             rel="noopener"
             target="_blank"
           >
-            <ImgImdb
-              alt="imdb"
-              class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
-            />
+            <ImgImdb class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5" />
           </a>
         </li>
       ) : null}
@@ -83,10 +71,7 @@ export const ExternalLinks = component$((props: Props) => {
             rel="noopener"
             target="_blank"
           >
-            <ImgLink
-              alt="homepage"
-              class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
-            />
+            <ImgLink class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5" />
           </a>
         </li>
       ) : null}
