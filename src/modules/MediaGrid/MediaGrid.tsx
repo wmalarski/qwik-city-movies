@@ -15,7 +15,10 @@ export const MediaCard = component$((props: MediaCardProps) => {
   });
 
   return (
-    <a href={paths.media(props.media.media_type, props.media.id)} class="w-48">
+    <a
+      href={paths.media(props.media.media_type, props.media.id)}
+      class="block w-48"
+    >
       <div class="transition-scale scale-95 duration-300 ease-in-out hover:scale-100">
         <picture>
           <img
@@ -55,9 +58,9 @@ export const MediaCarousel = component$((props: MediaCarouselProps) => {
       </div>
       <div class="relative">
         <div class="overflow-y-auto px-8 py-4">
-          <div class="carousel flex w-max flex-row gap-2">
+          <div class="flex w-max flex-row gap-2">
             {props.collection?.map((media) => (
-              <div class="carousel-item" key={media.id}>
+              <div key={media.id}>
                 <MediaCard media={media} />
               </div>
             ))}

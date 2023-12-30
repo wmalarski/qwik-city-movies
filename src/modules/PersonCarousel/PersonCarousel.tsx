@@ -10,7 +10,7 @@ type PersonCarouselItemProps = {
 export const PersonCarouselItem = component$(
   (props: PersonCarouselItemProps) => {
     return (
-      <a href={paths.person(props.media.id)} class="w-48">
+      <a href={paths.person(props.media.id)} class="w-48 block">
         <div class="transition-scale scale-95 duration-300 ease-in-out hover:scale-100">
           <picture>
             <img
@@ -43,9 +43,9 @@ export const PersonCarousel = component$((props: PersonCarouselProps) => {
       </div>
       <div class="relative">
         <div class="overflow-y-auto px-8 py-4">
-          <div class="carousel flex w-max flex-row gap-2">
+          <div class="flex w-max flex-row gap-2">
             {props.collection?.map((media) => (
-              <div class="carousel-item" key={media.id}>
+              <div key={media.id}>
                 <PersonCarouselItem media={media} />
               </div>
             ))}
