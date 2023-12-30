@@ -2,11 +2,11 @@ import { component$ } from "@builder.io/qwik";
 import ImgStarsFilled from "~/media/stars-filled.png?jsx";
 import ImgStars from "~/media/stars.png?jsx";
 
-type Props = {
+type StarsProps = {
   rating?: number;
 };
 
-export const Stars = component$((props: Props) => {
+export const Stars = component$((props: StarsProps) => {
   const stars = Math.round((props.rating || 0) * 10) / 10;
   const value = 100 - Math.round((props.rating || 0) * 10);
   const style = { clipPath: `inset(0px ${value}% 0px 0px)` };

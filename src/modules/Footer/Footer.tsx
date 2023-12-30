@@ -1,4 +1,5 @@
 import { component$ } from "@builder.io/qwik";
+import { StyledLink } from "~/components/StyledLink/StyledLink";
 import ImgGitHub from "~/media/git-hub.svg?jsx";
 import ImgQwik from "~/media/qwik.svg?jsx";
 
@@ -8,27 +9,28 @@ export const Footer = component$(() => {
       <div class="text-lg text-white">Qwik City Movies</div>
       <div class="flex flex-row items-center gap-2">
         <span class="text-sm opacity-80">Made with</span>
-        <a href="https://qwik.builder.io/" class="rounded-md bg-white p-1">
+        <StyledLink
+          href="https://qwik.builder.io/"
+          class="rounded-md bg-white p-1"
+        >
           <ImgQwik aria-label="Qwik" class="h-5 w-25" />
-        </a>
+        </StyledLink>
       </div>
       <div class="flex flex-row items-center gap-2">
         <span class="text-sm opacity-80">Design by</span>
-        <a href="https://movies.nuxt.space/" class="link">
-          Nuxt Movies
-        </a>
+        <StyledLink href="https://movies.nuxt.space/">Nuxt Movies</StyledLink>
       </div>
       <div class="text-sm opacity-80">
         This product uses the{" "}
-        <a class="link" href="https://www.themoviedb.org/documentation/api">
+        <StyledLink href="https://www.themoviedb.org/documentation/api">
           TMDB API
-        </a>{" "}
+        </StyledLink>{" "}
         but is not endorsed or certified by TMDB.
       </div>
       <div class="text-sm opacity-80">
-        <a href="https://github.com/wmalarski/qwik-city-movies">
+        <StyledLink href="https://github.com/wmalarski/qwik-city-movies">
           <ImgGitHub aria-label="GitHub repository" class="w-6 h-6" />
-        </a>
+        </StyledLink>
       </div>
     </footer>
   );

@@ -54,7 +54,6 @@
     "vite-tsconfig-paths": "4.2.3"
   },
   "dependencies": {
-    "clsx": "^2.1.0",
-    "daisyui": "^4.4.24"
+    "clsx": "^2.1.0"
   }
 }
