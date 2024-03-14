@@ -14,6 +14,8 @@ export const TvHero = component$((props: TvHeroProps) => {
           <picture>
             {/* eslint-disable-next-line qwik/jsx-img */}
             <img
+              width="780"
+              height="439"
               alt={props.media.name || props.media.original_name}
               class="h-full w-full max-w-full object-cover text-black"
               src={getBackdrop(props.media, "w300")}

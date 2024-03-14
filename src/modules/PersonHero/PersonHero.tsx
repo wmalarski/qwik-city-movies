@@ -25,6 +25,8 @@ export const PersonHero = component$((props: Props) => {
               <picture>
                 {/* eslint-disable-next-line qwik/jsx-img */}
                 <img
+                  width="185"
+                  height="278"
                   alt={props.person.name}
                   class="w-80 text-black"
                   src={getProfile(props.person, "w45")}
