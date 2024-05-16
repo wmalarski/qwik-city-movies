@@ -1,5 +1,15 @@
 import { component$, Slot } from "@builder.io/qwik";
+import { RequestHandler } from "@builder.io/qwik-city";
 import { Navbar } from "~/modules/Navbar/Navbar";
+
+export const onGet: RequestHandler = ({ cacheControl }) => {
+  cacheControl({
+    // Max once every one day, revalidate on the server to get a fresh version of this page
+    maxAge: 60 * 60 * 24,
+    // Always serve a cached response by default, up to a week stale
+    staleWhileRevalidate: 60 * 60 * 24 * 7,
+  });
+};
 
 export default component$(() => {
   return (
