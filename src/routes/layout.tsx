@@ -6,6 +6,7 @@ export const onGet: RequestHandler = ({ cacheControl }) => {
   cacheControl({
     // Max once every one day, revalidate on the server to get a fresh version of this page
     maxAge: 60 * 60 * 24,
+    public: true,
     // Always serve a cached response by default, up to a week stale
     staleWhileRevalidate: 60 * 60 * 24 * 7,
   });
